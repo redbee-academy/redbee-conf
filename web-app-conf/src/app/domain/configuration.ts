@@ -1,3 +1,5 @@
 export interface AppConfiguration {
-  backendUrl: string
+  conferencesUrl: string
+  speakersUrl: string
+  talksUrl: string
 }

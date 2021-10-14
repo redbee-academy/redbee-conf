@@ -3,7 +3,9 @@ import { AppConfiguration } from '../domain';
 import { AppConfigurationContext } from '../context';
 
 const CONFIGURATION: AppConfiguration = {
-  backendUrl: process.env.REACT_APP_BACKEND_URL as string
+  conferencesUrl: process.env.REACT_APP_MS_CONFERENCES_URL as string,
+  speakersUrl: process.env.REACT_APP_MS_SPEAKERS_URL as string,
+  talksUrl: process.env.REACT_APP_MS_TALKS_URL as string
 }
 
 export const App: FunctionComponent = ({ children }) => {
