@@ -2,6 +2,10 @@ spring:
   application:
     name: ms-speakers
   datasource:
-    url: jdbc:sqlserver://localhost:1433?database=speakers
-    username: sa
-    password: Password01
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+
+
+server:
+  port: 3002

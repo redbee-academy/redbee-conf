@@ -1,25 +1,13 @@
 databaseChangeLog:
   - changeSet:
+      id: '1'
       author: joaco
-      id: myid
       changes:
-
         - createTable:
             tableName: conferences
             columns:
               - column:
-                  autoIncrement: true
-                  name: id
-                  type: int
-              - column:
-                  name: title
-                  type: varchar(40)
+                  name: start_date
+                  type: datetime
                   constraints:
                     nullable: false
-  - changeSet:
-      author: joaco
-      id: add-primary-key
-      changes:
-        - addPrimaryKey:
-            tableName: conferences
-            columnNames: id

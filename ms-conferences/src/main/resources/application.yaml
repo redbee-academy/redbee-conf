@@ -2,6 +2,9 @@ spring:
   application:
     name: ms-conferences
   datasource:
-    url: jdbc:sqlserver://localhost:1433?database=conferences
-    username: sa
-    password: Password01
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+
+server:
+  port: 3001
