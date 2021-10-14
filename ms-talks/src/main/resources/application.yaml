@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ms-talks
+  datasource:
+    url: jdbc:sqlserver://localhost:1433?database=talks
+    username: sa
+    password: Password01

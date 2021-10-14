@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ms-conferences
+  datasource:
+    url: jdbc:sqlserver://localhost:1433?database=conferences
+    username: sa
+    password: Password01

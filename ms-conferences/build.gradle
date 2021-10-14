@@ -1,0 +1,70 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'jacoco'
+	id 'groovy'
+	id 'idea'
+}
+
+group = 'io.redbee.product.conf.ms'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.liquibase:liquibase-core'
+
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+	testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
+
+}
+
+test {
+	useJUnitPlatform()
+
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.5
+			}
+		}
+
+		rule {
+			enabled = false
+			element = 'CLASS'
+			includes = ['org.gradle.*']
+
+			limit {
+				counter = 'LINE'
+				value = 'TOTALCOUNT'
+				maximum = 0.3
+			}
+		}
+	}
+}
+
+check.dependsOn jacocoTestCoverageVerification

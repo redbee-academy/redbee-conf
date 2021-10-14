@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ms-speakers
+  datasource:
+    url: jdbc:sqlserver://localhost:1433?database=speakers
+    username: sa
+    password: Password01

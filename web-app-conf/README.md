@@ -6,7 +6,8 @@ Hay 2 aplicaciones, una para cada caso de uso:
 - Staff
 - Usuario final
 
-Por defecto se usa la de usuario final, para utilizar la de staff definir la variable de entorno `REACT_APP_IS_STAFF` en `1`, ya sea por sistema o en el archivo `.env`. Esto cambia el comportamiento de la app en build-time, no en runtime, y se importa de forma dinámica una u otra app de manera que el bundle final contenga sólo lo necesario para cada caso de uso.
+Por defecto se usa la de usuario final, para utilizar la de staff definir la variable de entorno `REACT_APP_IS_STAFF` en `1`, ya sea por sistema o en el archivo `.env`.
+Esto cambia el comportamiento de la app en build-time, no en runtime, y se importa de forma dinámica una u otra app de manera que el bundle final contenga sólo lo necesario para cada caso de uso.
 
 La URL del back-end se define en la variable de entorno `REACT_APP_BACKEND_URL`.
 
