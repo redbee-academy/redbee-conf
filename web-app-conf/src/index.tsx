@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
 const appToBuild = process.env.REACT_APP_IS_STAFF === "1" 
-  ? import('./app/components/Staff')
-  : import('./app/components/EndUser');
+  ? import('./app/components/Staff/Staff')
+  : import('./app/components/EndUser/EndUser');
 
 appToBuild.then(({ default: App }) => {
   ReactDOM.render(
