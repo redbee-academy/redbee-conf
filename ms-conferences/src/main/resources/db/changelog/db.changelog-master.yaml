@@ -1,13 +1,39 @@
 databaseChangeLog:
   - changeSet:
       id: '1'
-      author: joaco
+      author: academy
       changes:
         - createTable:
             tableName: conferences
             columns:
               - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: char
+                  constraints:
+                    nullable: false
+              - column:
                   name: start_date
                   type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: char
+                  constraints:
+                    nullable: true
+              - column:
+                  name: status
+                  type: char
                   constraints:
                     nullable: false
