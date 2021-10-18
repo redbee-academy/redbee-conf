@@ -1,10 +1,13 @@
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useFetch } from "../../../hooks/fetch";
+import DateFnsUtils from '@date-io/date-fns';
 
 
 const UpdateConf: FunctionComponent = () => {
   const [data, setData] = useState<any>()
+  const [date, setDate] = useState<any>()
   const [loading, setLoading] = useState<Boolean>(true)
   const fetchData = useFetch<any>('conferences/1')
 
@@ -38,12 +41,25 @@ const UpdateConf: FunctionComponent = () => {
       <h2>Editar {data.name} </h2>
   <Form>
   <Form.Group className="mb-3" >
-    <Form.Label>Fecha Inicio</Form.Label>
-    <Form.Control type="date"  defaultValue={data.startDate} />
-  </Form.Group>
-  <Form.Group className="mb-3" >
-    <Form.Label>Fecha Fin</Form.Label>
-    <Form.Control type="date"  />
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <div style={{display:"flex", justifyContent:"space-between"}}>
+          <DatePicker
+        disablePast
+        format="dd/MM/yyyy"
+        label="Fecha de inicio"
+        value={data.startDate}
+        onChange={(date)=> setDate(date)}
+      />
+        <DatePicker
+        disablePast
+        format="dd/MM/yyyy"
+        label="Fecha de finalización"
+        value={data.startDate}
+        onChange={(date)=> setDate(date)}
+      />
+      </div>
+      
+    </MuiPickersUtilsProvider>
   </Form.Group>
   <Form.Group className="mb-3" defaultValue={data.endDate}>
         <Form.Label>Descripción</Form.Label>
