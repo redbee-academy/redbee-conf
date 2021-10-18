@@ -1,7 +1,6 @@
 package io.redbee.product.conf.ms.conferences.controller;
-import io.redbee.product.conf.ms.conferences.Dao.ConferenceDao;
+import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.models.Conference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

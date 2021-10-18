@@ -1,6 +1,6 @@
 package io.redbee.product.conf.ms.conferences.service;
 
-import io.redbee.product.conf.ms.conferences.Dao.ConferenceDao;
+import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.enums.Status;
 import io.redbee.product.conf.ms.conferences.models.Conference;

@@ -1,4 +1,4 @@
-package io.redbee.product.conf.ms.conferences.Dao;
+package io.redbee.product.conf.ms.conferences.dao;
 
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
