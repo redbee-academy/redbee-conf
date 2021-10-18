@@ -10,4 +10,4 @@ const EndUserApp: FunctionComponent = () => {
   </App>
 }
 
-export default EndUserApp
+export default EndUserApp;
