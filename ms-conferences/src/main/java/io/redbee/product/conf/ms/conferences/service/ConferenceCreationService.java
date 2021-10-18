@@ -46,7 +46,7 @@ public class ConferenceCreationService {
         }
 
 
-        private int save(Conference conference) {
+        public int save(Conference conference) {
             int id = conferenceDao.save(conference);
             LOGGER.info("conference: conference {} saved", id);
             return id;

@@ -16,7 +16,7 @@ import java.util.Objects;
 public class ConferenceDao {
     private final NamedParameterJdbcTemplate template;
 
-    public ConferenceDao(@Qualifier("conferencesTemplate") NamedParameterJdbcTemplate template) {
+    public ConferenceDao(NamedParameterJdbcTemplate template) {
         this.template = template;
     }
 
