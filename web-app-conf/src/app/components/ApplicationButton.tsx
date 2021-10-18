@@ -19,7 +19,7 @@ const loginFailure = (response: any) => {
 const ApplicationButton: FunctionComponent = () => {
     return <GoogleLogin
     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
-    buttonText="Login"
+    buttonText="Postula tu charla"
     onSuccess={loginSucessful}
     onFailure={loginFailure}
     cookiePolicy={'single_host_origin'}
