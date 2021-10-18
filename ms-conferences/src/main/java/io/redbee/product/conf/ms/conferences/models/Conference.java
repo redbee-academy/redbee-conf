@@ -4,7 +4,7 @@ import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.enums.Status;
 
 import java.time.LocalDate;
-
+// cp .idea .idea.bkp -r   , git merge master   , rm .idea -r   ,mv .idea.bkp .idea
 public class Conference {
     private Integer id;
     private String name;
