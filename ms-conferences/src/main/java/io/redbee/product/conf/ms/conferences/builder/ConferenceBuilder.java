@@ -1,0 +1,71 @@
+package io.redbee.product.conf.ms.conferences.builder;
+
+import io.redbee.product.conf.ms.conferences.enums.Status;
+import io.redbee.product.conf.ms.conferences.models.Conference;
+
+import java.time.LocalDate;
+
+public class ConferenceBuilder {
+    private Integer id;
+    private String name;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String description;
+    private Status visibility;
+
+    public ConferenceBuilder id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public ConferenceBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ConferenceBuilder startDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public ConferenceBuilder endDate(LocalDate password) {
+        this.endDate = endDate;
+        return this;
+    }
+
+    public ConferenceBuilder description(String description) {
+        this.description = description;
+        return this;
+    }
+
+
+
+    public ConferenceBuilder visibility(Status visibility) {
+        this.visibility = visibility;
+        return this;
+    }
+
+    public ConferenceBuilder basedOn(Conference conference) {
+        this.id = conference.getId();
+        this.name = conference.getName();
+        this.startDate = conference.getStartDate();
+        this.endDate = conference.getEndDate();
+        this.description = conference.getDescription();
+        this.visibility = conference.getVisibility();
+
+        return this;
+    }
+
+    public Conference build() {
+        return new Conference(
+                id,
+                name,
+                startDate,
+                endDate,
+                description,
+                visibility
+        );
+    }
+}
+
+

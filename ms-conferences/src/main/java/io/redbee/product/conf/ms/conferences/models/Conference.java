@@ -1,5 +1,6 @@
 package io.redbee.product.conf.ms.conferences.models;
 
+import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.enums.Status;
 
 import java.time.LocalDate;
@@ -72,6 +73,13 @@ public class Conference {
 
     public void setVisibility(Status visibility) {
         this.visibility = visibility;
+    }
+
+    public Conference copyId(Integer id) {
+        return new ConferenceBuilder()
+                .basedOn(this)
+                .id(id)
+                .build();
     }
     @Override
     public String toString() {
