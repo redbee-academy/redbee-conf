@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="postgres@localhost" uuid="dee9ebe9-d5fc-4508-8b7c-7bef417e6ed8">
+    <data-source source="LOCAL" name="redbee-conf" uuid="b23de527-8f84-403e-a6ae-962c59014c8b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

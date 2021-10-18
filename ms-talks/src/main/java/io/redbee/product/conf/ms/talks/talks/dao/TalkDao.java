@@ -1,4 +1,5 @@
 package io.redbee.product.conf.ms.talks.talks.dao;
+import io.redbee.product.conf.ms.talks.talks.exceptions.RepositoryException;
 import io.redbee.product.conf.ms.talks.talks.model.Talk;
 
 
@@ -9,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Component
 public class TalkDao {
@@ -34,15 +37,17 @@ public class TalkDao {
     private static final String insertQuery = "" + "INSERT INTO talks (redbee_employee, reference, talk_name, talk_topic, talk_description, creation_date)" +
             "VALUES (:redbee_employee, :reference, :talk_name, :talk_topic, :talk_description, :creation_date)";
 
-    public void save (Talk talk){
+    public int save (Talk talk){
         try {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
             template.update(insertQuery, talkToParamMap(talk));
             LOGGER.info("save: talk {} saved", talk.getTalk_name());
+
+            return (int) Objects.requireNonNull(keyHolder.getKeys()).get("id");
         } catch (Exception e) {
             LOGGER.info("save: error {}, saving talk {}", e.getMessage(), talk.getTalk_name());
-            //throw new RepositoryException();
+            throw new RepositoryException();
         }
-
     }
 
     private MapSqlParameterSource talkToParamMap(Talk talk) {

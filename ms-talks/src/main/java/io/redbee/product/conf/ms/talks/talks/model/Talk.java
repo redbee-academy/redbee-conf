@@ -1,5 +1,7 @@
 package io.redbee.product.conf.ms.talks.talks.model;
 
+import io.redbee.product.conf.ms.talks.talks.builder.TalkBuilder;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -49,4 +51,13 @@ public class Talk implements Serializable {
     public LocalDateTime getCreation_date() {
         return creation_date;
     }
+
+    public Talk copyId(Integer id) {
+        return new TalkBuilder()
+                .basedOn(this)
+                .id(id)
+                .build();
+    }
+
+
 }
