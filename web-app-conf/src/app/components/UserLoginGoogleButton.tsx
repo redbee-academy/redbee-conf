@@ -16,14 +16,14 @@ const loginFailure = (response: any) => {
     console.log('ingresar un mail de google para postular charla');
 }
 
-const ApplicationButton: FunctionComponent = () => {
+const UserLoginGoogleButton : FunctionComponent = () => {
     return <GoogleLogin
     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
-    buttonText="Postula tu charla"
+    buttonText="Login"
     onSuccess={loginSucessful}
     onFailure={loginFailure}
     cookiePolicy={'single_host_origin'}
   />
 }
 
-export default ApplicationButton
+export default UserLoginGoogleButton
