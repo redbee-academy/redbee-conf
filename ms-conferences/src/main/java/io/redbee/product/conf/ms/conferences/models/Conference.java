@@ -63,11 +63,11 @@ public class Conference {
         this.description = description;
     }
 
-    public String getVisibility() {
+    public String getStatus() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
+    public void setStatus(String visibility) {
         this.visibility = visibility;
     }
 

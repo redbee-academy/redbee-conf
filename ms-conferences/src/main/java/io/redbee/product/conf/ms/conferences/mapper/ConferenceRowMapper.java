@@ -18,7 +18,7 @@ public class ConferenceRowMapper implements RowMapper<Conference> {
                 formatDate(rs.getTimestamp("start_date")),
                 formatDate(rs.getTimestamp("end_date")),
                 rs.getString("description"),
-                rs.getString("visibility")
+                rs.getString("status")
         );
     }
 

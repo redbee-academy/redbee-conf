@@ -1,5 +1,6 @@
 package io.redbee.product.conf.ms.conferences.service;
 
+import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.models.Conference;
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 
 @Service
 public class ConferenceCreationService {
@@ -24,6 +27,7 @@ public class ConferenceCreationService {
                 LocalDateTime endDate,
                 String description){
             Conference conference = buildWith(name,startDate,endDate,description);
+            validateStartDateAlreadyExists(conference.getStartDate());
             int id = save(conference);
             return conference.copyId(id);
         }
@@ -41,8 +45,27 @@ public class ConferenceCreationService {
                     .build();
         }
 
+    private void validateStartDateAlreadyExists(LocalDateTime startDate) {
+        if (existsStartDate(startDate)) {
+            LOGGER.info("validateAccountAlreadyExists: conf with date {} already exists", startDate);
+            throw new StartDateAlreadyExistsException(startDate);
+        }
+        LOGGER.info("conf {} doesnt have a date yet", startDate);
+    }
 
-        public int save(Conference conference) {
+    private boolean existsStartDate(LocalDateTime startDate) {
+        return getActiveByStartDate(startDate).isPresent();
+    }
+
+    public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
+        return conferenceDao.getByStartDate(startDate)
+                .stream()
+                .filter(conference -> !conference.getStatus().equals("HIDEN"))
+                .findFirst();
+    }
+
+
+    public int save(Conference conference) {
             int id = conferenceDao.save(conference);
             LOGGER.info("conference: conference {} saved", id);
             return id;

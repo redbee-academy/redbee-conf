@@ -50,7 +50,7 @@ public class ConferenceBuilder {
         this.startDate = conference.getStartDate();
         this.endDate = conference.getEndDate();
         this.description = conference.getDescription();
-        this.visibility = conference.getVisibility();
+        this.visibility = conference.getStatus();
 
         return this;
     }
