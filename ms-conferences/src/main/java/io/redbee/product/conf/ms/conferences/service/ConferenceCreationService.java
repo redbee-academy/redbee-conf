@@ -60,7 +60,7 @@ public class ConferenceCreationService {
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
         return conferenceDao.getByStartDate(startDate)
                 .stream()
-                .filter(conference -> !conference.getStatus().equals("HIDEN"))
+                .filter(conference -> !conference.getStatus().equals("VISIBLE"))
                 .findFirst();
     }
 
