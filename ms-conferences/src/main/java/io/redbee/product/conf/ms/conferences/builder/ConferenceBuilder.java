@@ -1,17 +1,16 @@
 package io.redbee.product.conf.ms.conferences.builder;
 
-import io.redbee.product.conf.ms.conferences.enums.Status;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ConferenceBuilder {
     private Integer id;
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String description;
-    private Status visibility;
+    private String visibility;
 
     public ConferenceBuilder id(Integer id) {
         this.id = id;
@@ -23,12 +22,12 @@ public class ConferenceBuilder {
         return this;
     }
 
-    public ConferenceBuilder startDate(LocalDate startDate) {
+    public ConferenceBuilder startDate(LocalDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
-    public ConferenceBuilder endDate(LocalDate password) {
+    public ConferenceBuilder endDate(LocalDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -40,7 +39,7 @@ public class ConferenceBuilder {
 
 
 
-    public ConferenceBuilder visibility(Status visibility) {
+    public ConferenceBuilder visibility(String visibility) {
         this.visibility = visibility;
         return this;
     }

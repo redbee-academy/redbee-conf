@@ -1,7 +1,6 @@
 package io.redbee.product.conf.ms.conferences.dao;
 
 import io.redbee.product.conf.ms.conferences.models.Conference;
-import io.redbee.product.conf.ms.conferences.mapper.ConferenceRowMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -26,6 +25,7 @@ public class ConferenceDao {
             "INSERT INTO conferences (name, start_date, end_date, description, status) " +
             "VALUES (:name, :start_date, :end_date, :description, :status) ";
 
+
     public int save(Conference conference) {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -39,6 +39,7 @@ public class ConferenceDao {
         }
     }
 
+
     private MapSqlParameterSource conferenceToParamMap(Conference conference) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", conference.getId());
@@ -50,6 +51,5 @@ public class ConferenceDao {
 
         return params;
     }
-
 }
 

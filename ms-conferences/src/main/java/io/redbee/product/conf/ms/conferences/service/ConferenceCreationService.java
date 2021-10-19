@@ -2,13 +2,12 @@ package io.redbee.product.conf.ms.conferences.service;
 
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
-import io.redbee.product.conf.ms.conferences.enums.Status;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class ConferenceCreationService {
@@ -21,27 +20,24 @@ public class ConferenceCreationService {
         }
 
         public Conference create(String name,
-                LocalDate startDate,
-                LocalDate endDate,
-                String description,
-                Status visibility) {
-            Conference conference = buildWith(name,startDate,endDate,description,visibility);
+                LocalDateTime startDate,
+                LocalDateTime endDate,
+                String description){
+            Conference conference = buildWith(name,startDate,endDate,description);
             int id = save(conference);
-
             return conference.copyId(id);
         }
 
         private Conference buildWith(String name,
-                                     LocalDate startDate,
-                                     LocalDate endDate,
-                                     String description,
-                                     Status visibility) {
+                                     LocalDateTime startDate,
+                                     LocalDateTime endDate,
+                                     String description) {
             return new ConferenceBuilder()
                     .name(name)
                     .startDate(startDate)
                     .endDate(endDate)
                     .description(description)
-                    .visibility(visibility)
+                    .visibility("HIDEN")
                     .build();
         }
 

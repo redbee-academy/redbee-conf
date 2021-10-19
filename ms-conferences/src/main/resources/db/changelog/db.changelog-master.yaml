@@ -36,4 +36,4 @@ databaseChangeLog:
                   name: status
                   type: varchar
                   constraints:
-                    nullable: true
+                    nullable: false

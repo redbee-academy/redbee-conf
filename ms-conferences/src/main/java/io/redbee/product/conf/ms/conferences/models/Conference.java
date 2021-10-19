@@ -1,24 +1,20 @@
 package io.redbee.product.conf.ms.conferences.models;
 
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
-import io.redbee.product.conf.ms.conferences.enums.Status;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 // cp .idea .idea.bkp -r   , git merge master   , rm .idea -r   ,mv .idea.bkp .idea
 public class Conference {
     private Integer id;
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String description;
-    private Status visibility;
+    private String visibility;
 
-    public Conference() {
-    }
-
-    public Conference(Integer id, String name, LocalDate startDate, LocalDate endDate, String description, Status visibility) {
+    public Conference(Integer id, String name, LocalDateTime startDate, LocalDateTime endDate, String description, String visibility) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -26,10 +22,6 @@ public class Conference {
         this.description = description;
         this.visibility = visibility;
     }
-
-    public Conference(int id, String name, LocalDateTime start_date, LocalDateTime end_date, String description) {
-    }
-
 
     public Integer getId() {
         return id;
@@ -47,19 +39,19 @@ public class Conference {
         this.name = name;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -71,11 +63,11 @@ public class Conference {
         this.description = description;
     }
 
-    public Status getVisibility() {
+    public String getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Status visibility) {
+    public void setVisibility(String visibility) {
         this.visibility = visibility;
     }
 
@@ -84,6 +76,17 @@ public class Conference {
                 .basedOn(this)
                 .id(id)
                 .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conference conference = (Conference) o;
+        return Objects.equals(id, conference.id) && Objects.equals(name, conference.name) &&
+                Objects.equals(startDate, conference.startDate) &&
+                Objects.equals(endDate, conference.endDate) &&
+                Objects.equals(visibility, conference.visibility);
     }
     @Override
     public String toString() {
