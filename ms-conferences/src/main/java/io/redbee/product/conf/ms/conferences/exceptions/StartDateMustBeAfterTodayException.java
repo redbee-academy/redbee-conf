@@ -5,7 +5,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class StartDateMustBeAfterTodayException extends ResponseStatusException{
     public StartDateMustBeAfterTodayException(){
-        super(UNPROCESSABLE_ENTITY, "date must be after today");
+        super(UNPROCESSABLE_ENTITY, "start date must be after today");
     }
 
 }

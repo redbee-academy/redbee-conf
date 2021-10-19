@@ -1,5 +1,6 @@
 package io.redbee.product.conf.ms.conferences.service;
 
+import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartDateException;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
@@ -10,9 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.temporal.TemporalAccessor;
-import java.util.Date;
 import java.util.Optional;
 
 
@@ -31,8 +29,9 @@ public class ConferenceCreationService {
                 LocalDateTime endDate,
                 String description){
             Conference conference = buildWith(name,startDate,endDate,description);
-            validateStartDateAlreadyExists(conference.getStartDate());
             validateStartDateIsNotBeforeToday(conference.getStartDate());
+            validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
+            validateStartDateAlreadyExists(conference.getStartDate());
             int id = save(conference);
             return conference.copyId(id);
         }
@@ -50,23 +49,31 @@ public class ConferenceCreationService {
                     .build();
         }
 
-    private void validateStartDateAlreadyExists(LocalDateTime startDate) {
-        if (existsStartDate(startDate)) {
-            LOGGER.info("validateAccountAlreadyExists: conf with date {} already exists", startDate);
-            throw new StartDateAlreadyExistsException(startDate);
+    private void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
+        if(startDate.isBefore(LocalDateTime.now())){
+            LOGGER.info("validateStartDateIsNoteBeforeToday: cannot set {} as a start date, must be after today", startDate);
+            throw new StartDateMustBeAfterTodayException();
         }
-        LOGGER.info("conf {} doesnt have a date yet", startDate);
     }
+
+    private void validateEndDateIsNotBeforeStartDate(LocalDateTime startDate, LocalDateTime endDate){
+        if(endDate.isBefore(startDate)){
+            LOGGER.info("validateEndDateIsNotBeforeStartDate: cannot set {} as an end date, must be after start date", endDate);
+            throw new EndDateMustBeAfterStartDateException(endDate);
+        }
+    }
+
+
+        private void validateStartDateAlreadyExists(LocalDateTime startDate) {
+            if (existsStartDate(startDate)) {
+                LOGGER.info("validateAccountAlreadyExists: conf with date {} already exists", startDate);
+                throw new StartDateAlreadyExistsException(startDate);
+            }
+            LOGGER.info("conf {} doesnt have a date yet", startDate);
+        }
 
     private boolean existsStartDate(LocalDateTime startDate) {
         return getActiveByStartDate(startDate).isPresent();
-    }
-
-    private void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
-            if(startDate.isBefore(LocalDateTime.now())){
-                LOGGER.info("validateStartDateIsNoteBeforeToday: cannot set {} as a start date, must be after today", startDate);
-                throw new StartDateMustBeAfterTodayException();
-            }
     }
 
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
