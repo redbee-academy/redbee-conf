@@ -1380,7 +1380,7 @@ true posix/WET
 false posix/Zulu
 true posixrules
 </TimeZones>
-      <IntrospectionStateNumber>782</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1040</IntrospectionStateNumber>
       <StartupTime>1634582124</StartupTime>
     </root>
     <database id="2" parent="1" name="postgres">
@@ -1397,8 +1397,10 @@ true posixrules
 13391||-9223372036854775808|U|G
 13391||10|U|G</Grants>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>783</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1041</IntrospectionStateNumber>
       <Current>1</Current>
+      <Relations>sequence|table|24713|24714|1
+</Relations>
     </database>
     <role id="3" parent="1" name="pg_database_owner">
       <ObjectId>6171</ObjectId>
@@ -1471,7 +1473,7 @@ true posixrules
       <Comment>standard public schema</Comment>
       <StateNumber>527</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>783</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1041</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="20" parent="2" name="plpgsql">
@@ -1572,5 +1574,220 @@ true posixrules
       <Handler>pg_catalog.spghandler</Handler>
       <HandlerId>334</HandlerId>
     </access-method>
+    <sequence id="32" parent="19" name="conferences_id_seq">
+      <ObjectId>24713</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1031</StateNumber>
+      <DataType>integer|0s</DataType>
+    </sequence>
+    <table id="33" parent="19" name="conferences">
+      <ObjectId>24714</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1031</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+    </table>
+    <table id="34" parent="19" name="databasechangelog">
+      <ObjectId>24708</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1028</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+    </table>
+    <table id="35" parent="19" name="databasechangeloglock">
+      <ObjectId>24703</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1025</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+    </table>
+    <column id="36" parent="33" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1031</StateNumber>
+      <TypeId>23</TypeId>
+      <IdentityKind>by-default</IdentityKind>
+    </column>
+    <column id="37" parent="33" name="name">
+      <Position>2</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1031</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="38" parent="33" name="start_date">
+      <Position>3</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1031</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="39" parent="33" name="end_date">
+      <Position>4</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1031</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="40" parent="33" name="description">
+      <Position>5</Position>
+      <DataType>varchar|0s</DataType>
+      <StateNumber>1031</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="41" parent="33" name="status">
+      <Position>6</Position>
+      <DataType>varchar|0s</DataType>
+      <StateNumber>1031</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="42" parent="33" name="conferences_pkey">
+      <ObjectId>24719</ObjectId>
+      <StateNumber>1031</StateNumber>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="43" parent="33" name="conferences_pkey">
+      <ObjectId>24720</ObjectId>
+      <StateNumber>1031</StateNumber>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>conferences_pkey</UnderlyingIndexName>
+    </key>
+    <column id="44" parent="34" name="id">
+      <Position>1</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="45" parent="34" name="author">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="46" parent="34" name="filename">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="47" parent="34" name="dateexecuted">
+      <Position>4</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="48" parent="34" name="orderexecuted">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1028</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="49" parent="34" name="exectype">
+      <Position>6</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="50" parent="34" name="md5sum">
+      <Position>7</Position>
+      <DataType>varchar(35)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="51" parent="34" name="description">
+      <Position>8</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="52" parent="34" name="comments">
+      <Position>9</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="53" parent="34" name="tag">
+      <Position>10</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="54" parent="34" name="liquibase">
+      <Position>11</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="55" parent="34" name="contexts">
+      <Position>12</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="56" parent="34" name="labels">
+      <Position>13</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="57" parent="34" name="deployment_id">
+      <Position>14</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <StateNumber>1028</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="58" parent="35" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1025</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="59" parent="35" name="locked">
+      <Position>2</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1025</StateNumber>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="60" parent="35" name="lockgranted">
+      <Position>3</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>1025</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="61" parent="35" name="lockedby">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1025</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="62" parent="35" name="databasechangeloglock_pkey">
+      <ObjectId>24706</ObjectId>
+      <StateNumber>1025</StateNumber>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="63" parent="35" name="databasechangeloglock_pkey">
+      <ObjectId>24707</ObjectId>
+      <StateNumber>1025</StateNumber>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>databasechangeloglock_pkey</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>

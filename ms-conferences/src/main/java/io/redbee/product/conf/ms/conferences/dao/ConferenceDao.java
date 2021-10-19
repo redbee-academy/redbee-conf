@@ -1,9 +1,9 @@
 package io.redbee.product.conf.ms.conferences.dao;
 
 import io.redbee.product.conf.ms.conferences.models.Conference;
+import io.redbee.product.conf.ms.conferences.mapper.ConferenceRowMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;

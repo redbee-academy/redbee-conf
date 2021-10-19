@@ -4,6 +4,8 @@ import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.enums.Status;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 // cp .idea .idea.bkp -r   , git merge master   , rm .idea -r   ,mv .idea.bkp .idea
 public class Conference {
     private Integer id;
@@ -25,6 +27,8 @@ public class Conference {
         this.visibility = visibility;
     }
 
+    public Conference(int id, String name, LocalDateTime start_date, LocalDateTime end_date, String description) {
+    }
 
 
     public Integer getId() {

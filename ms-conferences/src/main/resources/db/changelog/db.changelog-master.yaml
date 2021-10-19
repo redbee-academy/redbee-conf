@@ -14,26 +14,26 @@ databaseChangeLog:
                     primaryKey: true
               - column:
                   name: name
-                  type: char
+                  type: varchar
                   constraints:
                     nullable: false
               - column:
                   name: start_date
-                  type: datetime
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: end_date
-                  type: datetime
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: description
-                  type: char
+                  type: varchar
                   constraints:
                     nullable: true
               - column:
                   name: status
-                  type: char
+                  type: varchar
                   constraints:
-                    nullable: false
+                    nullable: true
