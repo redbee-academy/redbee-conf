@@ -45,7 +45,7 @@ public class ConferenceCreationService {
                     .startDate(startDate)
                     .endDate(endDate)
                     .description(description)
-                    .visibility("HIDEN")
+                    .visibility(false)
                     .build();
         }
 
@@ -79,7 +79,7 @@ public class ConferenceCreationService {
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
         return conferenceDao.getByStartDate(startDate)
                 .stream()
-                .filter(conference -> !conference.getStatus().equals("VISIBLE"))
+                .filter(conference -> !conference.getStatus().equals(false))
                 .findFirst();
     }
 

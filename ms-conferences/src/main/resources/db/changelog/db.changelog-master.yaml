@@ -34,6 +34,6 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: status
-                  type: varchar
+                  type: boolean
                   constraints:
                     nullable: false

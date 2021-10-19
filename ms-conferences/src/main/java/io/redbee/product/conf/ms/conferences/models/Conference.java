@@ -12,9 +12,9 @@ public class Conference {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String description;
-    private String visibility;
+    private Boolean visibility;
 
-    public Conference(Integer id, String name, LocalDateTime startDate, LocalDateTime endDate, String description, String visibility) {
+    public Conference(Integer id, String name, LocalDateTime startDate, LocalDateTime endDate, String description, Boolean visibility) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -63,11 +63,11 @@ public class Conference {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return visibility;
     }
 
-    public void setStatus(String visibility) {
+    public void setStatus(Boolean visibility) {
         this.visibility = visibility;
     }
 

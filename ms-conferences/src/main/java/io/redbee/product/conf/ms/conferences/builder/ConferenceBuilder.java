@@ -10,7 +10,7 @@ public class ConferenceBuilder {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String description;
-    private String visibility;
+    private Boolean visibility;
 
     public ConferenceBuilder id(Integer id) {
         this.id = id;
@@ -39,7 +39,7 @@ public class ConferenceBuilder {
 
 
 
-    public ConferenceBuilder visibility(String visibility) {
+    public ConferenceBuilder visibility(Boolean visibility) {
         this.visibility = visibility;
         return this;
     }
