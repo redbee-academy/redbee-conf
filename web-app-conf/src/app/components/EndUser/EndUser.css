@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
 .redes-sociales .btn-red-social {
+    font-family: "Montserrat";
 	padding: 15px 0;
 	display: inline-block;
+    align-items: center;
+    justify-content: center;
 	min-width: 120px;
 	border-radius: 5px;
 	color: #fff;
@@ -41,7 +44,7 @@ body{
     font-size: 40px;
 }
 button{
-   margin-left:500px
+   margin-left:500px;
 }
 footer{
     margin-top: 100px;
