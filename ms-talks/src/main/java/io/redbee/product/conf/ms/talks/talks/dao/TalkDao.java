@@ -24,29 +24,20 @@ public class TalkDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TalkDao.class);
 
-    private static final String getQuery = "SELECT " +
-            "id, " +
-            "redbee_employee" +
-            "reference" +
-            "talk_name" +
-            "talk_topic" +
-            "talk_description" +
-            "creation_date, " +
-            "FROM talks";
-
-    private static final String insertQuery = "" + "INSERT INTO talks (redbee_employee, reference, talk_name, talk_topic, talk_description, creation_date)" +
+    private static final String insertQuery = "" +
+            "INSERT INTO talks (redbee_employee, reference, talk_name, talk_topic, talk_description, creation_date)" +
             "VALUES (:redbee_employee, :reference, :talk_name, :talk_topic, :talk_description, :creation_date)";
 
     public int save (Talk talk){
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
-            template.update(insertQuery, talkToParamMap(talk));
+            template.update(insertQuery, talkToParamMap(talk), keyHolder);
             LOGGER.info("save: talk {} saved", talk.getTalk_name());
 
             return (int) Objects.requireNonNull(keyHolder.getKeys()).get("id");
         } catch (Exception e) {
             LOGGER.info("save: error {}, saving talk {}", e.getMessage(), talk.getTalk_name());
-            throw new RepositoryException();
+            throw new RuntimeException();
         }
     }
 

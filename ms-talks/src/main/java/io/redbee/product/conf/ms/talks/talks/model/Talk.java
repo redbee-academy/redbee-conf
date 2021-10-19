@@ -2,18 +2,22 @@ package io.redbee.product.conf.ms.talks.talks.model;
 
 import io.redbee.product.conf.ms.talks.talks.builder.TalkBuilder;
 
-import java.io.Serializable;
+
 import java.time.LocalDateTime;
 
-public class Talk implements Serializable {
-    private final Integer id;
-    private final Boolean redbee_employee;
-    private final String reference;
-    private final String talk_name;
-    private final String talk_topic;
-    private final String talk_description;
-    private final LocalDateTime creation_date;
 
+public class Talk {
+    private Integer id;
+    private Boolean redbee_employee;
+    private String reference;
+    private String talk_name;
+    private String talk_topic;
+    private String talk_description;
+    private LocalDateTime creation_date;
+
+    public Talk (){
+
+    }
     public Talk(Integer id, Boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date) {
         this.id = id;
         this.redbee_employee = redbee_employee;
@@ -22,6 +26,9 @@ public class Talk implements Serializable {
         this.talk_topic = talk_topic;
         this.talk_description = talk_description;
         this.creation_date = creation_date;
+    }
+
+    public Talk(int id, boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date) {
     }
 
     public Integer getId() {
@@ -57,6 +64,16 @@ public class Talk implements Serializable {
                 .basedOn(this)
                 .id(id)
                 .build();
+    }
+    @Override
+    public String toString() {
+        return "Talk{" +
+                ", talk_name='" + talk_name + '\'' +
+                ", redbee_employee=" + redbee_employee +
+                ", talk_topic=" + talk_topic +
+                ", talk_description='" + talk_description + '\'' +
+                ", creation_date=" + creation_date +
+                '}';
     }
 
 
