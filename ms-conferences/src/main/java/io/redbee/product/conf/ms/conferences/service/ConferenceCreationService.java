@@ -3,12 +3,16 @@ package io.redbee.product.conf.ms.conferences.service;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
+import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -28,6 +32,7 @@ public class ConferenceCreationService {
                 String description){
             Conference conference = buildWith(name,startDate,endDate,description);
             validateStartDateAlreadyExists(conference.getStartDate());
+            validateStartDateIsNotBeforeToday(conference.getStartDate());
             int id = save(conference);
             return conference.copyId(id);
         }
@@ -55,6 +60,13 @@ public class ConferenceCreationService {
 
     private boolean existsStartDate(LocalDateTime startDate) {
         return getActiveByStartDate(startDate).isPresent();
+    }
+
+    private void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
+            if(startDate.isBefore(LocalDateTime.now())){
+                LOGGER.info("validateStartDateIsNoteBeforeToday: cannot set {} as a start date, must be after today", startDate);
+                throw new StartDateMustBeAfterTodayException();
+            }
     }
 
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
