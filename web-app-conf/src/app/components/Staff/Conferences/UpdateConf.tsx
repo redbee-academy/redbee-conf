@@ -1,4 +1,4 @@
-import { DatePicker } from "@material-ui/pickers";
+import { KeyboardDatePicker } from "@material-ui/pickers";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useFetch } from "../../../hooks/fetch";
@@ -58,36 +58,30 @@ const UpdateConf: FunctionComponent = () => {
   
 
   if(loading) { 
-  return <div
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: '50px',
-    }}
-  >
+  return <div className="d-flex justify-content-center align-items-center m-4">
     <Spinner animation="border" variant="primary" />
   </div>
   }else {
-     return <div  style={{ maxWidth: '1000px', padding: '100px' }}>
+     return <div className="p-5"  style={{ maxWidth: '1000px'}}>
             <h2>Editar {data.name} </h2>
   
             <Form onSubmit={submitForm}>
             <Form.Group className="mb-3" >
             
-                <div style={{display:"flex", justifyContent:"space-between"}}>
-                  <DatePicker
+                <div className="d-flex justify-content-between">
+                  <KeyboardDatePicker
                   disablePast
                   format="dd/MM/yyyy"
                   label="Fecha de inicio"
                   value={startDate}
                   onChange={(date)=> setStartDate(date)}
                 />
-                  <DatePicker
+                <KeyboardDatePicker
+                  value={endDate}
                   minDate={startDate}
                   format="dd/MM/yyyy"
                   label="Fecha de finalización"
-                  value={endDate}
+                  
                   onChange={(date)=> setEndDate(date)}
                 />
                 </div>
@@ -95,15 +89,15 @@ const UpdateConf: FunctionComponent = () => {
 
               <Form.Group className="mb-3" >
                   <Form.Label>Descripción</Form.Label>
-                  <Form.Control as="textarea" rows={5} defaultValue={description} onChange={e => setDescription(e.target.value)}/>
+                  <Form.Control as="textarea" rows={5} value={description} onChange={e => setDescription(e.target.value)}/>
               </Form.Group>
 
-              <Form.Label>Estado {data.visibility} </Form.Label>
+              <Form.Label>Estado</Form.Label>
               
               <Form.Check label='Es visible' checked={isVisible} onChange={e => setVisible(e.target.value)} />  
-              <div style= {{display:"flex", justifyContent:"space-between", paddingTop: '20px'}} >
-                <Button variant="outline-danger">Cancelar</Button>{' '}
-                <Button variant="outline-primary" type="submit">Guardar</Button>{' '}
+              <div className="d-flex justify-content-between pt-4" >
+                <Button variant="outline-secondary">Cancelar</Button>{' '}
+                <Button variant="primary" type="submit">Guardar</Button>{' '}
               </div>
 
               </Form>
