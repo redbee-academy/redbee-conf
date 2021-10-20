@@ -1,0 +1,9 @@
+.conferenceMainForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.conferenceMainForm div {
+    max-width: 1000px;
+}
