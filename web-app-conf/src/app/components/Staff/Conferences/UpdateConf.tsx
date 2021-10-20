@@ -1,18 +1,24 @@
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
-import { useFetch } from "../../../hooks/fetch";
+import { useFetch } from "../../../hooks/fetchMsConf";
 import { Conference } from "./Conference";
 
+interface UpdateConfProps {
+  confId: string
+}
 
-const UpdateConf: FunctionComponent = () => {
+const UpdateConf: FunctionComponent<UpdateConfProps> = ({
+  confId,
+}) => {
   const [data, setData] = useState<any>()
   const [startDate, setStartDate] = useState<any>()
   const [endDate, setEndDate] = useState<any>()
   const [description, setDescription] = useState<any>()
   const [isVisible, setVisible] = useState<any>()
-  const [loading, setLoading] = useState<Boolean>(true)
-  const fetchData = useFetch<any>('conferences/1')
+  const [isLoading, setIsLoading] = useState<Boolean>(true)
+  const fetchData = useFetch<any, any>(confId)
+  const updateData = useFetch<any, any>(confId, 'PUT')
 
   useEffect(() =>{
      fetchData()
@@ -22,10 +28,10 @@ const UpdateConf: FunctionComponent = () => {
        setEndDate(data.endDate)
        setDescription(data.description)
        setVisible(data.visibility)
-       setLoading(false)
+       setIsLoading(false)
      })
      .catch((error)=>{
-        setLoading(false) 
+        setIsLoading(false) 
         console.log(error)
      })
   }, [fetchData])
@@ -40,28 +46,21 @@ const UpdateConf: FunctionComponent = () => {
         startDate: startDate,
         endDate: endDate,
         description: description,
-        visibility: data.visibility
+        visibility: isVisible
       }
 
-      const body = JSON.stringify(updatedConf)
-
-      fetch('http://localhost:3001/conferences', {
-        method: 'PUT',
-        body: body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).catch((error)=>{
+      updateData(updatedConf).catch((error)=>{
         console.log(error)
      })
     }
   
 
-  if(loading) { 
+  if(isLoading) { 
   return <div className="d-flex justify-content-center align-items-center m-4">
     <Spinner animation="border" variant="primary" />
   </div>
-  }else {
+  }
+  else {
      return <div className="p-5"  style={{ maxWidth: '1000px'}}>
             <h2>Editar {data.name} </h2>
   
@@ -99,11 +98,14 @@ const UpdateConf: FunctionComponent = () => {
                 <Button variant="outline-secondary">Cancelar</Button>{' '}
                 <Button variant="primary" type="submit">Guardar</Button>{' '}
               </div>
-
-              </Form>
+              </Form> 
+            
   </div>
   }
-
+  //TODO: - agregar mensaje de error o de exito
+  //      - arreglar checkbox
+  //      - poner error de date picker en espaniol
+  //      -? deshabilitar boton guardar si hay errores
 }
 
 export default UpdateConf
