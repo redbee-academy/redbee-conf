@@ -1,0 +1,9 @@
+.conferenceMainForm{
+    display: grid;
+    grid-template-columns: auto 1000px auto;
+}
+
+.conferenceMainForm form {
+    grid-column: 2;
+}
+
