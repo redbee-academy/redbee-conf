@@ -1,4 +1,5 @@
 import { KeyboardDatePicker } from "@material-ui/pickers";
+// import { es } from "date-fns/locale";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useFetch } from "../../../hooks/fetchMsConf";
@@ -31,12 +32,12 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
        setIsLoading(false)
      })
      .catch((error)=>{
-        setIsLoading(false) 
+        setIsLoading(false)
         console.log(error)
      })
   }, [fetchData])
 
-  const submitForm = 
+  const submitForm =
   (e: React.SyntheticEvent): void  => {
       e.preventDefault()
 
@@ -55,7 +56,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
     }
   
 
-  if(isLoading) { 
+  if(isLoading) {
   return <div className="d-flex justify-content-center align-items-center m-4">
     <Spinner animation="border" variant="primary" />
   </div>
@@ -80,7 +81,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
                   minDate={startDate}
                   format="dd/MM/yyyy"
                   label="Fecha de finalización"
-                  
+                  minDateMessage="No debe ser menor a la fecha de inicio de la Conf."
                   onChange={(date)=> setEndDate(date)}
                 />
                 </div>
@@ -92,14 +93,12 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
               </Form.Group>
 
               <Form.Label>Estado</Form.Label>
-              
-              <Form.Check label='Es visible' checked={isVisible} onChange={e => setVisible(e.target.value)} />  
+              <Form.Check label='Es visible' checked={isVisible} onChange={e => setVisible(e.target.value)} />
               <div className="d-flex justify-content-between pt-4" >
                 <Button variant="outline-secondary">Cancelar</Button>{' '}
                 <Button variant="primary" type="submit">Guardar</Button>{' '}
               </div>
-              </Form> 
-            
+              </Form>
   </div>
   }
   //TODO: - agregar mensaje de error o de exito
