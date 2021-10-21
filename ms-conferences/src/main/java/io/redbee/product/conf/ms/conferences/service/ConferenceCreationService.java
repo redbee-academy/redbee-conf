@@ -1,7 +1,6 @@
 package io.redbee.product.conf.ms.conferences.service;
 
 import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartDateException;
-import io.redbee.product.conf.ms.conferences.exceptions.EndDateTimeIsNotBeforeStartDateTimeException;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
@@ -28,11 +27,12 @@ public class ConferenceCreationService {
         public Conference create(String name,
                 LocalDateTime startDate,
                 LocalDateTime endDate,
-                String description){
-            Conference conference = buildWith(name,startDate,endDate,description);
+                String description,Boolean status){
+            Conference conference = buildWith(name,startDate,endDate,description, status);
             validateStartDateIsNotBeforeToday(conference.getStartDate());
+            System.out.println("Here2");
             validateStartDateAlreadyExists(conference.getStartDate());
-            validateTimeofEndDate(conference.getStartDate(),conference.getEndDate());
+            System.out.println("here1");
             validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
             int id = save(conference);
             return conference.copyId(id);
@@ -41,13 +41,14 @@ public class ConferenceCreationService {
         private Conference buildWith(String name,
                                      LocalDateTime startDate,
                                      LocalDateTime endDate,
-                                     String description) {
+                                     String description,
+                                     Boolean status) {
             return new ConferenceBuilder()
                     .name(name)
                     .startDate(startDate)
                     .endDate(endDate)
                     .description(description)
-                    .visibility(false)
+                    .visibility(status)
                     .build();
         }
 
@@ -61,7 +62,14 @@ public class ConferenceCreationService {
     private void validateEndDateIsNotBeforeStartDate(LocalDateTime startDate, LocalDateTime endDate){
         if(endDate.isBefore(startDate)){
             LOGGER.info("validateEndDateIsNotBeforeStartDate: cannot set {} as an end date, must be after start date", endDate);
-            throw new EndDateMustBeAfterStartDateException();
+            throw new EndDateMustBeAfterStartDateException("End date must be after or the same date at the start date");
+        }else if(startDate.getHour() == endDate.getHour() &&
+                sameDay(startDate,endDate) &&
+                sameMonth(startDate,endDate) &&
+                sameYear(startDate,endDate)){
+            LOGGER.info("validateEndDateIsNotBeforeStartDate: cannot set {} as an end date, because the hour is the same at start" +
+                    " date", endDate);
+            throw new EndDateMustBeAfterStartDateException("End date must be after the start date at least one hour");
         }
     }
 
@@ -74,14 +82,6 @@ public class ConferenceCreationService {
             LOGGER.info("conf {} doesnt have a date yet", startDate);
         }
 
-        private void validateTimeofEndDate(LocalDateTime startDatetime, LocalDateTime endDateTime ){
-            if(endDateTime.isEqual(startDatetime) && endDateTime.getHour() <= startDatetime.getHour()){
-                LOGGER.info("validateTimeofEndDate: the end date time {} must be higher than the start date time {} ",
-                        endDateTime.getHour(),
-                        startDatetime.getHour());
-                throw new EndDateTimeIsNotBeforeStartDateTimeException();
-            }
-        }
 
     private boolean existsStartDate(LocalDateTime startDate) {
         return getActiveByStartDate(startDate).isPresent();
@@ -94,6 +94,17 @@ public class ConferenceCreationService {
                 .findFirst();
     }
 
+    private boolean sameDay(LocalDateTime starDate, LocalDateTime endDate){
+            return starDate.getDayOfMonth() == endDate.getDayOfMonth();
+    }
+
+    private boolean sameMonth(LocalDateTime startDate, LocalDateTime endDate){
+            return startDate.getMonth() == endDate.getMonth();
+    }
+
+    private boolean sameYear(LocalDateTime startDate, LocalDateTime endDate){
+            return startDate.getYear() == endDate.getYear();
+    }
 
     public int save(Conference conference) {
             int id = conferenceDao.save(conference);
