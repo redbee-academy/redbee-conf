@@ -1,9 +1,9 @@
 .conferenceMainForm{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1000px auto;
 }
-.conferenceMainForm div {
-    max-width: 1000px;
+
+.conferenceMainForm form {
+    grid-column: 2;
 }
+
