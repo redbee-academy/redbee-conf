@@ -1,9 +1,9 @@
 import { KeyboardDatePicker } from "@material-ui/pickers";
-// import { es } from "date-fns/locale";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useFetch } from "../../../hooks/fetchMsConf";
 import { Conference } from "./Conference";
+import './conference.css'
 
 interface UpdateConfProps {
   confId: string
@@ -62,10 +62,10 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
   </div>
   }
   else {
-     return <div className="p-5"  style={{ maxWidth: '1000px'}}>
+     return <div className="p-5 container-xl">
             <h2>Editar {data.name} </h2>
   
-            <Form onSubmit={submitForm}>
+            <Form className="mt-3 col-12" onSubmit={submitForm}>
             <Form.Group className="mb-3" >
             
                 <div className="d-flex justify-content-between">
@@ -73,6 +73,8 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
                   disablePast
                   format="dd/MM/yyyy"
                   label="Fecha de inicio"
+                  invalidDateMessage="Formato de fecha incorrecto"
+                  minDateMessage="No debe ser menor a la fecha de hoy"
                   value={startDate}
                   onChange={(date)=> setStartDate(date)}
                 />
@@ -81,6 +83,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
                   minDate={startDate}
                   format="dd/MM/yyyy"
                   label="Fecha de finalización"
+                  invalidDateMessage="Formato de fecha incorrecto"
                   minDateMessage="No debe ser menor a la fecha de inicio de la Conf."
                   onChange={(date)=> setEndDate(date)}
                 />
@@ -103,7 +106,6 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
   }
   //TODO: - agregar mensaje de error o de exito
   //      - arreglar checkbox
-  //      - poner error de date picker en espaniol
   //      -? deshabilitar boton guardar si hay errores
 }
 
