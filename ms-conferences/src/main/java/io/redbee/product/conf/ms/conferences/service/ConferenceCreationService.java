@@ -27,8 +27,8 @@ public class ConferenceCreationService {
         public Conference create(String name,
                 LocalDateTime startDate,
                 LocalDateTime endDate,
-                String description){
-            Conference conference = buildWith(name,startDate,endDate,description);
+                String description,Boolean status){
+            Conference conference = buildWith(name,startDate,endDate,description, status);
             validateStartDateIsNotBeforeToday(conference.getStartDate());
             System.out.println("Here2");
             validateStartDateAlreadyExists(conference.getStartDate());
@@ -41,13 +41,14 @@ public class ConferenceCreationService {
         private Conference buildWith(String name,
                                      LocalDateTime startDate,
                                      LocalDateTime endDate,
-                                     String description) {
+                                     String description,
+                                     Boolean status) {
             return new ConferenceBuilder()
                     .name(name)
                     .startDate(startDate)
                     .endDate(endDate)
                     .description(description)
-                    .visibility(false)
+                    .visibility(status)
                     .build();
         }
 
