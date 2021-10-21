@@ -41,4 +41,19 @@ public class ConferenceControllerTest {
         assertEquals(201, response.getStatus());
 
     }
+
+    @Test
+    @DisplayName("Given a conf that already exists, throw exception")
+    void createConfAlreadyExists() throws Exception {
+        Conference conf1 = ConferenceFactory.getConference();
+
+        final MockHttpServletResponse response =
+                this.mockMvc.perform(post("/conference")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(conf1)))
+                        .andReturn().getResponse();
+
+        assertEquals(422, response.getStatus());
+    }
+
 }

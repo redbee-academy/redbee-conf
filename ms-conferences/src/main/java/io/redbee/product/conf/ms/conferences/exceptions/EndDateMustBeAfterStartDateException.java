@@ -9,7 +9,7 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @ResponseStatus(UNPROCESSABLE_ENTITY)
 public class EndDateMustBeAfterStartDateException extends RuntimeException {
-    public EndDateMustBeAfterStartDateException() {
-        super("End date must be after or the same date at the start date");
+    public EndDateMustBeAfterStartDateException(String message) {
+        super(message);
     }
 }
