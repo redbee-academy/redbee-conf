@@ -8,6 +8,6 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 public class EndDateMustBeAfterStartDateException extends ResponseStatusException {
     public EndDateMustBeAfterStartDateException(LocalDateTime date) {
-        super(UNPROCESSABLE_ENTITY, "end date must me after start date");
+        super(UNPROCESSABLE_ENTITY, "end date must be after the start date");
     }
 }

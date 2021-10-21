@@ -66,14 +66,13 @@ class ConferenceCreationServiceTests {
     @Test
     @DisplayName("Validate EndDate")
     void validateEndDateTest(){
-        //given
+
         LocalDateTime endDate = LocalDateTime.parse("2021-09-25T22:17:52");
         Conference conf = ConferenceFactory.getConference();
         conf.setEndDate(endDate);
 
 
         Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
-
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf.getName(),conf.getStartDate(),conf.getEndDate(),conf.getDescription());
