@@ -66,8 +66,9 @@ width: 1280px;
 height: 351px;
 left: 80px;
 top: 118px;
-
-
+/*Typography*/
+color: white;
+font-family: "Inter";
 /* Inside Auto Layout */
 flex: none;
 order: 1;
@@ -75,109 +76,23 @@ align-self: stretch;
 flex-grow: 0;
 margin: 0px 0px;
 }
-content #left{
-
-/* Left */
-
-/* Auto Layout */
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-padding: 32px 0px 0px;
-
-position: static;
-width: 530px;
-height: 351px;
-left: 0px;
-top: 0px;
-
-
-/* Inside Auto Layout */
-flex: none;
-order: 0;
-flex-grow: 0;
-margin: 0px 10px;
-
-
-/* Texts */
-
-/* Auto Layout */
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-
-position: static;
-width: 530px;
-height: 227px;
-left: 0px;
-top: 32px;
-
-
-/* Inside Auto Layout */
-flex: none;
-order: 0;
-flex-grow: 0;
-margin: 0px 0px;
-
+.content h1{
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 56px;
+    letter-spacing: -1.8px;
+    text-align: left;
 }
-.content #left h1{
-/* Title */
-
-position: static;
-width: 499px;
-height: 112px;
-left: 0px;
-top: 0px;
-
-font-family: Inter;
-font-style: normal;
-font-weight: bold;
-font-size: 56px;
-line-height: 56px;
-/* or 100% */
-display: flex;
-align-items: center;
-letter-spacing: -1.8px;
-
-/* White */
-color: #FFFFFF;
+.content p{
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 33px;
+    letter-spacing: -0.5px;
+    text-align: left;
 
 
-/* Inside Auto Layout */
-flex: none;
-order: 0;
-flex-grow: 0;
-margin: 16px 0px;
-}
-.content #left p{
-
-/* Description */
-
-position: static;
-width: 530px;
-height: 99px;
-left: calc(50% - 530px/2);
-top: calc(50% - 99px/2 + 64px);
-
-font-family: Inter;
-font-style: normal;
-font-weight: 500;
-font-size: 22px;
-line-height: 33px;
-/* or 150% */
-letter-spacing: -0.5px;
-
-/* White */
-color: #FFFFFF;
-
-
-/* Inside Auto Layout */
-flex: none;
-order: 1;
-flex-grow: 0;
-margin: 16px 0px;
 }
 .content #left Button{
     height: 60px;
@@ -188,31 +103,26 @@ margin: 16px 0px;
     padding: 18px, 20px, 18px, 20px;
     margin-right: 100px;
     position: static;
-    width: 144px;
-    height: 60px;
-    left: 0px;
-    top: 32px;
-
-    /* White */
-    border-radius: 4px;
 }
 .frontPage{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 1440px;
     left: 0px;
     top: 0px;
     border-radius: 0px;
     padding: 80px;
 
     
-    background-image: url(background.png);
+    background: rgb(255,70,70);
+    background: linear-gradient(40deg, rgba(255,70,70,1) 3%, rgba(237,50,50,1) 11%, rgba(172,4,4,1) 71%);
+    background-size: cover;
+  
     /* Inside Auto Layout */
 
     flex: none;
     order: 0;
     align-self: stretch;
     flex-grow: 0;
-    margin: 0px 0px;
+    margin: 0px;
 }

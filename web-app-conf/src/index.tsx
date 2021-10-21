@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+//import './theme.scss'
+
 
 const appToBuild = process.env.REACT_APP_IS_STAFF === "1" 
   ? import('./app/components/Staff/Staff')
