@@ -3,6 +3,7 @@ import { App } from "../App";
 import './style.css'
 import img from './isologo_rbconf.png'
 import { Button, Col, Container, Row } from "react-bootstrap";
+import UserLoginGoogleButton from "../LoginGoogle/UserLoginGoogleButton";
 
 const EndUserApp: FunctionComponent = () => {
   return <App>
@@ -30,10 +31,11 @@ const EndUserApp: FunctionComponent = () => {
             </Col>
             <Col id="right">2 of 2</Col>
           </Row>
+          <div><UserLoginGoogleButton/></div>
       </Container>
    
     </main>
     </App>
 }
 
-export default EndUserApp
+export default EndUserApp;
