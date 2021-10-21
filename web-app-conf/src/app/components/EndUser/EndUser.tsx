@@ -23,15 +23,12 @@ const EndUserApp: FunctionComponent = () => {
               <p>Sé parte de una experiencia única dentro del mundo de TI, con más de +50 Speakers, +30 workshops en diferentes áreas, +100 charlas en vivo.</p>
               <div className="buttons">
                 <Button variant="light">Inscribirme</Button>
-              </div>
               <p>¿Querés sumarte a romperla como Speaker en la redbeeConf?</p>
-              <div className="buttons">
-              <Button variant="light">Postulá tu charla aquí</Button> 
+                <div className="buttons"><UserLoginGoogleButton/></div>
               </div>
             </Col>
-            <Col id="right">2 of 2</Col>
+            <Col id="right"></Col>
           </Row>
-          <div><UserLoginGoogleButton/></div>
       </Container>
    
     </main>
