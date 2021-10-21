@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: static;
+    width: 1280px;
+    height: 38px;
+    left: 80px;
+    top: 80px;
+}
+.LogButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+
+    position: static;
+    width: 90px;
+    height: 38px;
+    left: 1190px;
+    top: 0px;
+    /* White */
+
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+
+/* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 0px;
+    position: static;
+    left: 17.78%;
+    right: 17.78%;
+    top: 18.42%;
+    bottom: 18.42%;
+
+    /*Typography*/
+
+    font-family: "Inter";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    text-align: center;
+
+}
+.content{
+
+
+/* Auto Layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+
+position: static;
+width: 1280px;
+height: 351px;
+left: 80px;
+top: 118px;
+
+
+/* Inside Auto Layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+margin: 0px 0px;
+}
+content #left{
+
+/* Left */
+
+/* Auto Layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 32px 0px 0px;
+
+position: static;
+width: 530px;
+height: 351px;
+left: 0px;
+top: 0px;
+
+
+/* Inside Auto Layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 10px;
+
+
+/* Texts */
+
+/* Auto Layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+position: static;
+width: 530px;
+height: 227px;
+left: 0px;
+top: 32px;
+
+
+/* Inside Auto Layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 0px;
+
+}
+.content #left h1{
+/* Title */
+
+position: static;
+width: 499px;
+height: 112px;
+left: 0px;
+top: 0px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: bold;
+font-size: 56px;
+line-height: 56px;
+/* or 100% */
+display: flex;
+align-items: center;
+letter-spacing: -1.8px;
+
+/* White */
+color: #FFFFFF;
+
+
+/* Inside Auto Layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 16px 0px;
+}
+.content #left p{
+
+/* Description */
+
+position: static;
+width: 530px;
+height: 99px;
+left: calc(50% - 530px/2);
+top: calc(50% - 99px/2 + 64px);
+
+font-family: Inter;
+font-style: normal;
+font-weight: 500;
+font-size: 22px;
+line-height: 33px;
+/* or 150% */
+letter-spacing: -0.5px;
+
+/* White */
+color: #FFFFFF;
+
+
+/* Inside Auto Layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+margin: 16px 0px;
+}
+.content #left Button{
+    height: 60px;
+    width: 144px;
+    left: 0px;
+    top: 32px;
+    border-radius: 4px;
+    padding: 18px, 20px, 18px, 20px;
+    margin-right: 100px;
+    position: static;
+    width: 144px;
+    height: 60px;
+    left: 0px;
+    top: 32px;
+
+    /* White */
+    border-radius: 4px;
+}
+.frontPage{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 1440px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    padding: 80px;
+
+    
+    background-image: url(background.png);
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    margin: 0px 0px;
+}
