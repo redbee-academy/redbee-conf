@@ -1,6 +1,7 @@
 package io.redbee.product.conf.ms.conferences.service;
 
 import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartDateException;
+import io.redbee.product.conf.ms.conferences.exceptions.EndDateTimeIsNotBeforeStartDateTimeException;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
@@ -30,8 +31,9 @@ public class ConferenceCreationService {
                 String description){
             Conference conference = buildWith(name,startDate,endDate,description);
             validateStartDateIsNotBeforeToday(conference.getStartDate());
-            validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
             validateStartDateAlreadyExists(conference.getStartDate());
+            validateTimeofEndDate(conference.getStartDate(),conference.getEndDate());
+            validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
             int id = save(conference);
             return conference.copyId(id);
         }
@@ -59,7 +61,7 @@ public class ConferenceCreationService {
     private void validateEndDateIsNotBeforeStartDate(LocalDateTime startDate, LocalDateTime endDate){
         if(endDate.isBefore(startDate)){
             LOGGER.info("validateEndDateIsNotBeforeStartDate: cannot set {} as an end date, must be after start date", endDate);
-            throw new EndDateMustBeAfterStartDateException(endDate);
+            throw new EndDateMustBeAfterStartDateException();
         }
     }
 
@@ -72,6 +74,15 @@ public class ConferenceCreationService {
             LOGGER.info("conf {} doesnt have a date yet", startDate);
         }
 
+        private void validateTimeofEndDate(LocalDateTime startDatetime, LocalDateTime endDateTime ){
+            if(endDateTime.isEqual(startDatetime) && endDateTime.getHour() <= startDatetime.getHour()){
+                LOGGER.info("validateTimeofEndDate: the end date time {} must be higher than the start date time {} ",
+                        endDateTime.getHour(),
+                        startDatetime.getHour());
+                throw new EndDateTimeIsNotBeforeStartDateTimeException();
+            }
+        }
+
     private boolean existsStartDate(LocalDateTime startDate) {
         return getActiveByStartDate(startDate).isPresent();
     }
@@ -79,7 +90,7 @@ public class ConferenceCreationService {
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
         return conferenceDao.getByStartDate(startDate)
                 .stream()
-                .filter(conference -> !conference.getStatus().equals(false))
+                .filter(conference -> !conference.getStatus().equals(true))
                 .findFirst();
     }
 

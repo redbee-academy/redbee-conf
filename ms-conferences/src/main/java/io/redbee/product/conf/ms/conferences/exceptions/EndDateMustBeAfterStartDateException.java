@@ -1,13 +1,15 @@
 package io.redbee.product.conf.ms.conferences.exceptions;
 
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+
 
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
-public class EndDateMustBeAfterStartDateException extends ResponseStatusException {
-    public EndDateMustBeAfterStartDateException(LocalDateTime date) {
-        super(UNPROCESSABLE_ENTITY, "end date must be after the start date");
+@ResponseStatus(UNPROCESSABLE_ENTITY)
+public class EndDateMustBeAfterStartDateException extends RuntimeException {
+    public EndDateMustBeAfterStartDateException() {
+        super("End date must be after or the same date at the start date");
     }
 }

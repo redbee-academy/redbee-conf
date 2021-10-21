@@ -1,11 +1,12 @@
 package io.redbee.product.conf.ms.conferences.exceptions;
 
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class StartDateMustBeAfterTodayException extends ResponseStatusException{
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+public class StartDateMustBeAfterTodayException extends RuntimeException{
     public StartDateMustBeAfterTodayException(){
-        super(UNPROCESSABLE_ENTITY, "start date must be after today");
+        super("Start date must be after today date");
     }
 
 }
