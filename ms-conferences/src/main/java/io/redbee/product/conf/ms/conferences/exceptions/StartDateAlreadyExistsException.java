@@ -1,12 +1,14 @@
 package io.redbee.product.conf.ms.conferences.exceptions;
 
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
-import org.springframework.web.server.ResponseStatusException;
+
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-public class StartDateAlreadyExistsException extends ResponseStatusException {
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+public class StartDateAlreadyExistsException extends RuntimeException {
     public StartDateAlreadyExistsException(LocalDateTime startDate) {
-        super(UNPROCESSABLE_ENTITY, "conf with date " + startDate + " already exists");
+        super("Conf with date " + startDate + " already exists");
     }
 }

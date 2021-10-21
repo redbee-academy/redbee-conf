@@ -48,7 +48,6 @@ public class ConferenceDao {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             template.update(insertQuery, conferenceToParamMap(conference), keyHolder);
             LOGGER.info("save: conference {} saved", conference.getName());
-
             return (int) Objects.requireNonNull(keyHolder.getKeys()).get("id");
         } catch (Exception e) {
             LOGGER.info("save: error {}, saving conference {}", e.getMessage(), conference.getName());
