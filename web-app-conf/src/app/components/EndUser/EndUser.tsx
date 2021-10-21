@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { App } from "../App";
-import UserLoginGoogleButton from "../UserLoginGoogleButton";
+import UserLoginGoogleButton from "../LoginGoogle/UserLoginGoogleButton";
 
 
 const EndUserApp: FunctionComponent = () => {

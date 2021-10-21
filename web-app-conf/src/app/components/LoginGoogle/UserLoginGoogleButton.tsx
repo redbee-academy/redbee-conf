@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { GoogleLogin } from "react-google-login";
-import { GoogleUserInfo } from "../domain/googleUserInfo";
+import { GoogleUserInfo } from "../../domain/googleUserInfo";
 
 
 const loginSucessful = (response: any) => {
@@ -19,7 +19,9 @@ const loginFailure = (response: any) => {
 const UserLoginGoogleButton : FunctionComponent = () => {
     return <GoogleLogin
     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
-    buttonText="Login"
+    render={renderProps => (
+        <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Postular tu charla</button>
+      )}
     onSuccess={loginSucessful}
     onFailure={loginFailure}
     cookiePolicy={'single_host_origin'}
