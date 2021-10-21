@@ -14,7 +14,7 @@ public class ConferenceController {
         this.conferenceService = conferenceService;
     }
 
-    @PostMapping()
+    @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void createConference(@RequestBody Conference conference) {  // recibo a travès de requestBody
         conferenceService.create(conference.getName(),conference.getStartDate(),
