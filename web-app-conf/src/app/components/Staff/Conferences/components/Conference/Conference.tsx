@@ -20,7 +20,7 @@ export const ConferenceComponent: FunctionComponent = () => {
                 <Form.Label>Nombre de la proxima CONF</Form.Label>
                 <Form.Control type="name" placeholder="Ingrese un nombre" /> {/* El placeholder no deberia estar ya que el nombre se genera automaticamente */}
             </Form.Group>
-    
+            <div className="d-flex justify-content-between">
             <Form.Group className="mb-3" controlId="formBasicStartDate">
                 <KeyboardDatePicker
                       value={startDate}
@@ -38,11 +38,14 @@ export const ConferenceComponent: FunctionComponent = () => {
                       format="dd/MM/yyyy"
                       label="Fecha de finalización"
                       onChange={(date)=> setEndDate(date)}
+                      disablePast
                       minDate={startDate}
                       invalidDateMessage="Formato de fecha incorrecto"
                       minDateMessage="No debe ser menor a la fecha de hoy"
                     />
             </Form.Group>
+            </div>
+            
     
             <Form.Group className="mb-3" controlId="formBasicDescription">
                 <Form.Label>Descripcion</Form.Label>
