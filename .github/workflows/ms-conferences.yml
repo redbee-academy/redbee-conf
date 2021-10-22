@@ -36,7 +36,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: ms-conferences-jar
-          path: ./build/libs/ms-conferences-*-SNAPSHOT.jar
+          path: ./build/libs/
 
       - name: Add coverage to PR
         id: jacoco
