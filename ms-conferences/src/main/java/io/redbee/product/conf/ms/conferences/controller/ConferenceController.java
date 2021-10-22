@@ -1,6 +1,6 @@
 package io.redbee.product.conf.ms.conferences.controller;
 import io.redbee.product.conf.ms.conferences.models.Conference;
-import io.redbee.product.conf.ms.conferences.service.ConferenceCreationService;
+import io.redbee.product.conf.ms.conferences.service.ConferenceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/conference")
 public class ConferenceController {
-    private final ConferenceCreationService conferenceService;
+    private final ConferenceService conferenceService;
 
-    public ConferenceController(ConferenceCreationService conferenceService) {
+    public ConferenceController(ConferenceService conferenceService) {
         this.conferenceService = conferenceService;
     }
 
