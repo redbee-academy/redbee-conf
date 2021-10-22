@@ -1,102 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-.frontPage{ 
-    
-    background-image: url("background.png");  
-    height: 549px;
-    width: auto;
-    left: 0px;
-    top: 0px;
-    border-radius: 0px;
+main{
+    background-image: url(background.png);
+    font-family: "Inter";
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 80px;
-
 }
 .header{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0px;
-
-    position: static;
+    justify-content:space-between;
+    align-items:flex-start; 
     width: 1280px;
-    height: 38px;
-    left: 80px;
-    top: 80px;
-}
-.LogButton{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 12px 16px;
-
+    padding: 0px;
     position: static;
-    width: 90px;
-    height: 38px;
-    left: 1190px;
-    top: 0px;
-    /* White */
 
-    border: 1px solid #FFFFFF;
-    border-radius: 4px;
 
-/* Inside Auto Layout */
+    /* Inside Auto Layout */
 
     flex: none;
-    order: 1;
+    order: 0;
+    align-self: stretch;
     flex-grow: 0;
-    margin: 0px 0px;
-    position: static;
-    left: 17.78%;
-    right: 17.78%;
-    top: 18.42%;
-    bottom: 18.42%;
-
-    /*Typography*/
-
-    font-family: "Inter";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: -0.5px;
-    text-align: center;
-
+    margin-left: 30px;
 }
 .content{
-
-
-/* Auto Layout */
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-padding: 0px;
-
-position: static;
-width: 1280px;
-height: 351px;
-left: 80px;
-top: 118px;
-/*Typography*/
-color: white;
-font-family: "Inter";
-/* Inside Auto Layout */
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;
-margin: 0px 0px;
-}
-.content #left{
+    margin-top: 44px;
     height: 351px;
-width: 530px;
-left: 0px;
-top: 0px;
-border-radius: 0px;
-padding: 32px, 0px, 0px, 0px;
-
+    width: 1280px;
+    left: 80px;
+    top: 118px;
+    border-radius: 0px;
+    margin-bottom: 80px;
 }
-.content h1{
+.left h1{
     font-size: 56px;
     font-style: normal;
     font-weight: 700;
@@ -104,21 +43,42 @@ padding: 32px, 0px, 0px, 0px;
     letter-spacing: -1.8px;
     text-align: left;
 }
-.content p{
+.left p{
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
     line-height: 33px;
     letter-spacing: -0.5px;
     text-align: left;
+    margin-top: 16px;
 }
-.content #left Button{
+.left Button{
     height: 60px;
     width: 144px;
     left: 0px;
     top: 32px;
     border-radius: 4px;
     padding: 18px, 20px, 18px, 20px;
-    margin-right: 100px;
-    position: static;
+    
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    text-align: center;
+
+
+}
+
+.right{
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+    letter-spacing: -1px;
+    vertical-align:middle;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
 }
