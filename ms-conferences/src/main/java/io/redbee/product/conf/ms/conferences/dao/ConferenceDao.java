@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Component
@@ -68,14 +69,15 @@ public class ConferenceDao {
         return params;
     }
 
-    public List<Conference> getByStartDate(LocalDateTime start_date) {
+    public Optional<Conference> getByStartDate(LocalDateTime start_date) {
         try {
-            List<Conference> result =
-                    template.query(
+            Optional<Conference> result = Optional.ofNullable(
+                    template.queryForObject(
                             getQuery + " WHERE start_date = :start_date",
                             Map.of("start_date", start_date),
                             new ConferenceRowMapper()
-                    );
+                    )
+            );
             LOGGER.info("getByStartDate: conf found {}", result);
             return result;
         } catch (DataAccessException e) {

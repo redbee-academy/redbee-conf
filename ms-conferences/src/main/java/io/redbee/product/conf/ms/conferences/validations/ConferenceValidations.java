@@ -9,13 +9,21 @@ import io.redbee.product.conf.ms.conferences.service.ConferenceService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Validated
 public class ConferenceValidations {
     @Autowired
-    ConferenceDao conferenceDao;
+    public final ConferenceDao conferenceDao;
+
+    public ConferenceValidations(ConferenceDao conferenceDao) {
+        this.conferenceDao = conferenceDao;
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
     public void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
         if(startDate.isBefore(LocalDateTime.now())){
@@ -38,8 +46,8 @@ public class ConferenceValidations {
         }
     }
 
-    public void validateStartDateAlreadyExists(LocalDateTime startDate) {
-        if (existsStartDate(startDate)) {
+    public void validateStartDateAlreadyExists(LocalDateTime startDate, ConferenceDao conferenceDao) {
+        if (existsStartDate(startDate, conferenceDao)) {
             LOGGER.info("validateAccountAlreadyExists: conf with date {} already exists", startDate);
             throw new StartDateAlreadyExistsException(startDate);
         }
@@ -47,14 +55,14 @@ public class ConferenceValidations {
     }
 
 
-    private boolean existsStartDate(LocalDateTime startDate) {
-        return getActiveByStartDate(startDate).isPresent();
+    private boolean existsStartDate(LocalDateTime startDate, ConferenceDao conferenceDao) {
+        return getActiveByStartDate(startDate, conferenceDao).isPresent();
     }
 
-    public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
+    public Optional<Conference> getActiveByStartDate(LocalDateTime startDate, ConferenceDao conferenceDao) {
         return conferenceDao.getByStartDate(startDate)
                 .stream()
-                .filter(conference -> !conference.getStatus().equals(true))
+                .filter(conference -> !conference.getStatus().equals(false))
                 .findFirst();
     }
 

@@ -16,9 +16,8 @@ public class ConferenceController {
 
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createConference(@RequestBody Conference conference) {  // recibo a travès de requestBody
-        conferenceService.create(conference.getName(),conference.getStartDate(),
-                conference.getEndDate(),conference.getDescription(),conference.getStatus());
+    public void createConference(@RequestBody Conference conference) {
+        conferenceService.create(conference);
     }
 
     // ver si puede ser útil devolver una Conference o con un CREATED alcanza

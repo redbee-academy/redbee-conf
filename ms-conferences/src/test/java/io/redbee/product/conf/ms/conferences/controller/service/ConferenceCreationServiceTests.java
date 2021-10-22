@@ -34,12 +34,7 @@ class ConferenceCreationServiceTests {
             Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
 
 
-            Conference result = service.create(
-                    conf.getName(),
-                    conf.getStartDate(),
-                    conf.getEndDate(),
-                    conf.getDescription(),
-                    conf.getStatus());
+            Conference result = service.create(conf);
 
 
             assertEquals(conf.getName(), result.getName());
@@ -63,12 +58,7 @@ class ConferenceCreationServiceTests {
 
 
             Assertions.assertThrows(StartDateMustBeAfterTodayException.class, () -> {
-                service.create(
-                        conf.getName(),
-                        conf.getStartDate(),
-                        conf.getEndDate(),
-                        conf.getDescription(),
-                        conf.getStatus());
+                service.create(conf);
             });
 
         }
@@ -85,12 +75,7 @@ class ConferenceCreationServiceTests {
         Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
-            service.create(
-                    conf.getName(),
-                    conf.getStartDate(),
-                    conf.getEndDate(),
-                    conf.getDescription(),
-                    conf.getStatus());
+            service.create(conf);
         });
 
     }
@@ -107,12 +92,7 @@ class ConferenceCreationServiceTests {
         Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
-            service.create(
-                    conf.getName(),
-                    conf.getStartDate(),
-                    conf.getEndDate(),
-                    conf.getDescription(),
-                    conf.getStatus());
+            service.create(conf);
         });
 
     }
@@ -129,12 +109,7 @@ class ConferenceCreationServiceTests {
         Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
-            service.create(
-                    conf.getName(),
-                    conf.getStartDate(),
-                    conf.getEndDate(),
-                    conf.getDescription(),
-                    conf.getStatus());
+            service.create(conf);
         });
 
     }
