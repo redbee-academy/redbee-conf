@@ -17,6 +17,10 @@ repositories {
 
 }
 
+jacoco {
+	toolVersion "0.8.6"
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -44,28 +48,8 @@ test {
 
 jacocoTestReport {
 	dependsOn test
+	reports {
+		html.enabled true
+		xml.enabled true
+	}
 }
-
-//jacocoTestCoverageVerification {
-//	violationRules {
-//		rule {
-//			limit {
-//				minimum = 0.0
-//			}
-//		}
-//
-//		rule {
-//			enabled = false
-//			element = 'CLASS'
-//			includes = ['org.gradle.*']
-//
-//			limit {
-//				counter = 'LINE'
-//				value = 'TOTALCOUNT'
-//				maximum = 0.3
-//			}
-//		}
-//	}
-//}
-//
-//check.dependsOn jacocoTestCoverageVerification
