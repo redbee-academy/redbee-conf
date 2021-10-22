@@ -5,7 +5,7 @@ WORKDIR /opt
 ENV PORT 8080
 EXPOSE 8080
 
-COPY build/libs/ms-conferences-*-SNAPSHOT.jar /opt/app.jar
+COPY ./build/libs/ms-conferences-*-SNAPSHOT.jar /opt/app.jar
 
 ENV JAVA_OPTS "-XX:+UseContainerSupport -XX:InitialRAMPercentage=50 -XX:MaxRAMPercentage=70"
 
