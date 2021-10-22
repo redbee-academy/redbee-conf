@@ -7,6 +7,7 @@ import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartD
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import io.redbee.product.conf.ms.conferences.service.ConferenceService;
+import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ConferenceCreationServiceTests {
 
     ConferenceDao conferenceDao =  Mockito.mock(ConferenceDao.class);
-    ConferenceService service = new ConferenceService(conferenceDao);
+    ConferenceService service = new ConferenceService(conferenceDao, Mockito.mock(ConferenceValidations.class));
 
     @Test
     @DisplayName("Get equal conference")

@@ -7,6 +7,7 @@ import io.redbee.product.conf.ms.conferences.shared.util.LocalDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Component
@@ -84,5 +86,24 @@ public class ConferenceDao {
         }
     }
 
+    public Optional<Conference> getById(Integer id) {
+        try {
+            Optional<Conference> result = Optional.ofNullable(
+                    template.queryForObject(
+                            getQuery + " WHERE id = :id",
+                            Map.of("id", id),
+                            new ConferenceRowMapper()
+                    )
+            );
+            LOGGER.info("getById: conference found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("getById: conference with id {} not found", id);
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getById: error {} searching conference with id: {}", e.getMessage(), id);
+            throw new RepositoryException();
+        }
+    }
 }
 
