@@ -41,12 +41,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 20
           min-coverage-changed-files: 50
-  
-  deploy:
+
 #    if: ${{ github.event_name != 'pull_request' && github.event_name != 'pull_request_target' }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - uses: actions/checkout@v2
       - name: docker build and push
         id: docker_build
