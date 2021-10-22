@@ -1,5 +1,5 @@
 
-name: ms-conferences -> build, test, & deploy
+name: ms-conferences
 
 on:
   pull_request:
