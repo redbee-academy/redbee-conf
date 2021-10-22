@@ -36,7 +36,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: ms-conferences-jar
-          path: ./build/libs/
+          path: build/libs/
 
       - name: Add coverage to PR
         id: jacoco
@@ -57,7 +57,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: ms-conferences-jar
-          path: ./build/libs/
+          path: build/libs/
 
       - name: docker build and push
         id: docker_build
