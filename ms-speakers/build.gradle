@@ -17,12 +17,17 @@ repositories {
 
 }
 
+jacoco {
+	toolVersion "0.8.6"
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.liquibase:liquibase-core'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 	runtimeOnly 'org.postgresql:postgresql'
 
@@ -43,28 +48,8 @@ test {
 
 jacocoTestReport {
 	dependsOn test
-}
-
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.5
-			}
-		}
-
-		rule {
-			enabled = false
-			element = 'CLASS'
-			includes = ['org.gradle.*']
-
-			limit {
-				counter = 'LINE'
-				value = 'TOTALCOUNT'
-				maximum = 0.3
-			}
-		}
+	reports {
+		html.enabled true
+		xml.enabled true
 	}
 }
-
-check.dependsOn jacocoTestCoverageVerification
