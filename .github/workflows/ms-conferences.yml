@@ -27,8 +27,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          # server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-          # settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Build with Gradle
         run: gradle build
@@ -36,7 +34,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: ms-conferences-jar
-          path: build/libs/
+          path: ms-conferences/build/libs/
 
       - name: Add coverage to PR
         id: jacoco
@@ -57,7 +55,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: ms-conferences-jar
-          path: build/libs/
+          path: ms-conferences/build/libs/
 
       - name: docker build and push
         id: docker_build
