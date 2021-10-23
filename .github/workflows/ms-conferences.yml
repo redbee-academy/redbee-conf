@@ -72,4 +72,4 @@ jobs:
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_DATA }}
         with: # defaults to latest kubectl binary version
-          args: set image --record deployment/ms-conferences container=registry.dev.redbee.io/conf/ms-conferences:${{ github.sha }}
+          args: set image deployment/ms-conferences ms-conferences=registry.dev.redbee.io/conf/ms-conferences:${{ github.sha }} -n redbee-conf
