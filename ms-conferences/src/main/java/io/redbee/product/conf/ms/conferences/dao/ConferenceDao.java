@@ -69,15 +69,14 @@ public class ConferenceDao {
         return params;
     }
 
-    public Optional<Conference> getByStartDate(LocalDateTime start_date) {
+    public List<Conference> getByStartDate(LocalDateTime start_date) {
         try {
-            Optional<Conference> result = Optional.ofNullable(
-                    template.queryForObject(
+            List<Conference> result =
+                    template.query(
                             getQuery + " WHERE start_date = :start_date",
                             Map.of("start_date", start_date),
                             new ConferenceRowMapper()
-                    )
-            );
+                    );
             LOGGER.info("getByStartDate: conf found {}", result);
             return result;
         } catch (DataAccessException e) {

@@ -16,26 +16,22 @@ import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 
 @Service
 public class ConferenceService {
-        @Autowired
-        private ConferenceDao conferenceDao;
-
+        private final ConferenceDao conferenceDao;
+        private final ConferenceValidations validations;
 
         private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
 
-        public ConferenceService(ConferenceDao conferenceDao) {
+        public ConferenceService(ConferenceDao conferenceDao, ConferenceValidations validations) {
             this.conferenceDao = conferenceDao;
+            this.validations = validations;
         }
-    private final ConferenceValidations validations = new ConferenceValidations(conferenceDao);
         public Conference create(Conference conference){
             validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
-            System.out.println("Here2");
-            validations.validateStartDateAlreadyExists(conference.getStartDate(), conferenceDao);
-            System.out.println("here1");
+            validations.validateStartDateAlreadyExists(conference.getStartDate());
             validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
             int id = save(conference);
             return conference.copyId(id);
         }
-
 
     public int save(Conference conference) {
             int id = conferenceDao.save(conference);
