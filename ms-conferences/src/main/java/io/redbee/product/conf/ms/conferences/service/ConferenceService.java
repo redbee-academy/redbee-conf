@@ -27,8 +27,8 @@ public class ConferenceService {
         }
         public Conference create(Conference conference){
             validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
-            validations.validateStartDateAlreadyExists(conference.getStartDate());
             validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
+            validations.validateStartDateAlreadyExists(conference.getStartDate());
             int id = save(conference);
             return conference.copyId(id);
         }
