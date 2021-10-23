@@ -36,7 +36,8 @@ jobs:
           name: ms-conferences-jar
           path: ms-conferences/build/libs/
 
-      - name: Add coverage to PR
+      - if: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_target' }}
+        name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.2
         with:
