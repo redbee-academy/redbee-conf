@@ -10,6 +10,10 @@ on:
     branches:
       - master
 
+defaults:
+  run:
+    working-directory: ./web-app-conf
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,6 +32,6 @@ jobs:
       - name: Deploy
         uses: reggionick/s3-deploy@v3
         with:
-          folder: build
+          folder: web-app-conf/build
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: ${{ secrets.S3_BUCKET_REGION }}
