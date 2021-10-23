@@ -68,7 +68,8 @@ jobs:
           docker --config="$PWD" push registry.dev.redbee.io/conf/ms-conferences:${{ github.sha }}
       
       - name: deploy to cluster
-        uses: steebchen/kubectl@v2.0.0
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_DATA }}
         with: # defaults to latest kubectl binary version
-          config: ${{ secrets.KUBE_CONFIG_DATA }}
-          command: set image --record deployment/ms-conferences container=registry.dev.redbee.io/conf/ms-conferences:${{ github.sha }}
+          args: set image --record deployment/ms-conferences container=registry.dev.redbee.io/conf/ms-conferences:${{ github.sha }}
