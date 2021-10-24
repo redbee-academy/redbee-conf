@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-conferences
+spec:
+  selector:
+    app: ms-conferences
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-conferences
+spec:
+  selector:
+    matchLabels:
+      app: ms-conferences
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ms-conferences
+    spec:
+      containers:
+        - name: ms-conferences
+          image: registry.dev.redbee.io/conf/ms-conferences:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-conferences-postgresql.redbee-conf.svc.cluster.local:5432/postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-conferences-postgresql
+                  key: postgresql-password
+            - name: SERVER_PORT
+              value: "8080"
+      imagePullSecrets:
+        - name: regcred
