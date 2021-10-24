@@ -16,12 +16,13 @@ import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 @Service
 public class ConferenceService {
         private final ConferenceDao conferenceDao;
-        private final ConferenceValidations validations = new ConferenceValidations();
+        private final ConferenceValidations validations;
 
         private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
 
-        public ConferenceService(ConferenceDao conferenceDao) {
+        public ConferenceService(ConferenceDao conferenceDao, ConferenceValidations validations) {
             this.conferenceDao = conferenceDao;
+            this.validations=validations;
         }
 
         public Conference create(String name, //TODO: revisar si es mejor pasar un objeto conference
