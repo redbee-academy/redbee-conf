@@ -3,6 +3,7 @@
 [![ms-conferences](https://github.com/redbee-academy/redbee-conf/actions/workflows/ms-conferences.yml/badge.svg)](https://github.com/redbee-academy/redbee-conf/actions/workflows/ms-conferences.yml)
 [![ms-speakers](https://github.com/redbee-academy/redbee-conf/actions/workflows/ms-speakers.yml/badge.svg)](https://github.com/redbee-academy/redbee-conf/actions/workflows/ms-speakers.yml)
 [![ms-talks](https://github.com/redbee-academy/redbee-conf/actions/workflows/ms-talks.yml/badge.svg)](https://github.com/redbee-academy/redbee-conf/actions/workflows/ms-talks.yml)
+[![web-app-conf](https://github.com/redbee-academy/redbee-conf/actions/workflows/web-app-conf.yml/badge.svg)](https://github.com/redbee-academy/redbee-conf/actions/workflows/web-app-conf.yml)
 
 ## Arq
 
