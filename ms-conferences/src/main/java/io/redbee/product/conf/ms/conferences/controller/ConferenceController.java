@@ -23,6 +23,18 @@ public class ConferenceController {
 
     // ver si puede ser útil devolver una Conference o con un CREATED alcanza
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Conference getConferenceById(@PathVariable Integer id){
+        return conferenceService.getById(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Conference updateConference(@RequestBody Conference conference, @PathVariable Integer id) {
+      return conferenceService.update(conference.copyId(id));
+    }
+
 }
 
 

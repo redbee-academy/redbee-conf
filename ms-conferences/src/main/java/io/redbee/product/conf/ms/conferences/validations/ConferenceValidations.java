@@ -9,14 +9,20 @@ import io.redbee.product.conf.ms.conferences.service.ConferenceService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-
+@Component
 public class ConferenceValidations {
     @Autowired
-    ConferenceDao conferenceDao;
+    final ConferenceDao conferenceDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
+
+    public ConferenceValidations(ConferenceDao conferenceDao) {
+        this.conferenceDao = conferenceDao;
+    }
+
     public void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
         if(startDate.isBefore(LocalDateTime.now())){
             LOGGER.info("validateStartDateIsNoteBeforeToday: cannot set {} as a start date, must be after today", startDate);
