@@ -17,6 +17,6 @@ public class TalkFactory {
       "talk1",
       "microservices",
       "asdasdasd",
-      creationDate);
+      creationDate, "rodri", "rodrigo@gmail.com");
   }
 }
