@@ -61,7 +61,7 @@ public class ConferenceDao {
             return result;
         } catch (EmptyResultDataAccessException e) {
             LOGGER.info("Volume not found  " );
-            return Optional.empty();
+            return Optional.of(5);
         } catch (DataAccessException e) {
             LOGGER.info("getConferenceVolume: error {} searching volume  ", e.getMessage());
             throw new RepositoryException();

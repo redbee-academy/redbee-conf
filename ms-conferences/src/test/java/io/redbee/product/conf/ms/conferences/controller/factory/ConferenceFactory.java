@@ -13,6 +13,7 @@ public class ConferenceFactory {
         return new Conference(
                 1,
                 "Redbee conf vol. 5",
+                5,
                 startDate,
                 endDate,
                 "hello, welcome!",
