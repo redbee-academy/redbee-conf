@@ -59,4 +59,9 @@ public class ConferenceService {
             return id;
         }
 
+    public Conference getByStatus() {
+            Conference conferenceFound = conferenceDao.getByStatus().orElseThrow();
+            LOGGER.info("conference: conference found {}", conferenceFound);
+            return conferenceFound;
+        }
 }

@@ -7,6 +7,7 @@ import io.redbee.product.conf.ms.conferences.shared.util.LocalDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Component
@@ -80,6 +82,25 @@ public class ConferenceDao {
             return result;
         } catch (DataAccessException e) {
             LOGGER.info("getByStartDate: error {} searching conf with date: {}", e.getMessage(), start_date);
+            throw new RepositoryException();
+        }
+    }
+    public Optional<Conference> getByStatus() {
+        try {
+            Optional<Conference> result = Optional.ofNullable(
+                    template.queryForObject(
+                            getQuery + " WHERE status = 0",
+                            Map.of("status", 0),
+                            new ConferenceRowMapper()
+                    )
+            );
+            LOGGER.info("getByStatus: conference found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("getByStatus: conference with status {} not found", 0);
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getByStatus: error {} searching conference with status {}", e.getMessage(), 0);
             throw new RepositoryException();
         }
     }
