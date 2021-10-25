@@ -15,7 +15,7 @@ La URL del back-end se define en la variable de entorno `REACT_APP_BACKEND_URL`.
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start` o `npm start-backoffice`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
