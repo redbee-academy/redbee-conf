@@ -3,7 +3,6 @@ package io.redbee.product.conf.ms.conferences.service;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.models.Conference;
-import liquibase.pro.packaged.C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,19 +22,15 @@ public class ConferenceService {
             this.validations = validations;
         }
 
-        public Conference create(String name, //TODO: revisar si es mejor pasar un objeto conference
-                LocalDateTime startDate,
-                LocalDateTime endDate,
-                String description,Boolean status){
-            Conference conference = buildWith(name,startDate,endDate,description, status);
-            validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
-            System.out.println("Here2");
-            validations.validateStartDateAlreadyExists(conference.getStartDate());
-            System.out.println("here1");
-            validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
-            int id = save(conference);
-            return conference.copyId(id);
-        }
+    public Conference create(String name, //TODO: revisar si es mejor pasar un objeto conference
+                             LocalDateTime startDate,
+                             LocalDateTime endDate,
+                             String description, Boolean status) {
+        Conference conference = buildWith(name, startDate, endDate, description, status);
+        isConferenceValid(conference);
+        int id = save(conference);
+        return conference.copyId(id);
+    }
 
         private Conference buildWith(String name,
                                      LocalDateTime startDate,
@@ -64,16 +59,25 @@ public class ConferenceService {
             return conferenceFound;
     }
 
-    public Conference update(Conference conference, Integer id){
-            Conference toUpdate = conferenceDao.getById(id).orElseThrow();
-            Conference updated = new Conference(
-                    id,
-                    toUpdate.getName(),
-                    conference.getStartDate(),
-                    conference.getEndDate(),
-                    conference.getDescription(),
-                    conference.getStatus()
-                    );
-           return conferenceDao.update(updated);
+    public Conference update(Conference conference) {
+        Conference toUpdate = conferenceDao.getById(conference.getId()).orElseThrow();
+        Conference updated = new Conference(
+                toUpdate.getId(),
+                toUpdate.getName(),
+                conference.getStartDate(),
+                conference.getEndDate(),
+                conference.getDescription(),
+                conference.getStatus()
+        );
+        isConferenceValid(conference);
+        return conferenceDao.update(updated);
+    }
+
+    private void isConferenceValid(Conference conference) {
+        validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
+        System.out.println("Here2");
+        validations.validateStartDateAlreadyExists(conference.getStartDate());
+        System.out.println("here1");
+        validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(), conference.getEndDate());
     }
 }

@@ -32,7 +32,7 @@ public class ConferenceController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Conference updateConference(@RequestBody Conference conference, @PathVariable Integer id) {
-      return conferenceService.update(conference, id);
+      return conferenceService.update(conference.copyId(id));
     }
 
 }
