@@ -59,10 +59,8 @@ class ConferenceCreationServiceTests {
             Assertions.assertThrows(StartDateMustBeAfterTodayException.class, () -> {
                 service.create(conf);
             });
-
         }
-
-        /*
+//a
     @Test
     @DisplayName("Validate EndDate")
     void validateEndDateTest(){
@@ -72,7 +70,7 @@ class ConferenceCreationServiceTests {
         conf.setEndDate(endDate);
 
 
-        Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
+        Mockito.when(conferenceDao.save(conf)).thenThrow(EndDateMustBeAfterStartDateException.class);
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf);
@@ -88,8 +86,7 @@ class ConferenceCreationServiceTests {
         Conference conf = ConferenceFactory.getConference();
         conf.setStartDate(startDate);
         conf.setEndDate(endDate);
-
-        Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
+        Mockito.when(conferenceDao.save(conf)).thenThrow(EndDateMustBeAfterStartDateException.class);
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf);
@@ -106,7 +103,7 @@ class ConferenceCreationServiceTests {
         conf.setStartDate(startDate);
         conf.setEndDate(endDate);
 
-        Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
+        Mockito.when(conferenceDao.save(conf)).thenThrow(EndDateMustBeAfterStartDateException.class);
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf);
@@ -114,6 +111,6 @@ class ConferenceCreationServiceTests {
 
     }
 
-         */
+
 
 }
