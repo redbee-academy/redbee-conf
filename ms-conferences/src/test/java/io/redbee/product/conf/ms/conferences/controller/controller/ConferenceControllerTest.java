@@ -8,6 +8,7 @@ import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsEx
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import io.redbee.product.conf.ms.conferences.service.ConferenceService;
+import liquibase.integration.spring.SpringLiquibase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -36,6 +37,8 @@ public class ConferenceControllerTest {
     @MockBean
     private ConferenceService conferenceService;
 
+    @MockBean
+    private SpringLiquibase springLiquibase;
 //    @Test
 //    @DisplayName("Given a request to create conf when call get status 201")
 //    void createConf() throws Exception {
