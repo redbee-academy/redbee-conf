@@ -30,6 +30,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
 	testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
+  testImplementation "org.mockito:mockito-core:3.+"
 
 }
 

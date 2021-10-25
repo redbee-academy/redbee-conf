@@ -14,11 +14,13 @@ public class Talk {
     private String talk_topic;
     private String talk_description;
     private LocalDateTime creation_date;
+    private String speaker_name;
+    private String speaker_email;
 
     public Talk (){
 
     }
-    public Talk(Integer id, Boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date) {
+    public Talk(Integer id, Boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date, String speaker_name, String speaker_email) {
         this.id = id;
         this.redbee_employee = redbee_employee;
         this.reference = reference;
@@ -26,12 +28,22 @@ public class Talk {
         this.talk_topic = talk_topic;
         this.talk_description = talk_description;
         this.creation_date = creation_date;
+        this.speaker_name = speaker_name;
+        this.speaker_email = speaker_email;
     }
 
-    public Talk(int id, boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date) {
+    public Talk(int id, boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date, String speaker_name, String speaker_email) {
     }
 
-    public Integer getId() {
+  public String getSpeaker_name() {
+    return speaker_name;
+  }
+
+  public String getSpeaker_email() {
+    return speaker_email;
+  }
+
+  public Integer getId() {
         return id;
     }
 

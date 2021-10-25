@@ -19,7 +19,9 @@ public class TalkRowMapper implements RowMapper<Talk> {
                 rs.getString("talk_name"),
                 rs.getString("talk_topic"),
                 rs.getString("talk_description"),
-                formatDate(rs.getTimestamp("creation_date"))
+                formatDate(rs.getTimestamp("creation_date")),
+                rs.getString("speaker_name"),
+                rs.getString("speaker_email")
         );
     }
 }

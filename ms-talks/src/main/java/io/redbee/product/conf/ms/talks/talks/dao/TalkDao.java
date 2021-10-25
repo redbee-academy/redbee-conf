@@ -25,8 +25,8 @@ public class TalkDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(TalkDao.class);
 
     private static final String insertQuery = "" +
-            "INSERT INTO talks (redbee_employee, reference, talk_name, talk_topic, talk_description, creation_date)" +
-            "VALUES (:redbee_employee, :reference, :talk_name, :talk_topic, :talk_description, :creation_date)";
+            "INSERT INTO talks (redbee_employee, reference, talk_name, talk_topic, talk_description, creation_date, speaker_name, speaker_email)" +
+            "VALUES (:redbee_employee, :reference, :talk_name, :talk_topic, :talk_description, :creation_date, :speaker_name, :speaker_email)";
 
     public int save (Talk talk){
         try {
@@ -50,6 +50,8 @@ public class TalkDao {
         params.addValue("talk_topic", talk.getTalk_topic());
         params.addValue("talk_description", talk.getTalk_description());
         params.addValue("creation_date", talk.getCreation_date());
+        params.addValue("speaker_name", talk.getSpeaker_name());
+        params.addValue("speaker_email", talk.getSpeaker_email());
 
         return params;
     }

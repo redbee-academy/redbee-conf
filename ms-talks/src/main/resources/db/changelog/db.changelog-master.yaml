@@ -42,3 +42,20 @@ databaseChangeLog:
                   type: date
                   constraints:
                     nullable: false
+  - changeSet:
+      id: '2'
+      author: Luci
+      changes:
+        - addColumn:
+            tableName: talks
+            columns:
+              - column:
+                  name: speaker_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: speaker_email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

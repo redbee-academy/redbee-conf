@@ -20,11 +20,15 @@ public class TalkCreationService {
         this.dao = dao;
     }
 
-    public Talk create(Boolean redbee_employee,
+    public Talk create(
+                       Boolean redbee_employee,
                        String reference,
                        String talk_name,
                        String talk_topic,
-                       String talk_description) {
+                       String talk_description,
+                       String speaker_name,
+                       String speaker_email
+                       ) {
         Talk talk = buildWith(redbee_employee, reference, talk_name, talk_topic, talk_description);
         int id = save(talk);
 
