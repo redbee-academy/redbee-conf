@@ -47,7 +47,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
         startDate: startDate,
         endDate: endDate,
         description: description,
-        visibility: isVisible
+        status: isVisible
       }
 
       updateData(updatedConf).catch((error)=>{

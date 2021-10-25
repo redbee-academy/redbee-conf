@@ -4,5 +4,5 @@ export interface Conference {
     startDate: Date,
     endDate: Date,
     description: String,
-    visibility: String
+    status: boolean
 }
