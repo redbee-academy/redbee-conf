@@ -2,7 +2,6 @@
   "name": "redbee-conf",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://a266939254c0943c486fbe41807f5f4e-1817017630.us-east-1.elb.amazonaws.com",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.12.3",
