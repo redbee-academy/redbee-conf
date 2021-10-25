@@ -2,16 +2,9 @@ import { FunctionComponent, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button, Form } from "react-bootstrap";
 import { Conference } from "../../domain/Conference";
-import { KeyboardDatePicker } from "@material-ui/pickers";
 import "./conference.css";
 
-export interface ConferenceProps {
-  name: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  status: boolean;
-}
+
 
 export const ConferenceComponent: FunctionComponent = () => {
   const {
@@ -19,8 +12,8 @@ export const ConferenceComponent: FunctionComponent = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<ConferenceProps>();
-  const onSubmit: SubmitHandler<ConferenceProps> = (data) => console.log(data);
+  } = useForm<Conference>();
+  const onSubmit: SubmitHandler<Conference> = (data) => console.log(data);
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
 
@@ -31,39 +24,26 @@ export const ConferenceComponent: FunctionComponent = () => {
           <Form.Label>Nombre de la proxima CONF</Form.Label>
           <Form.Control
             type="name"
-            {...register("name")}
             name="name"
             placeholder="Ingrese un nombre"
           />{" "}
-          {/* El placeholder no deberia estar ya que el nombre se genera automaticamente */}
         </Form.Group>
         <div className="d-flex justify-content-between">
-          <Form.Group className="mb-3" controlId="formBasicStartDate">
-            <KeyboardDatePicker
-              {...register("startDate")}
-              name="startDate"
-              value={startDate}
-              format="dd/MM/yyyy"
-              label="Fecha de comienzo"
-              onChange={(date) => setStartDate(date)}
-              disablePast
-              invalidDateMessage="Formato de fecha incorrecto"
-              minDateMessage="No debe ser menor a la fecha de hoy"
-            />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicStartDate">
+        <Form.Label>Fecha de inicio</Form.Label>
+          <Form.Control
+            type="date"
+            {...register("start_date")}
+            name="start_date"
+          />{" "}
+        </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEndDate">
-            <KeyboardDatePicker
-              {...register("endDate")}
-              name="endDate"
-              value={endDate}
-              format="dd/MM/yyyy"
-              label="Fecha de finalización"
-              onChange={(date) => setEndDate(date)}{...console.log(endDate)}
-              disablePast
-              minDate={startDate}
-              invalidDateMessage="Formato de fecha incorrecto"
-              minDateMessage="No debe ser menor a la fecha de hoy"
-            />
+          <Form.Label>Fecha de finalización</Form.Label>
+          <Form.Control
+            type="date"
+            {...register("end_date")}
+            name="end_date"
+          />{" "}
           </Form.Group>
         </div>
         <Form.Group className="mb-3" controlId="formBasicDescription">
