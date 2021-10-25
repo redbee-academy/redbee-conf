@@ -7,6 +7,7 @@ import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartD
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import io.redbee.product.conf.ms.conferences.service.ConferenceService;
+import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ConferenceCreationServiceTests {
 
     ConferenceDao conferenceDao =  Mockito.mock(ConferenceDao.class);
-    ConferenceService service = new ConferenceService(conferenceDao);
+    ConferenceValidations validations = Mockito.mock(ConferenceValidations.class);
+    ConferenceService service = new ConferenceService(conferenceDao, validations);
 
     @Test
     @DisplayName("Get equal conference")
@@ -52,17 +54,13 @@ class ConferenceCreationServiceTests {
             Conference conf = ConferenceFactory.getConference();
             conf.setStartDate(startDate);
 
-
             Mockito.when(conferenceDao.save(conf)).thenThrow(StartDateMustBeAfterTodayException.class);
-
-
 
             Assertions.assertThrows(StartDateMustBeAfterTodayException.class, () -> {
                 service.create(conf);
             });
-
         }
-
+//a
     @Test
     @DisplayName("Validate EndDate")
     void validateEndDateTest(){
@@ -72,7 +70,7 @@ class ConferenceCreationServiceTests {
         conf.setEndDate(endDate);
 
 
-        Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
+        Mockito.when(conferenceDao.save(conf)).thenThrow(EndDateMustBeAfterStartDateException.class);
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf);
@@ -88,8 +86,7 @@ class ConferenceCreationServiceTests {
         Conference conf = ConferenceFactory.getConference();
         conf.setStartDate(startDate);
         conf.setEndDate(endDate);
-
-        Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
+        Mockito.when(conferenceDao.save(conf)).thenThrow(EndDateMustBeAfterStartDateException.class);
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf);
@@ -106,12 +103,14 @@ class ConferenceCreationServiceTests {
         conf.setStartDate(startDate);
         conf.setEndDate(endDate);
 
-        Mockito.when(conferenceDao.save(conf)).thenReturn(conf.getId());
+        Mockito.when(conferenceDao.save(conf)).thenThrow(EndDateMustBeAfterStartDateException.class);
 
         Assertions.assertThrows(EndDateMustBeAfterStartDateException.class, () -> {
             service.create(conf);
         });
 
     }
+
+
 
 }

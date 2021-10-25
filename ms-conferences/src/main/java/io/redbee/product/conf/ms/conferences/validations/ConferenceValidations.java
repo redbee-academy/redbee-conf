@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@Validated
+@Component
 public class ConferenceValidations {
     @Autowired
     public final ConferenceDao conferenceDao;
@@ -46,8 +46,8 @@ public class ConferenceValidations {
         }
     }
 
-    public void validateStartDateAlreadyExists(LocalDateTime startDate, ConferenceDao conferenceDao) {
-        if (existsStartDate(startDate, conferenceDao)) {
+    public void validateStartDateAlreadyExists(LocalDateTime startDate) {
+        if (existsStartDate(startDate)) {
             LOGGER.info("validateAccountAlreadyExists: conf with date {} already exists", startDate);
             throw new StartDateAlreadyExistsException(startDate);
         }
@@ -55,14 +55,13 @@ public class ConferenceValidations {
     }
 
 
-    private boolean existsStartDate(LocalDateTime startDate, ConferenceDao conferenceDao) {
-        return getActiveByStartDate(startDate, conferenceDao).isPresent();
+    private boolean existsStartDate(LocalDateTime startDate) {
+        return getActiveByStartDate(startDate).isPresent();
     }
 
-    public Optional<Conference> getActiveByStartDate(LocalDateTime startDate, ConferenceDao conferenceDao) {
+    public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
         return conferenceDao.getByStartDate(startDate)
                 .stream()
-                .filter(conference -> !conference.getStatus().equals(false))
                 .findFirst();
     }
 
