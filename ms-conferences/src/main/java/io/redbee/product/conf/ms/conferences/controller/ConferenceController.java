@@ -4,6 +4,8 @@ import io.redbee.product.conf.ms.conferences.service.ConferenceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/conference")
@@ -19,6 +21,12 @@ public class ConferenceController {
     public void createConference(@RequestBody Conference conference) {
         conferenceService.create(conference);
     }
+
+    @GetMapping()
+    public Integer getNextVolume(){
+       return conferenceService.getConferenceVolume();
+    }
+
 
     // ver si puede ser útil devolver una Conference o con un CREATED alcanza
 

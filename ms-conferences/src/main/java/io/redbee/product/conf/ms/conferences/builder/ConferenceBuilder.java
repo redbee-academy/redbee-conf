@@ -11,9 +11,14 @@ public class ConferenceBuilder {
     private LocalDateTime endDate;
     private String description;
     private Boolean visibility;
+    private Integer volume;
 
     public ConferenceBuilder id(Integer id) {
         this.id = id;
+        return this;
+    }
+    public ConferenceBuilder volume(Integer volume){
+        this.volume=volume;
         return this;
     }
 
@@ -47,6 +52,7 @@ public class ConferenceBuilder {
     public ConferenceBuilder basedOn(Conference conference) {
         this.id = conference.getId();
         this.name = conference.getName();
+        this.volume =conference.getVolume();
         this.startDate = conference.getStartDate();
         this.endDate = conference.getEndDate();
         this.description = conference.getDescription();
@@ -59,6 +65,7 @@ public class ConferenceBuilder {
         return new Conference(
                 id,
                 name,
+                volume,
                 startDate,
                 endDate,
                 description,

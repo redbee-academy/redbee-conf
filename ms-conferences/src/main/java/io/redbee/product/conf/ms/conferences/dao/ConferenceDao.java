@@ -12,12 +12,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.dao.EmptyResultDataAccessException;
+
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 
 @Component
@@ -38,11 +37,37 @@ public class ConferenceDao {
     private static final String getQuery = "SELECT " +
             "id, " +
             "name, " +
+            "volume," +
             "start_date, " +
             "end_date, " +
             "description, " +
             "status " +
             "FROM conferences";
+
+    private static final String volumeQuery = "SELECT " +
+            "volume " +
+            "FROM conferences ORDER BY volume DESC LIMIT 1";
+
+    public Optional<Integer> getConferenceVolume( ) {
+        try {
+            Optional<Integer> result = Optional.ofNullable(
+                    template.queryForObject(
+                            volumeQuery,
+                            Collections.emptyMap(),
+                            Integer.class
+                    )
+                    );
+            LOGGER.info("getById: user found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("Volume not found  " );
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getConferenceVolume: error {} searching volume  ", e.getMessage());
+            throw new RepositoryException();
+        }
+    }
+
 
     public int save(Conference conference) {
         try {
@@ -61,6 +86,7 @@ public class ConferenceDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", conference.getId());
         params.addValue("name", conference.getName());
+        params.addValue("volume",conference.getVolume());
         params.addValue("start_date", conference.getStartDate());
         params.addValue("end_date", conference.getEndDate());
         params.addValue("description", conference.getDescription());

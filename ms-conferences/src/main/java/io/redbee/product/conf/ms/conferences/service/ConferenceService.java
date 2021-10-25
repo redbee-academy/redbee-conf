@@ -5,12 +5,15 @@ import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsEx
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
+import io.redbee.product.conf.ms.conferences.exceptions.VolumeNotFoundException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 
 
@@ -37,6 +40,13 @@ public class ConferenceService {
             int id = conferenceDao.save(conference);
             LOGGER.info("conference: conference {} saved", id);
             return id;
+        }
+
+        public Integer getConferenceVolume(){
+             Integer volume = conferenceDao.getConferenceVolume()
+                             .orElseThrow(() -> new VolumeNotFoundException());
+            LOGGER.info("volume: volume {} found",volume);
+            return volume;
         }
 
 }
