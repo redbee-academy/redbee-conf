@@ -1,15 +1,25 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import UserLoginGoogleButton from "../LoginGoogle/UserLoginGoogleButton";
 import './style.css'
 import img from './isologo_rbconf.png'
-interface ConferenceProps{
-    name: string,
-    startDate: Date,
-    endDate: Date,
-    description?: string,
-}
-export const Conference: FunctionComponent<ConferenceProps> = ({name, startDate, endDate, description}) => (
+import * as conferenceService from "../../services/conferenceService";
+import { Conference } from "../../domain/conference";
+
+
+
+export const ConferenceComponent: FunctionComponent = () => {
+  const [data, setData] = useState<Conference>();
+
+  useEffect(() => {
+    conferenceService
+      .getConferenceByVisibility()
+      .then(response => {
+        setData(response)
+      })
+  })
+  
+  return (
      <main>
       <Container>
         <Row>
@@ -22,9 +32,9 @@ export const Conference: FunctionComponent<ConferenceProps> = ({name, startDate,
         <Container className="content">
           <Row>
             <Col className="left">
-              <h1>Sumate a la {name}</h1>
+              <h1>Sumate a la {data?.name}</h1>
               <div>
-                <p>{description}</p>
+                <p>{data?.description}</p>
               
                 <Button id="button" variant="light">Inscribirme</Button>
              </div>
@@ -34,10 +44,11 @@ export const Conference: FunctionComponent<ConferenceProps> = ({name, startDate,
               </div>
             </Col>
             <Col className="right">
-              <div id="fecha">Entre el {startDate.getDate()} y el {endDate.getDate()} de {endDate.getMonth()}</div>
-            </Col>
+              <div id="fecha">Entre el {data?.startDate.getDate()} y el {data?.endDate.getDate()} de <span className="capitalLetter">{data?.endDate.toLocaleString("es-ar", {month:'long'})}</span></div>
+            </Col> 
           </Row>
       </Container>
    
     </main>
-)
+  )
+}

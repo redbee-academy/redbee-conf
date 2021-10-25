@@ -22,9 +22,10 @@ public class ConferenceController {
     }
 
     // ver si puede ser útil devolver una Conference o con un CREATED alcanza
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping()
-    public Conference getConferenceByStatus(){
-        return conferenceService.getByStatus();
+    public Conference getConferenceByVisibility(){
+        return conferenceService.getConfVisible();
     }
 
 }

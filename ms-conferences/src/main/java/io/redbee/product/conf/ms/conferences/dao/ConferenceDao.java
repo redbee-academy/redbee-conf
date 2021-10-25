@@ -15,10 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 
 @Component
@@ -85,22 +82,22 @@ public class ConferenceDao {
             throw new RepositoryException();
         }
     }
-    public Optional<Conference> getByStatus() {
+    public Optional<Conference> getByStatus(Boolean isVisible) {
         try {
             Optional<Conference> result = Optional.ofNullable(
                     template.queryForObject(
-                            getQuery + " WHERE status = 0",
-                            Map.of("status", 0),
+                            getQuery + " WHERE status = :isVisible",
+                            Map.of("isVisible", isVisible),
                             new ConferenceRowMapper()
                     )
             );
             LOGGER.info("getByStatus: conference found: {}", result);
             return result;
         } catch (EmptyResultDataAccessException e) {
-            LOGGER.info("getByStatus: conference with status {} not found", 0);
+            LOGGER.info("getByStatus: conference with status {} not found", isVisible);
             return Optional.empty();
         } catch (DataAccessException e) {
-            LOGGER.info("getByStatus: error {} searching conference with status {}", e.getMessage(), 0);
+            LOGGER.info("getByStatus: error {} searching conference with status {}", e.getMessage(), isVisible);
             throw new RepositoryException();
         }
     }
