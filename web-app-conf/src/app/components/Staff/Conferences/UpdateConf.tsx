@@ -96,7 +96,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
               </Form.Group>
 
               <Form.Label>Estado</Form.Label>
-              <Form.Check label='Es visible' checked={isVisible} onChange={e => setVisible(e.target.value)} />
+              <Form.Check label='Es visible' checked={isVisible} onClick={()=> setVisible(!isVisible)} />
               <div className="d-flex justify-content-between pt-4" >
                 <Button variant="outline-secondary">Cancelar</Button>{' '}
                 <Button variant="primary" type="submit">Guardar</Button>{' '}
