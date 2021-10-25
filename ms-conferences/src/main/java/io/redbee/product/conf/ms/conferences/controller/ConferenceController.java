@@ -28,6 +28,13 @@ public class ConferenceController {
     public Conference getConferenceById(@PathVariable Integer id){
         return conferenceService.getById(id);
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Conference updateConference(@RequestBody Conference conference, @PathVariable Integer id) {
+      return conferenceService.update(conference, id);
+    }
+
 }
 
 

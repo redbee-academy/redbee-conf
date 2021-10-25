@@ -18,8 +18,8 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
   const [description, setDescription] = useState<any>()
   const [isVisible, setVisible] = useState<any>()
   const [isLoading, setIsLoading] = useState<Boolean>(true)
-  const fetchData = useFetch<any, any>(confId)
-  const updateData = useFetch<any, any>(confId, 'PUT')
+  const fetchData = useFetch<any, any>(`conference/${confId}`)
+  const updateData = useFetch<any, any>(`conference/${confId}`, 'PUT')
 
   useEffect(() =>{
      fetchData()
@@ -28,7 +28,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({
        setStartDate(data.startDate)
        setEndDate(data.endDate)
        setDescription(data.description)
-       setVisible(data.visibility)
+       setVisible(data.status)
        setIsLoading(false)
      })
      .catch((error)=>{

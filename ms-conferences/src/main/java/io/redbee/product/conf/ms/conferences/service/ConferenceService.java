@@ -3,6 +3,7 @@ package io.redbee.product.conf.ms.conferences.service;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
 import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.models.Conference;
+import liquibase.pro.packaged.C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -61,5 +62,18 @@ public class ConferenceService {
             Conference conferenceFound = conferenceDao.getById(id).orElseThrow();
             LOGGER.info("conference: conference found {}", conferenceFound);
             return conferenceFound;
+    }
+
+    public Conference update(Conference conference, Integer id){
+            Conference toUpdate = conferenceDao.getById(id).orElseThrow();
+            Conference updated = new Conference(
+                    id,
+                    toUpdate.getName(),
+                    conference.getStartDate(),
+                    conference.getEndDate(),
+                    conference.getDescription(),
+                    conference.getStatus()
+                    );
+           return conferenceDao.update(updated);
     }
 }

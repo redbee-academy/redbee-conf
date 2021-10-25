@@ -45,6 +45,14 @@ public class ConferenceDao {
             "status " +
             "FROM conferences";
 
+    private static final String updateQuery = "" +
+            "UPDATE conferences SET name=:name," +
+            " start_date= :start_date, " +
+            "end_date= :end_date, " +
+            "description= :description," +
+            "status= :status " +
+             "WHERE id = :id";
+
     public int save(Conference conference) {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -104,6 +112,17 @@ public class ConferenceDao {
             LOGGER.info("getById: error {} searching conference with id: {}", e.getMessage(), id);
             throw new RepositoryException();
         }
+    }
+
+    public Conference update(Conference conference){
+        try{
+            template.update(updateQuery, conferenceToParamMap(conference));
+            LOGGER.info("update: conference {} updated", conference.getId());
+            return conference;
+        } catch (Exception e){
+            LOGGER.info("update: error {},updating conference {}", e.getMessage(), conference.getId());
+        }
+        return conference;
     }
 }
 
