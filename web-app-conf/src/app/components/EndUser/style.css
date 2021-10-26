@@ -85,3 +85,7 @@ main{
 .capitalLetter{
     text-transform: capitalize;
 }
+#noData{
+    position: static;
+    margin-top: 100px;
+}

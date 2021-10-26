@@ -18,7 +18,7 @@ export const ConferenceComponent: FunctionComponent = () => {
         setData(response)
       })
   },[])
-  
+  if(data){
   return (
      <main>
       <Container>
@@ -48,7 +48,22 @@ export const ConferenceComponent: FunctionComponent = () => {
             </Col> 
           </Row>
       </Container>
-   
-    </main>
-  )
+   </main>)}
+   else{
+     return (<main>
+     <Container>
+       <Row>
+         <Col className="header">
+          <img src={img} alt="isologo redbeeConf" className="logo"/>
+          <Button variant="outline-light">Ingresar</Button>{''}
+         </Col>
+       </Row>
+       </Container>
+       <Container className="content">
+           <Col className="left" id="noData">
+             <h1>Estamos preparando la próxima redbeeConf!</h1>
+          </Col>
+          </Container>
+        </main>)
+   }
 }
