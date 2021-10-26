@@ -41,7 +41,6 @@ public class TalksCreationServiceTest {
     assertEquals(talk.getTalk_name(), res.getTalk_name());
     assertEquals(talk.getTalk_topic(), res.getTalk_topic());
     assertEquals(talk.getTalk_description(), res.getTalk_description());
-    assertEquals(talk.getCreation_date(), res.getCreation_date());
     assertEquals(talk.getSpeaker_name(), res.getSpeaker_name());
     assertEquals(talk.getSpeaker_email(), res.getSpeaker_email());
   }
