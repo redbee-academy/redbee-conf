@@ -1,13 +1,12 @@
 import { FunctionComponent } from "react";
 import { App } from "../App";
-import UserLoginGoogleButton from "../LoginGoogle/UserLoginGoogleButton";
-
+import './style.css'
+import { ConferenceComponent } from "./ConferenceComponent";
 
 const EndUserApp: FunctionComponent = () => {
   return <App>
-    <div>Edita <code>src/app/components/EndUser.tsx</code> para continuar</div>
-    <div><UserLoginGoogleButton/></div>
-  </App>
+    <ConferenceComponent/>
+    </App>
 }
 
 export default EndUserApp;

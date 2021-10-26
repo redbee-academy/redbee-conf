@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { GoogleUserInfo } from "../../domain/googleUserInfo";
 
@@ -20,7 +21,7 @@ const UserLoginGoogleButton : FunctionComponent = () => {
     return <GoogleLogin
     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
     render={renderProps => (
-        <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Postular tu charla</button>
+        <Button variant="light" onClick={renderProps.onClick} disabled={renderProps.disabled}>Postulá tu charla aquí</Button>
       )}
     onSuccess={loginSucessful}
     onFailure={loginFailure}
