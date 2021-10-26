@@ -30,7 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start-backoffice": "REACT_APP_IS_STAFF=1 react-scripts start",
-    "build": "npm run build-end-user && npm run build-staff",
+    "build": "CI=false npm run build-end-user && npm run build-staff",
     "build-end-user": "REACT_APP_IS_STAFF=0 react-scripts build",
     "build-staff": "REACT_APP_IS_STAFF=1 BUILD_PATH=./build/admin PUBLIC_URL=/admin react-scripts build",
     "test": "react-scripts test",
