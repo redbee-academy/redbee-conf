@@ -1,1 +1,61 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: '1'
+      author: Luci
+      changes:
+        - createTable:
+            tableName: talks
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primary_key: true
+                    nullable: false
+              - column:
+                  name: redbee_employee
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reference
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: talk_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: talk_topic
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: talk_description
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: date
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: '2'
+      author: Luci
+      changes:
+        - addColumn:
+            tableName: talks
+            columns:
+              - column:
+                  name: speaker_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: speaker_email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
