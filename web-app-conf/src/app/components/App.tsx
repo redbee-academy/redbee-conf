@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import { AppConfiguration } from '../domain';
 import { AppConfigurationContext } from '../context';
-import StaffApp from './Staff/Staff';
 
 const CONFIGURATION: AppConfiguration = {
   conferencesUrl: process.env.REACT_APP_MS_CONFERENCES_URL as string,

@@ -1,12 +1,14 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent} from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button, Form } from "react-bootstrap";
 import { Conference } from "../../domain/Conference";
+import {useGet, usePost} from "../../../../../hooks/useHTTP";
 import "./conference.css";
 
 
 
 export const ConferenceComponent: FunctionComponent = () => {
+
   const {
     register,
     handleSubmit,
@@ -14,8 +16,13 @@ export const ConferenceComponent: FunctionComponent = () => {
     formState: { errors },
   } = useForm<Conference>();
   const onSubmit: SubmitHandler<Conference> = (data) => console.log(data);
-  const [startDate, setStartDate] = useState<any>();
-  const [endDate, setEndDate] = useState<any>();
+
+
+  const [data, isLoading, error] = useGet({
+    url: `/volume`
+  });
+
+
 
   return (
     <div className="conferenceMainForm">
@@ -25,6 +32,7 @@ export const ConferenceComponent: FunctionComponent = () => {
           <Form.Control
             type="name"
             name="name"
+            defaultValue={`redbee conf vol. ${data}`}
             placeholder="Ingrese un nombre"
           />{" "}
         </Form.Group>
