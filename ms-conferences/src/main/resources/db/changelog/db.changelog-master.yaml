@@ -18,11 +18,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                 name: volume
-                 type: serial
-                 constraints:
-                   - nullable: false
-              - column:
                   name: start_date
                   type: timestamp
                   constraints:
@@ -46,4 +41,16 @@ databaseChangeLog:
       id: '2'
       author: academy
       changes:
-        - sql: SELECT setval('conferences_volume_seq', 4, true)
+        - sql: "SELECT setval('conferences_volume_seq', 4, true)"
+
+  - changeSet:
+      id: '3'
+      author: joaco
+      changes:
+        - addColumn:
+            tableName: conferences
+            columns:
+              - name: volume
+                type: serial
+                constraints:
+                  - nullable: false
