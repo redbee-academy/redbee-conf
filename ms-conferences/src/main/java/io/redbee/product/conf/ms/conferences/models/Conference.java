@@ -23,6 +23,9 @@ public class Conference {
         this.visibility = visibility;
     }
 
+    public Conference() {
+    }
+
     public Integer getId() {
         return id;
     }

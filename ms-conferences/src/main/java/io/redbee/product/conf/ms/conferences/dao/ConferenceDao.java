@@ -7,6 +7,7 @@ import io.redbee.product.conf.ms.conferences.shared.util.LocalDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Component
@@ -42,6 +44,14 @@ public class ConferenceDao {
             "description, " +
             "status " +
             "FROM conferences";
+
+    private static final String updateQuery = "" +
+            "UPDATE conferences SET name=:name," +
+            " start_date= :start_date, " +
+            "end_date= :end_date, " +
+            "description= :description," +
+            "status= :status " +
+             "WHERE id = :id";
 
     public int save(Conference conference) {
         try {
@@ -84,5 +94,35 @@ public class ConferenceDao {
         }
     }
 
+    public Optional<Conference> getById(Integer id) {
+        try {
+            Optional<Conference> result = Optional.ofNullable(
+                    template.queryForObject(
+                            getQuery + " WHERE id = :id",
+                            Map.of("id", id),
+                            new ConferenceRowMapper()
+                    )
+            );
+            LOGGER.info("getById: conference found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("getById: conference with id {} not found", id);
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getById: error {} searching conference with id: {}", e.getMessage(), id);
+            throw new RepositoryException();
+        }
+    }
+
+    public Conference update(Conference conference){
+        try{
+            template.update(updateQuery, conferenceToParamMap(conference));
+            LOGGER.info("update: conference {} updated", conference.getId());
+            return conference;
+        } catch (Exception e){
+            LOGGER.info("update: error {},updating conference {}", e.getMessage(), conference.getId());
+        }
+        return conference;
+    }
 }
 
