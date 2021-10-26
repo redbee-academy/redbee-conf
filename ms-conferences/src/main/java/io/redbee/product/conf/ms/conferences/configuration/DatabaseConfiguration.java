@@ -11,7 +11,5 @@ import javax.sql.DataSource;
         public NamedParameterJdbcTemplate conferencesTemplate(DataSource dataSource) {
             return new NamedParameterJdbcTemplate(dataSource);
         }
-        //comment
-
     }
 

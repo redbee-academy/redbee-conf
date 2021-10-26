@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/conference")
+@CrossOrigin("*")
 public class ConferenceController {
     private final ConferenceService conferenceService;
 
@@ -22,7 +23,7 @@ public class ConferenceController {
         conferenceService.create(conference);
     }
 
-    @GetMapping()
+    @GetMapping("/volume")
     public Integer getNextVolume(){
        return conferenceService.getConferenceVolume();
     }

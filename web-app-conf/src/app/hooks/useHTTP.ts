@@ -19,7 +19,7 @@ export const useGet = ({ url, initialState = [] }:{
   url: string
   initialState?: Array<any>;
 }) => {
-  const [data, setData] = useState(initialState);
+  const [data, setData] = useState<any>(initialState);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   useEffect(() => {
