@@ -12,7 +12,7 @@ interface UpdateConfProps {
 const UpdateConf: FunctionComponent<UpdateConfProps> = ({
   confId,
 }) => {
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>({})
   const [startDate, setStartDate] = useState<any>()
   const [endDate, setEndDate] = useState<any>()
   const [description, setDescription] = useState<any>()

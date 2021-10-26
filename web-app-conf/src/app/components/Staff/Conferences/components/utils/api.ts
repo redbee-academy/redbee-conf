@@ -1,6 +1,8 @@
 import axios from 'axios';
 
+const url = process.env.REACT_APP_MS_CONFERENCES_URL
+
 const API = axios.create({
-    baseURL: 'http://localhost:3001/',
+    baseURL: url,
 })
 export default API;

@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { App } from "../App";
-import { ConferenceComponent } from "./Conferences/components/Conference";
+import { ConferenceComponent } from "./Conferences/components/Conference/Conference";
 import UpdateConf from "./Conferences/UpdateConf";
 
 const StaffApp: FunctionComponent = () => {

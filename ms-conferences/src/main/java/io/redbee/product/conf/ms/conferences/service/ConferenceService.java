@@ -67,6 +67,7 @@ public class ConferenceService {
         Conference updated = new Conference(
                 toUpdate.getId(),
                 toUpdate.getName(),
+                conference.getVolume(),
                 conference.getStartDate(),
                 conference.getEndDate(),
                 conference.getDescription(),
