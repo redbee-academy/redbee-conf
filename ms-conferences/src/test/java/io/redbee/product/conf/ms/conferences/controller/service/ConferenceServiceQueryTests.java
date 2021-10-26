@@ -7,6 +7,7 @@ import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Optional;
 
@@ -40,11 +41,11 @@ public class ConferenceServiceQueryTests {
                     .thenReturn(Optional.empty());
 
             // When
-            final var thrown = Assertions.catchThrowable(() -> service.getConfVisible());
+            final var thrown = Assertions.catchThrowable(service::getConfVisible);
 
             // Then
             Assertions.assertThat(thrown)
-                    .isExactlyInstanceOf(java.util.NoSuchElementException.class);
+                    .isExactlyInstanceOf(HttpClientErrorException.class);
         }
 
 }

@@ -10,9 +10,11 @@ import io.redbee.product.conf.ms.conferences.exceptions.VolumeNotFoundException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
+import org.springframework.web.client.HttpClientErrorException;
 
 
 @Service
@@ -49,7 +51,7 @@ public class ConferenceService {
     }
 
     public Conference getConfVisible() {
-            Conference conferenceFound = conferenceDao.getByStatus(true).orElseThrow();
+            Conference conferenceFound = conferenceDao.getByStatus(true).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
             LOGGER.info("conference: conference found {}", conferenceFound);
             return conferenceFound;
     }
