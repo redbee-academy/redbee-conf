@@ -100,33 +100,6 @@ public class ConferenceServiceUpdateTests {
     }
 
     @Test
-    void testUpdateConferenceWhenTimeSlotHasAlreadyBeenUsedFails() {
-        // Given
-        final var conferenceDao = Mockito.mock(ConferenceDao.class);
-        final var conferenceValidations = Mockito.mock(ConferenceValidations.class);
-        final var service = new ConferenceService(conferenceDao, conferenceValidations);
-        final var newConference = ConferenceFactory.getConference();
-
-        Mockito.when(conferenceDao.getById(Mockito.eq(newConference.getId())))
-                .thenReturn(Optional.of(newConference));
-
-        Mockito.doNothing().when(conferenceValidations)
-                .validateStartDateIsNotBeforeToday(Mockito.any());
-
-        Mockito.doThrow(new StartDateAlreadyExistsException(newConference.getStartDate()))
-                .when(conferenceValidations)
-                .validateStartDateAlreadyExists(Mockito.eq(newConference.getStartDate()));
-
-        // When
-        final var thrown = Assertions.catchThrowable(() -> service.update(newConference));
-
-        // Then
-        Assertions.assertThat(thrown)
-                .isExactlyInstanceOf(StartDateAlreadyExistsException.class)
-                .hasMessage("Conf with date " + newConference.getStartDate().toString() + " already exists");
-    }
-
-    @Test
     void testWhenUpdateConferenceEndDateIsBeforeStartDateFails() {
         // Given
         final var conferenceDao = Mockito.mock(ConferenceDao.class);
