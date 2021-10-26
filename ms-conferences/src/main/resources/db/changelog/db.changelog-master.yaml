@@ -37,14 +37,9 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     nullable: false
-  - changeSet:
-      id: '2'
-      author: academy
-      changes:
-        - sql: "SELECT setval('conferences_volume_seq', 4, true)"
 
   - changeSet:
-      id: '3'
+      id: '2'
       author: joaco
       changes:
         - addColumn:
