@@ -5,7 +5,7 @@ import { ConferenceComponent } from "./ConferenceComponent";
 
 const EndUserApp: FunctionComponent = () => {
   return <App>
-    <ConferenceComponent></ConferenceComponent>
+    <ConferenceComponent/>
     </App>
 }
 

@@ -17,7 +17,7 @@ export const ConferenceComponent: FunctionComponent = () => {
       .then(response => {
         setData(response)
       })
-  })
+  },[])
   
   return (
      <main>
