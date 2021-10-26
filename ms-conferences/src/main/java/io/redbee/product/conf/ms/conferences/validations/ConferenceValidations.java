@@ -18,9 +18,11 @@ public class ConferenceValidations {
     @Autowired
     final ConferenceDao conferenceDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
-    public ConferenceValidations(ConferenceDao conferenceDao){
-        this.conferenceDao= conferenceDao;
+
+    public ConferenceValidations(ConferenceDao conferenceDao) {
+        this.conferenceDao = conferenceDao;
     }
+
     public void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
         if(startDate.isBefore(LocalDateTime.now())){
             LOGGER.info("validateStartDateIsNoteBeforeToday: cannot set {} as a start date, must be after today", startDate);

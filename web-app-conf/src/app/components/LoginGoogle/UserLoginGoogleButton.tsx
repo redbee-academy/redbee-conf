@@ -25,7 +25,6 @@ const UserLoginGoogleButton : FunctionComponent = () => {
       )}
     onSuccess={loginSucessful}
     onFailure={loginFailure}
-    cookiePolicy={'single_host_origin'}
   />
 }
 
