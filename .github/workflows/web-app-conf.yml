@@ -1,9 +1,9 @@
 name: web-app-conf
 
 on:
-#  pull_request:
-#    paths:
-#      - ms-talks/**
+  pull_request:
+    paths:
+      - web-app-conf/**
   push:
     paths:
       - web-app-conf/**
@@ -26,7 +26,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy
+      - if: ${{ github.event_name != 'pull_request' && github.event_name != 'pull_request_target' }}
+        name: Deploy
         uses: reggionick/s3-deploy@v3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
