@@ -12,6 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
 import java.time.LocalDateTime;
@@ -141,6 +145,30 @@ public class ConferenceControllerTest {
                         .andReturn().getResponse();
 
         assertEquals(422, response.getStatus());
+
+    }
+
+    @Test
+    @DisplayName("Excpected status 200 of get /conference")
+    void getVolumeConf() throws Exception {
+
+        this.mockMvc.perform(get("/conference"))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DisplayName("Excpected int of conf volume")
+    void getVolumeConf2() throws Exception {
+
+        MvcResult result = this.mockMvc.perform(get("/conference"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+
+        assertEquals("5",contentAsString);
 
     }
 

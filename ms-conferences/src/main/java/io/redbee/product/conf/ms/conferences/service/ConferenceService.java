@@ -19,34 +19,53 @@ import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 
 @Service
 public class ConferenceService {
-        private final ConferenceDao conferenceDao;
-        private final ConferenceValidations validations;
+    private final ConferenceDao conferenceDao;
+    private final ConferenceValidations validations;
 
-        private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
 
-        public ConferenceService(ConferenceDao conferenceDao, ConferenceValidations validations) {
-            this.conferenceDao = conferenceDao;
-            this.validations = validations;
-        }
-        public Conference create(Conference conference){
-            validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
-            validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
-            validations.validateStartDateAlreadyExists(conference.getStartDate());
-            int id = save(conference);
-            return conference.copyId(id);
-        }
+    public ConferenceService(ConferenceDao conferenceDao, ConferenceValidations validations) {
+        this.conferenceDao = conferenceDao;
+        this.validations = validations;
+    }
+    public Conference create(Conference conference){
+        Conference conf =
+                buildWith(conference.getStartDate(),
+                        conference.getEndDate(),
+                        conference.getDescription(),
+                        conference.getStatus());
+        validations.validateStartDateIsNotBeforeToday(conf.getStartDate());
+        validations.validateEndDateIsNotBeforeStartDate(conf.getStartDate(),conf.getEndDate());
+        validations.validateStartDateAlreadyExists(conf.getStartDate());
+        int id = save(conf);
+        return conf.copyId(id);
+    }
+
+    private Conference buildWith(LocalDateTime startDate,
+                                 LocalDateTime endDate,
+                                 String description,
+                                 Boolean status) {
+        return new ConferenceBuilder()
+                .name("Redbee Conf vol")
+                .startDate(startDate)
+                .endDate(endDate)
+                .description(description)
+                .visibility(status)
+                .build();
+    }
+
 
     public int save(Conference conference) {
-            int id = conferenceDao.save(conference);
-            LOGGER.info("conference: conference {} saved", id);
-            return id;
-        }
+        int id = conferenceDao.save(conference);
+        LOGGER.info("conference: conference {} saved", id);
+        return id;
+    }
 
-        public Integer getConferenceVolume(){
-             Integer volume = conferenceDao.getConferenceVolume()
-                             .orElseThrow(() -> new VolumeNotFoundException());
-            LOGGER.info("volume: volume {} found",volume);
-            return volume;
-        }
+    public Integer getConferenceVolume(){
+        Integer volume = conferenceDao.getConferenceVolume()
+                .orElseThrow(() -> new VolumeNotFoundException());
+        LOGGER.info("volume: volume {} found",volume);
+        return volume;
+    }
 
 }
