@@ -50,7 +50,7 @@ public class TalkCreationService {
 
     }
 
-    public int save(Talk talk) {
+    public Integer save(Talk talk) {
         int id = dao.save(talk);
         LOGGER.info("save: talk {} saved", id);
         return id;

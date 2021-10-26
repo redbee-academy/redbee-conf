@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TalksCreationServiceTest {
+
   TalkDao talkDao = Mockito.mock(TalkDao.class);
   TalkCreationService talkCreationService = new TalkCreationService(talkDao);
 

@@ -28,7 +28,7 @@ public class TalkDao {
             "INSERT INTO talks (redbee_employee, reference, talk_name, talk_topic, talk_description, creation_date, speaker_name, speaker_email)" +
             "VALUES (:redbee_employee, :reference, :talk_name, :talk_topic, :talk_description, :creation_date, :speaker_name, :speaker_email)";
 
-    public int save (Talk talk){
+    public Integer save (Talk talk){
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             template.update(insertQuery, talkToParamMap(talk), keyHolder);
