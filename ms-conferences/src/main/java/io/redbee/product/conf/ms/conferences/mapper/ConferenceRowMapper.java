@@ -15,6 +15,7 @@ public class ConferenceRowMapper implements RowMapper<Conference> {
         return new Conference(
                 rs.getInt("id"),
                 rs.getString("name"),
+                rs.getInt("volume"),
                 formatDate(rs.getTimestamp("start_date")),
                 formatDate(rs.getTimestamp("end_date")),
                 rs.getString("description"),

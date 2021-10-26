@@ -7,12 +7,13 @@ import io.redbee.product.conf.ms.conferences.shared.util.LocalDateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.dao.EmptyResultDataAccessException;
+
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -36,6 +37,7 @@ public class ConferenceDao {
     private static final String getQuery = "SELECT " +
             "id, " +
             "name, " +
+            "volume," +
             "start_date, " +
             "end_date, " +
             "description, " +
@@ -49,6 +51,31 @@ public class ConferenceDao {
             "description= :description," +
             "status= :status " +
              "WHERE id = :id";
+
+    private static final String volumeQuery = "SELECT " +
+            "volume " +
+            "FROM conferences ORDER BY volume DESC LIMIT 1";
+
+    public Optional<Integer> getConferenceVolume( ) {
+        try {
+            Optional<Integer> result = Optional.ofNullable(
+                    template.queryForObject(
+                            volumeQuery,
+                            Collections.emptyMap(),
+                            Integer.class
+                    )
+                    );
+            LOGGER.info("getById: user found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("Volume not found  " );
+            return Optional.of(5);
+        } catch (DataAccessException e) {
+            LOGGER.info("getConferenceVolume: error {} searching volume  ", e.getMessage());
+            throw new RepositoryException();
+        }
+    }
+
 
     public int save(Conference conference) {
         try {
@@ -67,6 +94,7 @@ public class ConferenceDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", conference.getId());
         params.addValue("name", conference.getName());
+        params.addValue("volume",conference.getVolume());
         params.addValue("start_date", conference.getStartDate());
         params.addValue("end_date", conference.getEndDate());
         params.addValue("description", conference.getDescription());

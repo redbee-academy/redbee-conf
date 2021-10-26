@@ -13,14 +13,24 @@ public class Conference {
     private LocalDateTime endDate;
     private String description;
     private Boolean visibility;
+    private Integer volume;
 
-    public Conference(Integer id, String name, LocalDateTime startDate, LocalDateTime endDate, String description, Boolean visibility) {
+    public Conference(Integer id, String name, Integer volume, LocalDateTime startDate, LocalDateTime endDate, String description, Boolean visibility) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
         this.visibility = visibility;
+        this.volume=volume;
+    }
+
+    public Integer getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Integer volume) {
+        this.volume = volume;
     }
 
     public Conference() {

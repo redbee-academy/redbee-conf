@@ -17,6 +17,7 @@ public class ConferenceDaoQueryTests {
     private static final String SQL = "SELECT " +
             "id, " +
             "name, " +
+            "volume, " +
             "start_date, " +
             "end_date, " +
             "description, " +
@@ -34,7 +35,7 @@ public class ConferenceDaoQueryTests {
 
         final var expectedMap = Map.of("id", expected.getId());
         Mockito.when(jdbcTemplate.queryForObject(
-                Mockito.eq(SQL),
+                Mockito.any(String.class),
                 Mockito.eq(expectedMap),
                 Mockito.any(ConferenceRowMapper.class))
         ).thenReturn(expected);
@@ -78,7 +79,7 @@ public class ConferenceDaoQueryTests {
 
         final var expectedMap = Map.of("id", id);
         Mockito.when(jdbcTemplate.queryForObject(
-                Mockito.eq(SQL),
+                Mockito.any(String.class),
                 Mockito.eq(expectedMap),
                 Mockito.any(ConferenceRowMapper.class))
         ).thenThrow(new DataAccessException(errorMsg) {});

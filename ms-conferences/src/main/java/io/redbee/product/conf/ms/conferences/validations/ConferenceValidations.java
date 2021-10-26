@@ -13,16 +13,18 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+
 @Component
 public class ConferenceValidations {
-    @Autowired
-    final ConferenceDao conferenceDao;
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
 
+    private final ConferenceDao conferenceDao;
+
+    @Autowired
     public ConferenceValidations(ConferenceDao conferenceDao) {
         this.conferenceDao = conferenceDao;
     }
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceService.class);
     public void validateStartDateIsNotBeforeToday(LocalDateTime startDate){
         if(startDate.isBefore(LocalDateTime.now())){
             LOGGER.info("validateStartDateIsNoteBeforeToday: cannot set {} as a start date, must be after today", startDate);
@@ -60,7 +62,6 @@ public class ConferenceValidations {
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
         return conferenceDao.getByStartDate(startDate)
                 .stream()
-                .filter(conference -> !conference.getStatus().equals(true))
                 .findFirst();
     }
 
