@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-
-
 export interface Conference {
     startDate: Date
     endDate: Date

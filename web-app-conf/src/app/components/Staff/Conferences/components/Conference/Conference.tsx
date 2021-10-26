@@ -1,11 +1,9 @@
 import { FunctionComponent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import * as moment from 'moment';
 import { Button, Form } from "react-bootstrap";
 import { Conference } from "../../domain/Conference";
 import { useGet, usePost } from "../../../../../hooks/useHTTP";
 import "./conference.css";
-import { KeyboardDatePicker } from "@material-ui/pickers";
 
 export const ConferenceComponent: FunctionComponent = () => {
   const {
@@ -46,15 +44,6 @@ export const ConferenceComponent: FunctionComponent = () => {
           <div className="d-flex justify-content-between">
             <Form.Group className="mb-3" controlId="formBasicStartDate">
               <Form.Label>Fecha de inicio</Form.Label>
-             {/*  <KeyboardDatePicker
-                      value={startDate}
-                      format="dd/MM/yyyy"
-                      label="Fecha de comienzo"
-                      onChange={()=>{register("startDate")}}
-                      disablePast
-                      invalidDateMessage="Formato de fecha incorrecto"
-                      minDateMessage="No debe ser menor a la fecha de hoy"
-                    /> */}
               <Form.Control
                 type="date"
                 {...register("startDate")}
