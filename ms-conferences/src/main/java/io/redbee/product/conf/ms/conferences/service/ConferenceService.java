@@ -47,15 +47,15 @@ public class ConferenceService {
         }
 
     public int save(Conference conference) {
-            int id = conferenceDao.save(conference);
-            LOGGER.info("conference: conference {} saved", id);
-            return id;
+        int id = conferenceDao.save(conference);
+        LOGGER.info("conference: conference {} saved", id);
+        return id;
+    }
 
     public Conference getConfVisible() {
             Conference conferenceFound = conferenceDao.getByStatus(true).orElseThrow();
             LOGGER.info("conference: conference found {}", conferenceFound);
             return conferenceFound;
-        }
     }
 
     public Conference getById(Integer id){
