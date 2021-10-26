@@ -39,35 +39,16 @@ public class ConferenceControllerTest {
 
     @MockBean
     private SpringLiquibase springLiquibase;
-//    @Test
-//    @DisplayName("Given a request to create conf when call get status 201")
-//    void createConf() throws Exception {
-//
-//        Conference conf = ConferenceFactory.getConference();
-//
-//        final MockHttpServletResponse response =
-//                this.mockMvc.perform(post("/conference")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(conf)))
-//                        .andReturn().getResponse();
-//
-//        assertEquals(201, response.getStatus());
-//
-//    }
-//
-//    @Test
-//    @DisplayName("Given a conf that already exists, throw exception")
-//    void createConfAlreadyExists() throws Exception {
-//        Conference conf1 = ConferenceFactory.getConference();
-//
-//        final MockHttpServletResponse response =
-//                this.mockMvc.perform(post("/conference")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(objectMapper.writeValueAsString(conf1)))
-//                        .andReturn().getResponse();
-//
-//        assertEquals(422, response.getStatus());
-//    }
+    @Test
+    @DisplayName("When requested an visible conference it should return it")
+    void testGetConferenceByStatusSuccessfully() throws Exception {
+        final var expected = ConferenceFactory.getConference();
+        final var expectedJson = objectMapper.writeValueAsString(expected);
+        Mockito.when(conferenceService.getConfVisible()).thenReturn(expected);
+
+        final var response =
+                mockMvc.perform(get("/conference")).andReturn().getResponse();
+    }
 
     @Test
     @DisplayName("When requested an existing conference it should return it")

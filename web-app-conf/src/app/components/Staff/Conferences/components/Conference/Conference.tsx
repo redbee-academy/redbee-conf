@@ -1,12 +1,13 @@
+
 import { FunctionComponent, useState } from "react";
 import './conference.css'
 import { Button, Form } from "react-bootstrap";
-import { Conference } from "../../domain/Conference";
+//import { Conference } from "../../domain/Conference";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
 
 export interface ConferenceProps {
-    conference: Conference
+  //  conference: Conference
 }
 
 export const ConferenceComponent: FunctionComponent = () => {

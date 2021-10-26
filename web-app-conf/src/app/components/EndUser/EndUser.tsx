@@ -3,13 +3,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useHistory
 } from "react-router-dom";
-import { App } from "../App";
-import UserLoginGoogleButton from "../LoginGoogle/UserLoginGoogleButton";
 import Postulate from "./Postulate/Postulate";
-
+import { ConferenceComponent } from "./ConferenceComponent";
 
 
 const PrivateRoute = (props: any) => {
@@ -25,7 +22,9 @@ const PrivateRoute = (props: any) => {
   return <Route {...rest}>{children}</Route>
 }
 
-const Landing = () => <div>Esta es una hermosa landing <UserLoginGoogleButton /> </div>
+const Landing = () => <div>
+  <ConferenceComponent/>
+</div>
 
 
 const EndUserApp: FunctionComponent = () => {
