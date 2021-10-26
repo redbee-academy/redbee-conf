@@ -5,15 +5,18 @@ import './style.css'
 import img from './isologo_rbconf.png'
 import * as conferenceService from "../../services/conferenceService";
 import { Conference } from "../../domain/conference";
+import { useAppConfiguration } from '../../hooks/configuration'
+
 
 
 
 export const ConferenceComponent: FunctionComponent = () => {
   const [data, setData] = useState<Conference>();
 
+  const appConfiguration = useAppConfiguration()
   useEffect(() => {
     conferenceService
-      .getConferenceByVisibility()
+      .getConferenceByVisibility(appConfiguration)
       .then(response => {
         setData(response)
       })
