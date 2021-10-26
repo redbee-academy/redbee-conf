@@ -1,8 +1,9 @@
 export interface Conference {
-    id: String,
-    name: String,
+    id: string,
+    name: string,
     startDate: Date,
     endDate: Date,
-    description: String,
-    status: boolean
+    description: string,
+    status: boolean,
+    volume?: number
 }

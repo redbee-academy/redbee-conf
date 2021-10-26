@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Collections;
 import java.util.Optional;
+
+import static java.util.Collections.emptyList;
 
 public class ConferenceServiceQueryTests {
         @Test
@@ -18,13 +21,13 @@ public class ConferenceServiceQueryTests {
             final var conferenceDao = Mockito.mock(ConferenceDao.class);
             final var conferenceValidations = Mockito.mock(ConferenceValidations.class);
             final var service = new ConferenceService(conferenceDao, conferenceValidations);
-            final var expected = ConferenceFactory.getConference();
+            final var expected = Collections.singletonList(ConferenceFactory.getConference());
 
             Mockito.when(conferenceDao.getByStatus(Mockito.eq(true)))
-                    .thenReturn(Optional.of(expected));
+                    .thenReturn(expected);
 
             // When
-            final var actual = service.getConfVisible();
+            final var actual = service.getConf(true);
 
             // Then
             Assertions.assertThat(actual).isEqualTo(expected);
@@ -38,14 +41,13 @@ public class ConferenceServiceQueryTests {
             final var service = new ConferenceService(conferenceDao, conferenceValidations);
 
             Mockito.when(conferenceDao.getByStatus(false))
-                    .thenReturn(Optional.empty());
+                    .thenReturn(emptyList());
 
             // When
-            final var thrown = Assertions.catchThrowable(service::getConfVisible);
+            final var actual = service.getConf(false);
 
             // Then
-            Assertions.assertThat(thrown)
-                    .isExactlyInstanceOf(HttpClientErrorException.class);
+            Assertions.assertThat(actual).isEqualTo(emptyList());
         }
 
 }

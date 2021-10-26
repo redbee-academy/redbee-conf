@@ -2,60 +2,50 @@ package io.redbee.product.conf.ms.conferences.controller.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.redbee.product.conf.ms.conferences.controller.ConferenceController;
 import io.redbee.product.conf.ms.conferences.controller.factory.ConferenceFactory;
 import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartDateException;
-import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import io.redbee.product.conf.ms.conferences.service.ConferenceService;
 import liquibase.integration.spring.SpringLiquibase;
-import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 public class ConferenceControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    @MockBean
-    private ConferenceService conferenceService;
+    private final ConferenceService conferenceService = Mockito.mock(ConferenceService.class);
+    private final MockMvc mockMvc = MockMvcBuilders.standaloneSetup(new ConferenceController(conferenceService))
+            .build();
 
-    @MockBean
-    private SpringLiquibase springLiquibase;
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
     @Test
     @DisplayName("When requested an visible conference it should return it")
     void testGetConferenceByStatusSuccessfully() throws Exception {
         final var expected = ConferenceFactory.getConference();
-        final var expectedJson = objectMapper.writeValueAsString(expected);
-        Mockito.when(conferenceService.getConfVisible()).thenReturn(expected);
+        Mockito.when(conferenceService.getConf(null)).thenReturn(Collections.singletonList(expected));
 
-        final var response =
-                mockMvc.perform(get("/conference")).andReturn().getResponse();
+        mockMvc.perform(get("/conference")).andReturn().getResponse();
     }
 
     @Test

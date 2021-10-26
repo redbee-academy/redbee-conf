@@ -5,7 +5,7 @@ import './style.css'
 import img from './isologo_rbconf.png'
 import * as conferenceService from "../../services/conferenceService";
 import { Conference } from "../../domain/conference";
-import { useAppConfiguration } from '../../hooks/configuration'
+import { useAppConfiguration } from '../../hooks'
 
 
 
@@ -18,7 +18,8 @@ export const ConferenceComponent: FunctionComponent = () => {
     conferenceService
       .getConferenceByVisibility(appConfiguration)
       .then(response => {
-        setData(response)
+          if (response.length)
+            setData(response[0])
       })
   },[])
   if(data){
@@ -35,10 +36,10 @@ export const ConferenceComponent: FunctionComponent = () => {
         <Container className="content">
           <Row>
             <Col className="left">
-              <h1>Sumate a la {data?.name}</h1>
+              <h1>Sumate a la<br/>{data?.name} {data?.volume}</h1>
               <div>
                 <p>{data?.description}</p>
-              
+
                 <Button id="button" variant="light">Inscribirme</Button>
              </div>
              <div>
@@ -48,7 +49,7 @@ export const ConferenceComponent: FunctionComponent = () => {
             </Col>
             <Col className="right">
               <div id="fecha">Entre el {data?.startDate.getDate()} y el {data?.endDate.getDate()} de <span className="capitalLetter">{data?.endDate.toLocaleString("es-ar", {month:'long'})}</span></div>
-            </Col> 
+            </Col>
           </Row>
       </Container>
    </main>)}

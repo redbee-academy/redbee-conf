@@ -1,20 +1,15 @@
 package io.redbee.product.conf.ms.conferences.service;
 
-import io.redbee.product.conf.ms.conferences.controller.ConferenceRest;
-import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartDateException;
-import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
-import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
-import io.redbee.product.conf.ms.conferences.exceptions.StartDateMustBeAfterTodayException;
 import io.redbee.product.conf.ms.conferences.exceptions.VolumeNotFoundException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+
+import java.util.List;
+
 import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
-import org.springframework.web.client.HttpClientErrorException;
 
 
 @Service
@@ -50,8 +45,8 @@ public class ConferenceService {
         return volume;
     }
 
-    public Conference getConfVisible() {
-            Conference conferenceFound = conferenceDao.getByStatus(true).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+    public List<Conference> getConf(Boolean visible) {
+            List<Conference> conferenceFound = conferenceDao.getByStatus(visible);
             LOGGER.info("conference: conference found {}", conferenceFound);
             return conferenceFound;
     }
@@ -73,15 +68,12 @@ public class ConferenceService {
                 conference.getDescription(),
                 conference.getStatus()
         );
-        isConferenceValid(conference);
+        isConferenceValidForUpdate(conference);
         return conferenceDao.update(updated);
     }
 
-    private void isConferenceValid(Conference conference) {
+    private void isConferenceValidForUpdate(Conference conference) {
         validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
-        System.out.println("Here2");
-        validations.validateStartDateAlreadyExists(conference.getStartDate());
-        System.out.println("here1");
         validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(), conference.getEndDate());
     }
 }

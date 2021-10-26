@@ -50,13 +50,13 @@ public class ConferenceDao {
             "end_date= :end_date, " +
             "description= :description," +
             "status= :status " +
-             "WHERE id = :id";
+            "WHERE id = :id";
 
     private static final String volumeQuery = "SELECT " +
             "volume  + 1" +
             "FROM conferences ORDER BY volume DESC LIMIT 1";
 
-    public Optional<Integer> getConferenceVolume( ) {
+    public Optional<Integer> getConferenceVolume() {
         try {
             Optional<Integer> result = Optional.ofNullable(
                     template.queryForObject(
@@ -64,11 +64,11 @@ public class ConferenceDao {
                             Collections.emptyMap(),
                             Integer.class
                     )
-                    );
+            );
             LOGGER.info("getById: user found: {}", result);
             return result;
         } catch (EmptyResultDataAccessException e) {
-            LOGGER.info("Volume not found  " );
+            LOGGER.info("Volume not found  ");
             return Optional.of(5);
         } catch (DataAccessException e) {
             LOGGER.info("getConferenceVolume: error {} searching volume  ", e.getMessage());
@@ -94,7 +94,7 @@ public class ConferenceDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", conference.getId());
         params.addValue("name", conference.getName());
-        params.addValue("volume",conference.getVolume());
+        params.addValue("volume", conference.getVolume());
         params.addValue("start_date", conference.getStartDate());
         params.addValue("end_date", conference.getEndDate());
         params.addValue("description", conference.getDescription());
@@ -118,20 +118,19 @@ public class ConferenceDao {
             throw new RepositoryException();
         }
     }
-    public Optional<Conference> getByStatus(Boolean isVisible) {
+
+    public List<Conference> getByStatus(Boolean isVisible) {
         try {
-            Optional<Conference> result = Optional.ofNullable(
-                    template.queryForObject(
-                            getQuery + " WHERE status = :isVisible",
-                            Map.of("isVisible", isVisible),
-                            new ConferenceRowMapper()
-                    )
+            List<Conference> result = template.query(
+                    getQuery + (isVisible != null ? " WHERE status = :isVisible" : ""),
+                    isVisible != null ? Map.of("isVisible", isVisible) : Collections.emptyMap(),
+                    new ConferenceRowMapper()
             );
             LOGGER.info("getByStatus: conference found: {}", result);
             return result;
         } catch (EmptyResultDataAccessException e) {
             LOGGER.info("getByStatus: conference with status {} not found", isVisible);
-            return Optional.empty();
+            return Collections.emptyList();
         } catch (DataAccessException e) {
             LOGGER.info("getByStatus: error {} searching conference with status {}", e.getMessage(), isVisible);
             throw new RepositoryException();
@@ -158,12 +157,12 @@ public class ConferenceDao {
         }
     }
 
-    public Conference update(Conference conference){
-        try{
+    public Conference update(Conference conference) {
+        try {
             template.update(updateQuery, conferenceToParamMap(conference));
             LOGGER.info("update: conference {} updated", conference.getId());
             return conference;
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.info("update: error {},updating conference {}", e.getMessage(), conference.getId());
         }
         return conference;
