@@ -49,3 +49,13 @@ databaseChangeLog:
                 type: serial
                 constraints:
                   - nullable: false
+  - changeSet:
+      id: '3'
+      author: academy
+      changes:
+        - addAutoIncrement:
+            tableName: conferences
+            columnName: volume
+        - dropNotNullConstraint:
+            tableName: conferences
+            columnName: volume

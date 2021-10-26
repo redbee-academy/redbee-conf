@@ -53,7 +53,7 @@ public class ConferenceDao {
              "WHERE id = :id";
 
     private static final String volumeQuery = "SELECT " +
-            "volume " +
+            "volume  + 1" +
             "FROM conferences ORDER BY volume DESC LIMIT 1";
 
     public Optional<Integer> getConferenceVolume( ) {
