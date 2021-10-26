@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { App } from "../../App";
 
 import { ReactComponent as Logo } from "../../../../assets/images/logo-redbee-conf.svg";
 import TalkService from "../../services/TalkService";
 
 const redbeeDomains = ["redb.ee", "redbee.io"];
+
+interface Result {
+    isSuccess: boolean
+    message: string
+}
 
 const Postulate = () => {
     const history: any = useHistory();
@@ -23,6 +27,7 @@ const Postulate = () => {
         talk_topic: "",
         talk_description: "",
     });
+    const [result, setResult] = useState<Result>()
 
     const setPostulateField = (field: string) => (e: any) =>
         setPostulateForm((prevState) => ({
@@ -30,7 +35,17 @@ const Postulate = () => {
             [field]: e.target.value,
         }));
 
-    const handleSubmit = () => TalkService.postulateTalk(postulateForm)
+    const handleSubmit = () => {
+        TalkService.postulateTalk(postulateForm)
+            .then(_ => setResult({
+                isSuccess: true,
+                message: "Tu charla se postuló con exito!"
+            }))
+            .catch(_ => setResult({
+                isSuccess: false,
+                message: "Ocurrió un error postulando tu charla. Por favor, intentá nuevamente."
+            }))
+    }
 
     return (
         <div>
@@ -115,6 +130,12 @@ const Postulate = () => {
                         Submit
                     </Button>
                 </Form>
+                {result && (
+                    <Alert className="mt-3" variant={result.isSuccess ? 'success' : 'danger'}>
+                        {result.message} {' '}
+                        <Alert.Link href="/">Volver al home.</Alert.Link>
+                    </Alert>
+                )}
             </div>
         </div>
     );

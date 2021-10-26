@@ -8,7 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import  java.time.LocalDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class TalkCreationService {
@@ -21,33 +22,26 @@ public class TalkCreationService {
     }
 
     public Talk create(
-                       Boolean redbee_employee,
-                       String reference,
-                       String talk_name,
-                       String talk_topic,
-                       String talk_description,
-                       String speaker_name,
-                       String speaker_email
-                       ) {
-        Talk talk = buildWith(redbee_employee, reference, talk_name, talk_topic, talk_description);
-        int id = save(talk);
-
-        return talk.copyId(id);
-        //dao.save(new Talk(redbee_employee, reference, talk_name, talk_topic, talk_description)
-    }
-    private Talk buildWith(Boolean redbee_employee,
-                           String reference,
-                           String talk_name,
-                           String talk_topic,
-                           String talk_description) {
-        return new TalkBuilder()
+            Boolean redbee_employee,
+            String reference,
+            String talk_name,
+            String talk_topic,
+            String talk_description,
+            String speaker_name,
+            String speaker_email
+    ) {
+        Talk talk = new TalkBuilder()
                 .redbee_employee(redbee_employee)
                 .reference(reference)
                 .talk_name(talk_name)
                 .talk_topic(talk_topic)
                 .talk_description(talk_description)
+                .speaker_name(speaker_name)
+                .speaker_email(speaker_email)
+                .creation_date(LocalDateTime.now())
                 .build();
 
+        return talk.copyId(save(talk));
     }
 
     public Integer save(Talk talk) {
