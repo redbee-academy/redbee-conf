@@ -10,7 +10,7 @@ const StaffApp: FunctionComponent = () => {
         Edita <code>src/app/components/Staff.tsx</code> para continuar
       </div>
       <ConferenceComponent />
-      <UpdateConf />
+      <UpdateConf confId='1'/>
     </App>
   );
 };

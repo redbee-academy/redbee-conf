@@ -44,6 +44,14 @@ public class ConferenceDao {
             "status " +
             "FROM conferences";
 
+    private static final String updateQuery = "" +
+            "UPDATE conferences SET name=:name," +
+            " start_date= :start_date, " +
+            "end_date= :end_date, " +
+            "description= :description," +
+            "status= :status " +
+             "WHERE id = :id";
+
     private static final String volumeQuery = "SELECT " +
             "volume " +
             "FROM conferences ORDER BY volume DESC LIMIT 1";
@@ -110,6 +118,55 @@ public class ConferenceDao {
             throw new RepositoryException();
         }
     }
+    public Optional<Conference> getByStatus(Boolean isVisible) {
+        try {
+            Optional<Conference> result = Optional.ofNullable(
+                    template.queryForObject(
+                            getQuery + " WHERE status = :isVisible",
+                            Map.of("isVisible", isVisible),
+                            new ConferenceRowMapper()
+                    )
+            );
+            LOGGER.info("getByStatus: conference found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("getByStatus: conference with status {} not found", isVisible);
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getByStatus: error {} searching conference with status {}", e.getMessage(), isVisible);
+            throw new RepositoryException();
+        }
+    }
 
+    public Optional<Conference> getById(Integer id) {
+        try {
+            Optional<Conference> result = Optional.ofNullable(
+                    template.queryForObject(
+                            getQuery + " WHERE id = :id",
+                            Map.of("id", id),
+                            new ConferenceRowMapper()
+                    )
+            );
+            LOGGER.info("getById: conference found: {}", result);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("getById: conference with id {} not found", id);
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getById: error {} searching conference with id: {}", e.getMessage(), id);
+            throw new RepositoryException();
+        }
+    }
+
+    public Conference update(Conference conference){
+        try{
+            template.update(updateQuery, conferenceToParamMap(conference));
+            LOGGER.info("update: conference {} updated", conference.getId());
+            return conference;
+        } catch (Exception e){
+            LOGGER.info("update: error {},updating conference {}", e.getMessage(), conference.getId());
+        }
+        return conference;
+    }
 }
 

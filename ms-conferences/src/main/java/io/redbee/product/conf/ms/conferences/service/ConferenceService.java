@@ -10,11 +10,8 @@ import io.redbee.product.conf.ms.conferences.exceptions.VolumeNotFoundException;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.util.Optional;
-
 import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 
 
@@ -51,4 +48,37 @@ public class ConferenceService {
         return volume;
     }
 
+    public Conference getConfVisible() {
+            Conference conferenceFound = conferenceDao.getByStatus(true).orElseThrow();
+            LOGGER.info("conference: conference found {}", conferenceFound);
+            return conferenceFound;
+    }
+
+    public Conference getById(Integer id){
+            Conference conferenceFound = conferenceDao.getById(id).orElseThrow();
+            LOGGER.info("conference: conference found {}", conferenceFound);
+            return conferenceFound;
+    }
+
+    public Conference update(Conference conference) {
+        Conference toUpdate = conferenceDao.getById(conference.getId()).orElseThrow();
+        Conference updated = new Conference(
+                toUpdate.getId(),
+                toUpdate.getName(),
+                conference.getStartDate(),
+                conference.getEndDate(),
+                conference.getDescription(),
+                conference.getStatus()
+        );
+        isConferenceValid(conference);
+        return conferenceDao.update(updated);
+    }
+
+    private void isConferenceValid(Conference conference) {
+        validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
+        System.out.println("Here2");
+        validations.validateStartDateAlreadyExists(conference.getStartDate());
+        System.out.println("here1");
+        validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(), conference.getEndDate());
+    }
 }

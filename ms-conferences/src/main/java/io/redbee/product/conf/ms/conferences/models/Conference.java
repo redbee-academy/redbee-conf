@@ -33,6 +33,9 @@ public class Conference {
         this.volume = volume;
     }
 
+    public Conference() {
+    }
+
     public Integer getId() {
         return id;
     }

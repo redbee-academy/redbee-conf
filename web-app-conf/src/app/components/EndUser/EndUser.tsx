@@ -1,8 +1,12 @@
 import { FunctionComponent } from "react";
 import { App } from "../App";
+import './style.css'
+import { ConferenceComponent } from "./ConferenceComponent";
 
 const EndUserApp: FunctionComponent = () => {
-  return <App><div>Edita <code>src/app/components/EndUser.tsx</code> para continuar</div></App>
+  return <App>
+    <ConferenceComponent/>
+    </App>
 }
 
-export default EndUserApp
+export default EndUserApp;

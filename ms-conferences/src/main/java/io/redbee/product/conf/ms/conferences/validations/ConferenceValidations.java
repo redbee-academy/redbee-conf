@@ -10,16 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
 public class ConferenceValidations {
-    @Autowired
-    public final ConferenceDao conferenceDao;
 
+    private final ConferenceDao conferenceDao;
+
+    @Autowired
     public ConferenceValidations(ConferenceDao conferenceDao) {
         this.conferenceDao = conferenceDao;
     }
