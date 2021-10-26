@@ -1,5 +1,6 @@
 package io.redbee.product.conf.ms.conferences.service;
 
+import io.redbee.product.conf.ms.conferences.controller.ConferenceRest;
 import io.redbee.product.conf.ms.conferences.exceptions.EndDateMustBeAfterStartDateException;
 import io.redbee.product.conf.ms.conferences.exceptions.StartDateAlreadyExistsException;
 import io.redbee.product.conf.ms.conferences.dao.ConferenceDao;
@@ -29,29 +30,11 @@ public class ConferenceService {
         this.validations = validations;
     }
     public Conference create(Conference conference){
-        Conference conf =
-                buildWith(conference.getStartDate(),
-                        conference.getEndDate(),
-                        conference.getDescription(),
-                        conference.getStatus());
-        validations.validateStartDateIsNotBeforeToday(conf.getStartDate());
-        validations.validateEndDateIsNotBeforeStartDate(conf.getStartDate(),conf.getEndDate());
-        validations.validateStartDateAlreadyExists(conf.getStartDate());
-        int id = save(conf);
-        return conf.copyId(id);
-    }
-
-    private Conference buildWith(LocalDateTime startDate,
-                                 LocalDateTime endDate,
-                                 String description,
-                                 Boolean status) {
-        return new ConferenceBuilder()
-                .name("Redbee Conf vol")
-                .startDate(startDate)
-                .endDate(endDate)
-                .description(description)
-                .visibility(status)
-                .build();
+        validations.validateStartDateIsNotBeforeToday(conference.getStartDate());
+        validations.validateEndDateIsNotBeforeStartDate(conference.getStartDate(),conference.getEndDate());
+        validations.validateStartDateAlreadyExists(conference.getStartDate());
+        int id = save(conference);
+        return conference.copyId(id);
     }
 
 

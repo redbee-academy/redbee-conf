@@ -1,9 +1,11 @@
 import { FunctionComponent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import * as moment from 'moment';
 import { Button, Form } from "react-bootstrap";
 import { Conference } from "../../domain/Conference";
 import { useGet, usePost } from "../../../../../hooks/useHTTP";
 import "./conference.css";
+import { KeyboardDatePicker } from "@material-ui/pickers";
 
 export const ConferenceComponent: FunctionComponent = () => {
   const {
@@ -12,11 +14,20 @@ export const ConferenceComponent: FunctionComponent = () => {
     watch,
     formState: { errors },
   } = useForm<Conference>();
-  const onSubmit: SubmitHandler<Conference> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Conference> = (data) => {
+    console.log(JSON.stringify(data));
+    execute("conference",data);
+
+  }
 
   const [data, isLoading, error] = useGet({
-    url: `/volume`,
+    url: `conference/volume`,
   });
+
+  const [postData, postErrors,execute] = usePost();
+
+
+
 
   if (isLoading) {
     return <div>cargando...</div>;
@@ -28,7 +39,6 @@ export const ConferenceComponent: FunctionComponent = () => {
             <Form.Label>Nombre de la proxima CONF</Form.Label>
             <Form.Control
               type="name"
-              name="name"
               defaultValue={`redbee conf vol. ${data}`}
               placeholder="Ingrese un nombre"
             />{" "}
@@ -36,18 +46,27 @@ export const ConferenceComponent: FunctionComponent = () => {
           <div className="d-flex justify-content-between">
             <Form.Group className="mb-3" controlId="formBasicStartDate">
               <Form.Label>Fecha de inicio</Form.Label>
+             {/*  <KeyboardDatePicker
+                      value={startDate}
+                      format="dd/MM/yyyy"
+                      label="Fecha de comienzo"
+                      onChange={()=>{register("startDate")}}
+                      disablePast
+                      invalidDateMessage="Formato de fecha incorrecto"
+                      minDateMessage="No debe ser menor a la fecha de hoy"
+                    /> */}
               <Form.Control
                 type="date"
-                {...register("start_date")}
-                name="start_date"
+                {...register("startDate")}
+                name="startDate"
               />{" "}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEndDate">
               <Form.Label>Fecha de finalización</Form.Label>
               <Form.Control
                 type="date"
-                {...register("end_date")}
-                name="end_date"
+                {...register("endDate")}
+                name="endDate"
               />{" "}
             </Form.Group>
           </div>

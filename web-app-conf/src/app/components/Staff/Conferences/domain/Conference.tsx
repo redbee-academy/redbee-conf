@@ -1,7 +1,10 @@
+import * as moment from 'moment';
+
+
 export interface Conference {
-    id: number
-    start_date: Date
-    end_date: Date
+    startDate: Date
+    endDate: Date
     description: string
     status: boolean
 }
+
