@@ -1,0 +1,24 @@
+.pill {
+    min-width: 300px;
+    max-width: 400px;
+    background: #FFFFFF;
+    backdrop-filter: blur(194px);
+    /* Note: backdrop-filter has minimal browser support */
+    color: black;
+    border-radius: 200px;
+}
+
+.pill p {
+    margin: 0;
+}
+
+.pill p.counter {
+    font-family: Inter, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -1px;
+    text-align: center;
+    color: #FF0001;
+}

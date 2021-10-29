@@ -1,41 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-main{
+
+main {
     background-image: url(background.png);
-    font-family: "Inter";
-    color:white;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 80px;
+    font-family: "Inter", sans-serif;
+    color: white;
+    min-height: 600px;
 }
-.header{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    align-items:flex-start; 
-    width: 1280px;
-    padding: 0px;
-    position: static;
 
 
-    /* Inside Auto Layout */
-
-    flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
-    margin-left: 30px;
-}
-.content{
-    margin-top: 44px;
-    height: 351px;
-    width: 1280px;
-    left: 80px;
-    top: 118px;
-    border-radius: 0px;
-    margin-bottom: 80px;
-}
-.left h1{
+main h1 {
     font-size: 56px;
     font-style: normal;
     font-weight: 700;
@@ -43,49 +16,19 @@ main{
     letter-spacing: -1.8px;
     text-align: left;
 }
-.left p{
+
+main h3 {
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
     line-height: 33px;
     letter-spacing: -0.5px;
-    text-align: left;
-    margin-top: 16px;
-}
-.left Button{
-    height: 60px;
-    width: 144px;
-    left: 0px;
-    top: 32px;
-    border-radius: 4px;
-    padding: 18px, 20px, 18px, 20px;
-    
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    letter-spacing: -0.5px;
-    text-align: center;
-
-
 }
 
-.right{
+main h2 {
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
     line-height: 36px;
     letter-spacing: -1px;
-    vertical-align:middle;
-    display:flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-}
-.capitalLetter{
-    text-transform: capitalize;
-}
-#noData{
-    position: static;
-    margin-top: 100px;
 }

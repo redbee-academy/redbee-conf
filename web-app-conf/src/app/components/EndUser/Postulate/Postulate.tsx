@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Form, Alert } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../../../assets/images/logo-redbee-conf.svg";
