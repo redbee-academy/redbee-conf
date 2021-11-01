@@ -7,14 +7,14 @@ function countDownFromNow(date: Date) {
     const diff = date.getTime() - now.getTime();
     return {
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: 24 - (now.getUTCHours() - date.getUTCHours()),
-        minutes: 60 - (now.getUTCMinutes() - date.getUTCMinutes()),
-        seconds: 60 - (now.getUTCSeconds() - date.getUTCSeconds()),
+        hours: 24 - Math.abs(now.getHours() || 24 - date.getHours() || 24),
+        minutes: 60 - Math.abs(now.getMinutes() || 60 - date.getMinutes() || 60),
+        seconds: 60 - Math.abs(now.getSeconds() || 60 - date.getSeconds() || 60),
     };
 }
 
 export function CountDown(props: { date: Date, className: string }) {
-    const [counter, setCounter] = useState(countDownFromNow(props.date))
+    const [counter, setCounter] = useState(() => countDownFromNow(props.date))
 
     useEffect(() => {
         const interval = setInterval(() => {
