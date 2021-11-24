@@ -9,6 +9,24 @@
 
 ![diagram tentativo de arquitectura](docs/diagram.png)
 
+## Web
+
+### Landing
+
+http://conf.redbee.io/
+
+#### Diseño
+
+https://www.figma.com/file/uh6npKcc8GsZotKjXzhcbn/redbee_academy_landing?node-id=0%3A1
+
+### Backoffice
+
+http://conf.redbee.io/admin
+
+#### UI Kit (bootstrap con theme)
+
+https://www.figma.com/file/KKvTIOS8nlI4AnALs8bzA0/redbee_academy_uikit?node-id=0%3A1
+
 ## Servicios
 
 ### ms-conferences
