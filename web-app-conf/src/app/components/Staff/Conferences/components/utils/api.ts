@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const url = process.env.REACT_APP_MS_CONFERENCES_URL
 
 const API = axios.create({
-    baseURL: url,
+  baseURL: url,
 })
-export default API;
+export default API
