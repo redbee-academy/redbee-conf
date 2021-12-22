@@ -1,26 +1,28 @@
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { FunctionComponent, useEffect, useState } from 'react'
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap'
-import { useFetch } from '../../../hooks/fetchMsConf'
-import { Conference } from './Conference'
+import { Conference } from '../domain'
+import { useFetchConfereceById, useUpdateConference } from '../hooks'
 import './conference.css'
 
 interface UpdateConfProps {
   conf: Conference
 }
 
-const UpdateConf: FunctionComponent<UpdateConfProps> = ({ conf }) => {
+export const UpdateConference: FunctionComponent<UpdateConfProps> = ({
+  conf,
+}) => {
   const [data, setData] = useState<any>({})
   const [startDate, setStartDate] = useState<any>()
   const [endDate, setEndDate] = useState<any>()
   const [description, setDescription] = useState<any>()
   const [isVisible, setVisible] = useState<any>()
   const [isLoading, setIsLoading] = useState<Boolean>(true)
-  const fetchData = useFetch<any, any>(`conference/${conf.id}`)
-  const updateData = useFetch<any, any>(`conference/${conf.id}`, 'PUT')
+  const fetchData = useFetchConfereceById()
+  const updateData = useUpdateConference()
 
   useEffect(() => {
-    fetchData()
+    fetchData(conf.id)
       .then((data) => {
         setData(data) //esto pq no se como pasa el name
         setStartDate(data.startDate)
@@ -33,7 +35,7 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({ conf }) => {
         setIsLoading(false)
         console.log(error)
       })
-  }, [fetchData])
+  }, [conf.id, fetchData])
 
   const submitForm = (e: React.SyntheticEvent): void => {
     e.preventDefault()
@@ -121,5 +123,3 @@ const UpdateConf: FunctionComponent<UpdateConfProps> = ({ conf }) => {
   //      - arreglar checkbox
   //      -? deshabilitar boton guardar si hay errores
 }
-
-export default UpdateConf

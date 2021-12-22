@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Button, Form, Alert } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 
-import { ReactComponent as Logo } from '../../../../assets/images/logo-redbee-conf.svg'
-import TalkService from '../../services/TalkService'
+import { ReactComponent as Logo } from '../../assets/images/logo-redbee-conf.svg'
+import { usePostulateTalk } from '../hooks'
 
 const redbeeDomains = ['redb.ee', 'redbee.io']
 
@@ -12,7 +12,7 @@ interface Result {
   message: string
 }
 
-const Postulate = () => {
+export const PostulateTalk = () => {
   const history: any = useHistory()
   const userData = history.location.state
   const isABee = redbeeDomains.some((domain) => userData.email.endsWith(domain))
@@ -26,6 +26,7 @@ const Postulate = () => {
     talk_description: '',
   })
   const [result, setResult] = useState<Result>()
+  const postulateTalk = usePostulateTalk()
 
   const setPostulateField = (field: string) => (e: any) =>
     setPostulateForm((prevState) => ({
@@ -34,7 +35,7 @@ const Postulate = () => {
     }))
 
   const handleSubmit = () => {
-    TalkService.postulateTalk(postulateForm)
+    postulateTalk(postulateForm)
       .then((_) =>
         setResult({
           isSuccess: true,
@@ -145,4 +146,3 @@ const Postulate = () => {
     </div>
   )
 }
-export default Postulate

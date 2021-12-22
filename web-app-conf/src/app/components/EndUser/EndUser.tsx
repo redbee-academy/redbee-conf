@@ -5,10 +5,10 @@ import {
   Route,
   useHistory,
 } from 'react-router-dom'
-import Postulate from './Postulate/Postulate'
 import { ConferenceComponent } from './ConferenceComponent'
 import { AppConfigurationContext } from '../../context'
 import { AppConfiguration } from '../../domain'
+import { PostulateTalk } from '../../../talks'
 
 const CONFIGURATION: AppConfiguration = {
   conferencesUrl: process.env.REACT_APP_MS_CONFERENCES_URL as string,
@@ -47,7 +47,7 @@ const EndUserApp: FunctionComponent = () => {
               <Landing />
             </Route>
             <PrivateRoute path="/postulate">
-              <Postulate />
+              <PostulateTalk />
             </PrivateRoute>
           </Switch>
         </div>

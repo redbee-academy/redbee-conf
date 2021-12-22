@@ -1,24 +1,24 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
-import UserLoginGoogleButton from '../LoginGoogle/UserLoginGoogleButton'
-import './style.css'
+import {
+  Conference,
+  useFetchConferences,
+  CountDown,
+} from '../../../conferences'
+import { UserLoginGoogleButton } from '../../../auth'
 import img from './isologo_rbconf.png'
-import * as conferenceService from '../../services/conferenceService'
-import { Conference } from '../../domain/conference'
-import { useAppConfiguration } from '../../hooks'
-import { CountDown } from './CountDown/CountDown'
+
+import './style.css'
 
 export const ConferenceComponent: FunctionComponent = () => {
   const [data, setData] = useState<Conference>()
-  const appConfiguration = useAppConfiguration()
+  const fetchConferences = useFetchConferences()
 
   useEffect(() => {
-    conferenceService
-      .getConferenceByVisibility(appConfiguration)
-      .then((response) => {
-        if (response.length) setData(response[0])
-      })
-  }, [appConfiguration])
+    fetchConferences().then((response) => {
+      if (response.length) setData(response[0])
+    })
+  }, [fetchConferences])
 
   let logo = (
     <Row className="pt-5 mb-5">

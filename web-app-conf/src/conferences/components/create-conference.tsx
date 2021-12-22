@@ -1,26 +1,20 @@
 import { FunctionComponent } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Button, Col, Form, Row } from 'react-bootstrap'
-import { Conference } from '../../domain/Conference'
-import { useGet, usePost } from '../../../../../hooks/useHTTP'
+import { Conference } from '../domain'
+import { useGetNextConferenceVolume, usePostConference } from '../hooks'
 
-export const ConferenceComponent: FunctionComponent = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Conference>()
+export const CreateConference: FunctionComponent = () => {
+  const { register, handleSubmit } = useForm<Conference>()
+
+  const [nextConferenceVolume, isLoading] = useGetNextConferenceVolume()
+
+  const [postData, postErrors, execute] = usePostConference()
+
   const onSubmit: SubmitHandler<Conference> = (data) => {
     console.log(JSON.stringify(data))
-    execute('conference', data)
+    execute(data)
   }
-
-  const [data, isLoading, error] = useGet({
-    url: `conference/volume`,
-  })
-
-  const [postData, postErrors, execute] = usePost()
 
   if (isLoading) {
     return <div>cargando...</div>
@@ -33,7 +27,7 @@ export const ConferenceComponent: FunctionComponent = () => {
               <Form.Label>Nombre de la proxima CONF</Form.Label>
               <Form.Control
                 type="name"
-                defaultValue={`redbee conf vol. ${data}`}
+                defaultValue={`redbee conf vol. ${nextConferenceVolume}`}
                 placeholder="Ingrese un nombre"
               />{' '}
             </Form.Group>

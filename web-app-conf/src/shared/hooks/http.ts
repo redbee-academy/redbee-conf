@@ -1,12 +1,12 @@
+import axios from 'axios'
 import { useState, useEffect } from 'react'
-import API from '../components/Staff/Conferences/components/utils/api'
 
 export const usePost = () => {
   const [data, setData] = useState<any>({})
   const [error, setError] = useState<boolean>(false)
   const execute = async (url: string, obj: string) => {
     try {
-      setData(await API.post(url, obj))
+      setData(await axios.post(url, obj))
     } catch (e) {
       setError(true)
     }
@@ -27,7 +27,7 @@ export const useGet = ({
   useEffect(() => {
     const get = async () => {
       try {
-        const res = await API.get(url)
+        const res = await axios.get(url)
         setData(res.data)
         setLoading(false)
       } catch (error) {

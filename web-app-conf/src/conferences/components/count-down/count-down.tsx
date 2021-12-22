@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import { Stack } from 'react-bootstrap'
-import './style.css'
+import './count-down.css'
 
 function countDownFromNow(date: Date) {
   const now = new Date()
@@ -13,7 +13,12 @@ function countDownFromNow(date: Date) {
   }
 }
 
-export function CountDown(props: { date: Date; className: string }) {
+export interface CountDownProps {
+  date: Date
+  className: string
+}
+
+export const CountDown: FunctionComponent<CountDownProps> = (props) => {
   const [counter, setCounter] = useState(() => countDownFromNow(props.date))
 
   useEffect(() => {

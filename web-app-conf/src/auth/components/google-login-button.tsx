@@ -1,14 +1,14 @@
 import { FunctionComponent } from 'react'
 import { Button } from 'react-bootstrap'
 import { GoogleLogin } from 'react-google-login'
-import { GoogleUserInfo } from '../../domain/googleUserInfo'
 import { useHistory } from 'react-router-dom'
+import { GoogleUserInfo } from '../domain'
 
 const loginFailure = (response: any) => {
   console.log('ingresar un mail de google para postular charla')
 }
 
-const UserLoginGoogleButton: FunctionComponent = (props) => {
+export const UserLoginGoogleButton: FunctionComponent = (props) => {
   const history = useHistory()
 
   const loginSucessful = (response: any) => {
@@ -37,5 +37,3 @@ const UserLoginGoogleButton: FunctionComponent = (props) => {
     />
   )
 }
-
-export default UserLoginGoogleButton
