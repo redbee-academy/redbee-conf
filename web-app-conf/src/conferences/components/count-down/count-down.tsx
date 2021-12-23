@@ -1,25 +1,28 @@
-import { FunctionComponent, useEffect, useState } from 'react'
+import moment, { Duration, Moment } from 'moment'
+import {
+  CSSProperties,
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { Stack } from 'react-bootstrap'
 import './count-down.css'
 
-function countDownFromNow(date: Date) {
-  const now = new Date()
-  const diff = date.getTime() - now.getTime()
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: 24 - Math.abs(now.getHours() || 24 - date.getHours() || 24),
-    minutes: 60 - Math.abs(now.getMinutes() || 60 - date.getMinutes() || 60),
-    seconds: 60 - Math.abs(now.getSeconds() || 60 - date.getSeconds() || 60),
-  }
+function countDownFromNow(date: Moment): Duration {
+  return moment.duration(date.diff(moment()))
 }
 
 export interface CountDownProps {
-  date: Date
-  className: string
+  date: Moment
+  className?: string
+  style?: CSSProperties
 }
 
 export const CountDown: FunctionComponent<CountDownProps> = (props) => {
-  const [counter, setCounter] = useState(() => countDownFromNow(props.date))
+  const [counter, setCounter] = useState<Duration>(() =>
+    countDownFromNow(props.date)
+  )
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,26 +31,33 @@ export const CountDown: FunctionComponent<CountDownProps> = (props) => {
     return () => clearInterval(interval)
   }, [props.date])
 
+  const stackClassName = useMemo(() => {
+    const base = 'text-center pill p-3 ps-4 pe-4'
+
+    return props.className ? base + props.className : base
+  }, [props.className])
+
   return (
     <Stack
+      style={props.style}
       direction="horizontal"
       gap={3}
-      className={`text-center pill p-3 ps-4 pe-4 ${props.className}`}
+      className={stackClassName}
     >
       <Stack>
-        <p className="counter">{counter.days}</p>
+        <p className="counter">{counter.get('days')}</p>
         <p>Días</p>
       </Stack>
       <Stack>
-        <p className="counter">{counter.hours}</p>
+        <p className="counter">{counter.get('hours')}</p>
         <p>Horas</p>
       </Stack>
       <Stack>
-        <p className="counter">{counter.minutes}</p>
+        <p className="counter">{counter.get('minutes')}</p>
         <p>Minutos</p>
       </Stack>
       <Stack>
-        <p className="counter">{counter.seconds}</p>
+        <p className="counter">{counter.get('seconds')}</p>
         <p>Segundos</p>
       </Stack>
     </Stack>

@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import {
   Conference,
-  useFetchConferences,
+  useGetVisibileConferences,
   CountDown,
 } from '../../../conferences'
 import { UserLoginGoogleButton } from '../../../auth'
@@ -12,13 +12,13 @@ import './style.css'
 
 export const ConferenceComponent: FunctionComponent = () => {
   const [data, setData] = useState<Conference>()
-  const fetchConferences = useFetchConferences()
+  const getVisibleConferences = useGetVisibileConferences()
 
   useEffect(() => {
-    fetchConferences().then((response) => {
+    getVisibleConferences().then((response) => {
       if (response.length) setData(response[0])
     })
-  }, [fetchConferences])
+  }, [getVisibleConferences])
 
   let logo = (
     <Row className="pt-5 mb-5">
@@ -55,11 +55,13 @@ export const ConferenceComponent: FunctionComponent = () => {
               </Col>
               <Col sm={5} lg={6} className="text-end mt-3 mt-sm-0">
                 <h2 className="me-4">
-                  Del {data.startDate.getDate()}
+                  Del {data.startDate.get('date')}
                   <br className="d-none d-sm-inline" /> al{' '}
-                  {data.endDate.getDate()} de{' '}
+                  {data.endDate.get('date')} de{' '}
                   <span className="text-capitalize">
-                    {data.endDate.toLocaleString('es-ar', { month: 'long' })}
+                    {data.endDate
+                      .toDate()
+                      .toLocaleString('es-ar', { month: 'long' })}
                   </span>
                 </h2>
                 <CountDown className="ms-auto" date={data.startDate} />

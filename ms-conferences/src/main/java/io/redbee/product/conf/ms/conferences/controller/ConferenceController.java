@@ -4,11 +4,13 @@ import io.redbee.product.conf.ms.conferences.builder.ConferenceBuilder;
 import io.redbee.product.conf.ms.conferences.models.Conference;
 import io.redbee.product.conf.ms.conferences.service.ConferenceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -47,6 +49,14 @@ public class ConferenceController {
         return conferenceService.getConf(visible);
     }
 
+    @GetMapping("/current")
+    public ResponseEntity<Conference> getCurrentConference() {
+        return conferenceService
+                .getCurrentConf()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Conference getConferenceById(@PathVariable Integer id) {
@@ -59,6 +69,11 @@ public class ConferenceController {
         return conferenceService.update(conference.copyId(id));
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteConference(@PathVariable Integer id) {
+        conferenceService.delete(id);
+    }
 }
 
 

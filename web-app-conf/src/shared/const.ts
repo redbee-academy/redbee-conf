@@ -1,0 +1,6 @@
+export const DATE_FORMAT = 'DD/MM/YYYY'
+export const DATE_PICKER_FORMAT = 'dd/MM/yyyy'
+export const PRIMARY_COLOR = '#0d6efd'
+export const WARNING_COLOR = '#ffc107'
+export const SUCCESS_COLOR = '#198754'
+export const API_DATE_FORMAT = 'YYYY-MM-DD'

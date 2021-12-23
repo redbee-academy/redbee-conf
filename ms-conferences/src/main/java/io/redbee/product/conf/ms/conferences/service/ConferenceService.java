@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.redbee.product.conf.ms.conferences.validations.ConferenceValidations;
 
@@ -51,6 +52,10 @@ public class ConferenceService {
             return conferenceFound;
     }
 
+    public Optional<Conference> getCurrentConf() {
+        return conferenceDao.getCurrent();
+    }
+
     public Conference getById(Integer id){
             Conference conferenceFound = conferenceDao.getById(id).orElseThrow();
             LOGGER.info("conference: conference found {}", conferenceFound);
@@ -70,6 +75,10 @@ public class ConferenceService {
         );
         isConferenceValidForUpdate(conference);
         return conferenceDao.update(updated);
+    }
+
+    public void delete(Integer id) {
+        conferenceDao.delete(id);
     }
 
     private void isConferenceValidForUpdate(Conference conference) {

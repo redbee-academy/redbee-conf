@@ -56,6 +56,9 @@ public class ConferenceDao {
             "volume  + 1" +
             "FROM conferences ORDER BY volume DESC LIMIT 1";
 
+    private static final String deleteQuery = "DELETE FROM conferences " +
+            "WHERE id = :id";
+
     public Optional<Integer> getConferenceVolume() {
         try {
             Optional<Integer> result = Optional.ofNullable(
@@ -157,6 +160,28 @@ public class ConferenceDao {
         }
     }
 
+    public Optional<Conference> getCurrent() {
+        try {
+            List<Conference> result =
+                template.query(
+                    getQuery + " WHERE end_date > CURRENT_DATE ORDER BY start_date LIMIT 1",
+                    new ConferenceRowMapper()
+                );
+            LOGGER.info("getCurrent: current conference found: {}", result);
+            if (result.isEmpty()) {
+                return Optional.empty();
+            } else {
+                return Optional.of(result.get(0));
+            }
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("getCurrent: No current conference found");
+            return Optional.empty();
+        } catch (DataAccessException e) {
+            LOGGER.info("getCurrent: error searching current conference: {}", e.getMessage());
+            throw new RepositoryException();
+        }
+    }
+
     public Conference update(Conference conference) {
         try {
             template.update(updateQuery, conferenceToParamMap(conference));
@@ -166,6 +191,15 @@ public class ConferenceDao {
             LOGGER.info("update: error {},updating conference {}", e.getMessage(), conference.getId());
         }
         return conference;
+    }
+
+    public void delete(Integer id) {
+        try {
+            template.update(deleteQuery, Map.of("id", id));
+            LOGGER.info("delete: conference {} deleted", id);
+        } catch (Exception e) {
+            LOGGER.info("delete: error deleting conference {}: {}", id, e.getMessage());
+        }
     }
 }
 
