@@ -1,20 +1,28 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { Conference } from '../domain'
-import { useGetNextConferenceVolume, usePostConference } from '../hooks'
+import { useGetNextConferenceVolume, useCreateConference } from '../hooks'
 
 export const CreateConference: FunctionComponent = () => {
   const { register, handleSubmit } = useForm<Conference>()
+  const [nextConferenceVolume, setNextConferenceVolume] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(true)
 
-  const [nextConferenceVolume, isLoading] = useGetNextConferenceVolume()
+  const getNextConferenceVolume = useGetNextConferenceVolume()
 
-  const [postData, postErrors, execute] = usePostConference()
+  const createConference = useCreateConference()
 
   const onSubmit: SubmitHandler<Conference> = (data) => {
     console.log(JSON.stringify(data))
-    execute(data)
+    createConference(data)
   }
+
+  useEffect(() => {
+    getNextConferenceVolume()
+      .then(setNextConferenceVolume)
+      .finally(() => setIsLoading(false))
+  }, [getNextConferenceVolume])
 
   if (isLoading) {
     return <div>cargando...</div>

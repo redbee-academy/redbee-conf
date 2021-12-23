@@ -8,15 +8,24 @@ import {
 } from '../../../conferences'
 
 export const ConferenceAdministration: FunctionComponent = () => {
-  const [data, isLoading] = useGetConferences()
-  const [conf, setConf] = useState<Conference>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [conferences, setConferences] = useState<Conference[]>([])
+  const getConferences = useGetConferences()
+  const [selectedConference, setSelectedConference] = useState<Conference>()
 
   useEffect(() => {
-    setConf(data[0])
-  }, [data])
+    getConferences()
+      .then((data) => {
+        setConferences(data)
+        setSelectedConference(data[0])
+      })
+      .finally(() => setIsLoading(false))
+  }, [getConferences])
 
   const handleChange = (event: any) => {
-    setConf(data.find((it: Conference) => it.id == event.target.value))
+    setSelectedConference(
+      conferences.find((it) => it.id === event.target.value)
+    )
   }
 
   return (
@@ -27,7 +36,7 @@ export const ConferenceAdministration: FunctionComponent = () => {
             <div>Buscando conferencias</div>
           ) : (
             <FormSelect onChange={handleChange}>
-              {data.map((conf: Conference) => (
+              {conferences.map((conf) => (
                 <option key={conf.id} value={conf.id}>
                   {conf.name} {conf.volume}
                 </option>
@@ -39,7 +48,9 @@ export const ConferenceAdministration: FunctionComponent = () => {
 
       <CreateConference />
 
-      {conf ? <UpdateConference conf={conf} /> : null}
+      {selectedConference ? (
+        <UpdateConference conf={selectedConference} />
+      ) : null}
     </Container>
   )
 }
