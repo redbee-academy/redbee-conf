@@ -6,26 +6,27 @@ import { StaffHome } from './home'
 
 import logo from '../../../assets/images/logo-redbee-conf.svg'
 import { ConferencesHome } from '../../../conferences'
+import { STAFF_BASE_PATH, STAFF_CONFERENCES_PATH } from './const'
 
 const StaffApp: FunctionComponent = () => (
   <App>
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href={STAFF_BASE_PATH}>
           <img src={logo} alt="logo" />
         </Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/conferences">Ediciones</Nav.Link>
+          <Nav.Link href={STAFF_BASE_PATH}>Home</Nav.Link>
+          <Nav.Link href={STAFF_CONFERENCES_PATH}>Ediciones</Nav.Link>
         </Nav>
       </Container>
     </Navbar>
     <Router>
       <Switch>
-        <Route path="/" exact>
+        <Route path={STAFF_BASE_PATH} exact>
           <StaffHome />
         </Route>
-        <Route path="/conferences">
+        <Route path={STAFF_CONFERENCES_PATH}>
           <ConferencesHome />
         </Route>
       </Switch>

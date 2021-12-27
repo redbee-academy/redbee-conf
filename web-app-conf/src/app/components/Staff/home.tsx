@@ -7,6 +7,7 @@ import {
   useGetCurrentConference,
 } from '../../../conferences'
 import { Spinner } from '../../../shared'
+import { STAFF_CONFERENCES_PATH } from './const'
 
 export const StaffHome: FunctionComponent = () => {
   const [loading, setLoading] = useState(true)
@@ -30,7 +31,7 @@ export const StaffHome: FunctionComponent = () => {
       ) : (
         <div style={{ textAlign: 'center', paddingTop: '50px' }}>
           No hay ninguna conferencia programada,{' '}
-          <Link to="/conferences/new">agrega una</Link>
+          <Link to={`${STAFF_CONFERENCES_PATH}/new`}>agrega una</Link>
         </div>
       )}
     </Container>

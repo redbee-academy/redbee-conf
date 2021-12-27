@@ -6,15 +6,8 @@ import {
   useHistory,
 } from 'react-router-dom'
 import { ConferenceComponent } from './ConferenceComponent'
-import { AppConfigurationContext } from '../../context'
-import { AppConfiguration } from '../../domain'
 import { PostulateTalk } from '../../../talks'
-
-const CONFIGURATION: AppConfiguration = {
-  conferencesUrl: process.env.REACT_APP_MS_CONFERENCES_URL as string,
-  speakersUrl: process.env.REACT_APP_MS_SPEAKERS_URL as string,
-  talksUrl: process.env.REACT_APP_MS_TALKS_URL as string,
-}
+import { App } from '../App'
 
 const PrivateRoute = (props: any) => {
   const { children, ...rest } = props
@@ -37,7 +30,7 @@ const Landing = () => (
 
 const EndUserApp: FunctionComponent = () => {
   return (
-    <AppConfigurationContext.Provider value={CONFIGURATION}>
+    <App>
       <Router>
         <div>
           {/* A <Switch> looks through its children <Route>s and
@@ -52,7 +45,7 @@ const EndUserApp: FunctionComponent = () => {
           </Switch>
         </div>
       </Router>
-    </AppConfigurationContext.Provider>
+    </App>
   )
 }
 

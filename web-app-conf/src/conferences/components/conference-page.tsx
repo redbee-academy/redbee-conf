@@ -3,6 +3,7 @@ import { FunctionComponent, useMemo } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import { useAppConfiguration } from '../../app'
 import { DATE_FORMAT, SUCCESS_COLOR, WARNING_COLOR } from '../../shared'
 import { Conference } from '../domain'
 import { CountDown } from './count-down/count-down'
@@ -14,6 +15,7 @@ export interface ConferencePageProps {
 export const ConferencePage: FunctionComponent<ConferencePageProps> = ({
   conference,
 }) => {
+  const { staffConferencesBasePath } = useAppConfiguration()
   const started = useMemo(() => {
     return Boolean(conference && conference.startDate.isSameOrBefore(moment()))
   }, [conference])
@@ -48,7 +50,7 @@ export const ConferencePage: FunctionComponent<ConferencePageProps> = ({
           alignItems: 'flex-end',
         }}
       >
-        <Link to={`/conferences/${conference.id}/edit`}>
+        <Link to={`${staffConferencesBasePath}/${conference.id}/edit`}>
           <Button variant="primary">Editar</Button>
         </Link>
         {!started ? (
