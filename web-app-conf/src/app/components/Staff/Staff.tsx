@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import { App } from '../App'
 import { StaffHome } from './home'
 
@@ -16,8 +16,12 @@ const StaffApp: FunctionComponent = () => (
           <img src={logo} alt="logo" />
         </Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href={STAFF_BASE_PATH}>Home</Nav.Link>
-          <Nav.Link href={STAFF_CONFERENCES_PATH}>Ediciones</Nav.Link>
+          <Nav.Link as={Link} to={STAFF_BASE_PATH}>
+            Home
+          </Nav.Link>
+          <Nav.Link as={Link} to={STAFF_CONFERENCES_PATH}>
+            Ediciones
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>
