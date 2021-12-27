@@ -28,7 +28,9 @@ public class TalkCreationService {
             String talk_topic,
             String talk_description,
             String speaker_name,
-            String speaker_email
+            String speaker_email,
+            Boolean approbed,
+            Integer conference_id
     ) {
         Talk talk = new TalkBuilder()
                 .redbee_employee(redbee_employee)
@@ -39,6 +41,7 @@ public class TalkCreationService {
                 .speaker_name(speaker_name)
                 .speaker_email(speaker_email)
                 .creation_date(LocalDateTime.now())
+                .approbed(approbed)
                 .build();
 
         return talk.copyId(save(talk));

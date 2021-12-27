@@ -26,7 +26,9 @@ public class TalkController {
                 talk.getTalk_topic(),
                 talk.getTalk_description(),
                 talk.getSpeaker_name(),
-                talk.getSpeaker_email()
+                talk.getSpeaker_email(),
+                false,
+                talk.getConference_id()
         );
     }
 

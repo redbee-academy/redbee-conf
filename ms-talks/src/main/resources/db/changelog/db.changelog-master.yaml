@@ -59,3 +59,20 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: '3'
+      author: Marco Scabbiolo
+      changes:
+        - addColumn:
+            tableName: talks
+            columns:
+              - column:
+                  name: approbed
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: conference
+                  type: int
+                  contraints:
+                    nullable: false
