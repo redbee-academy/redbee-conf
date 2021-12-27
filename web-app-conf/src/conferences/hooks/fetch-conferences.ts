@@ -3,20 +3,6 @@ import { useAppConfiguration, useHttpErrorHandler } from '../../app'
 import { Conference, parseConference, UnparsedConference } from '../domain'
 import axios from 'axios'
 
-export const useGetVisibileConferences = (): (() => Promise<Conference[]>) => {
-  const appConfiguration = useAppConfiguration()
-
-  return useCallback(
-    () =>
-      axios
-        .get<UnparsedConference[]>(
-          `${appConfiguration.conferencesUrl}/conference?visible=true`
-        )
-        .then((response) => response.data.map(parseConference)),
-    [appConfiguration.conferencesUrl]
-  )
-}
-
 export const useGetConferenceById = (): ((
   id: string
 ) => Promise<Conference>) => {
@@ -55,29 +41,6 @@ export const useGetNextConferenceVolume = (): (() => Promise<string>) => {
       axios
         .get<string>(`${appConfiguration.conferencesUrl}/conference/volume`)
         .then((res) => res.data),
-    [appConfiguration.conferencesUrl]
-  )
-}
-
-export const useGetCurrentConference = (): (() => Promise<
-  Conference | undefined
->) => {
-  const appConfiguration = useAppConfiguration()
-
-  return useCallback(
-    () =>
-      axios
-        .get<UnparsedConference>(
-          `${appConfiguration.conferencesUrl}/conference/current`
-        )
-        .then((res) => parseConference(res.data))
-        .catch((error) => {
-          if (error?.response?.status === 404) {
-            return undefined
-          } else {
-            throw error
-          }
-        }),
     [appConfiguration.conferencesUrl]
   )
 }

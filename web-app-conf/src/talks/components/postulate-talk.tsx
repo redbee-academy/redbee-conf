@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button, Form, Alert } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 
 import { ReactComponent as Logo } from '../../assets/images/logo-redbee-conf.svg'
-import { usePostulateTalk } from '../hooks'
+import { GoogleUserInfo } from '../../auth'
+import { PostulateTalkRequestUserData, usePostulateTalk } from '../hooks'
 
 const redbeeDomains = ['redb.ee', 'redbee.io']
 
@@ -13,43 +15,42 @@ interface Result {
 }
 
 export const PostulateTalk = () => {
-  const history: any = useHistory()
+  const history = useHistory<GoogleUserInfo>()
   const userData = history.location.state
-  const isABee = redbeeDomains.some((domain) => userData.email.endsWith(domain))
-  const [postulateForm, setPostulateForm] = useState({
-    speaker_name: userData.name,
-    speaker_email: userData.email,
-    reference: '',
-    talk_name: '',
-    redbee_employee: isABee,
-    talk_topic: '',
-    talk_description: '',
+  const isABee = useMemo(
+    () => redbeeDomains.some((domain) => userData.email.endsWith(domain)),
+    [userData.email]
+  )
+  const { register, handleSubmit } = useForm<PostulateTalkRequestUserData>({
+    defaultValues: {
+      redbee_employee: isABee,
+      speaker_email: userData.email,
+      speaker_name: userData.name,
+    },
   })
+
   const [result, setResult] = useState<Result>()
   const postulateTalk = usePostulateTalk()
 
-  const setPostulateField = (field: string) => (e: any) =>
-    setPostulateForm((prevState) => ({
-      ...prevState,
-      [field]: e.target.value,
-    }))
-
-  const handleSubmit = () => {
-    postulateTalk(postulateForm)
-      .then((_) =>
-        setResult({
-          isSuccess: true,
-          message: 'Tu charla se postuló con exito!',
-        })
-      )
-      .catch((_) =>
-        setResult({
-          isSuccess: false,
-          message:
-            'Ocurrió un error postulando tu charla. Por favor, intentá nuevamente.',
-        })
-      )
-  }
+  const onSubmit = useCallback(
+    (request: PostulateTalkRequestUserData) => {
+      postulateTalk(request)
+        .then((_) =>
+          setResult({
+            isSuccess: true,
+            message: 'Tu charla se postuló con exito!',
+          })
+        )
+        .catch((_) =>
+          setResult({
+            isSuccess: false,
+            message:
+              'Ocurrió un error postulando tu charla. Por favor, intentá nuevamente.',
+          })
+        )
+    },
+    [postulateTalk]
+  )
 
   return (
     <div>
@@ -68,14 +69,14 @@ export const PostulateTalk = () => {
           height: '100%',
         }}
       >
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Nombre y apellido</Form.Label>
             <Form.Control
               type="name"
               placeholder="Ingrese un nombre"
               readOnly
-              value={postulateForm.speaker_name}
+              {...register('speaker_name')}
             />
           </Form.Group>
 
@@ -85,17 +86,16 @@ export const PostulateTalk = () => {
               type="name"
               placeholder="Ingrese un mail"
               readOnly
-              value={postulateForm.speaker_email}
+              {...register('speaker_email')}
             />
           </Form.Group>
           {!isABee && (
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>Linkeding url</Form.Label>
+              <Form.Label>Linkedin url</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ingrese una referencia"
-                value={postulateForm.reference}
-                onChange={setPostulateField('reference')}
+                {...register('reference')}
               />
             </Form.Group>
           )}
@@ -105,8 +105,7 @@ export const PostulateTalk = () => {
             <Form.Control
               type="name"
               placeholder="Ingrese un nombre"
-              value={postulateForm.talk_name}
-              onChange={setPostulateField('talk_name')}
+              {...register('talk_name')}
             />
           </Form.Group>
 
@@ -115,8 +114,7 @@ export const PostulateTalk = () => {
             <Form.Control
               type="name"
               placeholder="Ingrese un topico"
-              value={postulateForm.talk_topic}
-              onChange={setPostulateField('talk_topic')}
+              {...register('talk_topic')}
             />
           </Form.Group>
 
@@ -125,12 +123,11 @@ export const PostulateTalk = () => {
             <Form.Control
               as="textarea"
               rows={3}
-              value={postulateForm.talk_description}
-              onChange={setPostulateField('talk_description')}
+              {...register('talk_description')}
             />
           </Form.Group>
 
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>

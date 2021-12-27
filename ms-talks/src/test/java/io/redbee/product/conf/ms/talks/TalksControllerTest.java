@@ -1,14 +1,10 @@
 package io.redbee.product.conf.ms.talks;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.redbee.product.conf.ms.talks.talks.controller.StatusController;
-import io.redbee.product.conf.ms.talks.talks.controller.TalkController;
+import io.redbee.product.conf.ms.talks.talks.controller.TalksController;
 import io.redbee.product.conf.ms.talks.talks.model.Talk;
-import io.redbee.product.conf.ms.talks.talks.service.TalkCreationService;
+import io.redbee.product.conf.ms.talks.talks.service.TalkService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,8 +21,8 @@ public class TalksControllerTest {
   private MockMvc mockMvc;
 
   {
-    TalkCreationService talkCreationService = mock(TalkCreationService.class);
-    mockMvc = standaloneSetup(new TalkController(talkCreationService)).build();
+    TalkService talkCreationService = mock(TalkService.class);
+    mockMvc = standaloneSetup(new TalksController(talkCreationService)).build();
   }
 
   private ObjectMapper objectMapper = new ObjectMapper();

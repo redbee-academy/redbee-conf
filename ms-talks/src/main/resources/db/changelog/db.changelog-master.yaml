@@ -67,12 +67,22 @@ databaseChangeLog:
             tableName: talks
             columns:
               - column:
-                  name: approbed
-                  type: boolean
+                  name: status
+                  type: int
                   constraints:
                     nullable: false
+                  defaultValue: 0
               - column:
                   name: conference
                   type: int
-                  contraints:
+                  constraints:
                     nullable: false
+                  defaultValue: -1
+
+  - changeSet:
+      id: '4'
+      author: Marco Scabbiolo
+      changes:
+        -  dropNotNullConstraint:
+             tableName: talks
+             columnName: reference
