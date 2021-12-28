@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,14 @@ public class ConferenceController {
     }
 
     @GetMapping()
-    public List<Conference> getConferences() {
+    public List<Conference> getConferences(
+      @RequestParam(required = false) Boolean current,
+      @RequestParam(required = false) Boolean visible
+    ) {
+        if (current) {
+            Optional<Conference> conf = conferenceService.getCurrentConf(visible);
+            return conf.map(List::of).orElse(Collections.emptyList());
+        }
         return conferenceService.getConferences();
     }
 

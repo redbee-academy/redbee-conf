@@ -20,22 +20,22 @@ export class CurrentConferenceService {
   public initialized: Observable<boolean>
 
   public async init(): Promise<void> {
-    let url = `${this.appConfiguration.conferencesUrl}/conference/current`
-
-    if (this.options.visible != null) {
-      url += '?visible=' + (this.options.visible ? '1' : '0')
-    }
-
     const conference = await axios
-      .get<UnparsedConference>(url)
-      .then((res) => parseConference(res.data))
-      .catch((error) => {
-        if (error?.response?.status === 404) {
-          return undefined
-        } else {
-          throw error
+      .get<UnparsedConference[]>(
+        `${this.appConfiguration.conferencesUrl}/conference`,
+        {
+          params: {
+            current: '1',
+            visible:
+              this.options.visible == null
+                ? undefined
+                : this.options.visible
+                ? '1'
+                : '0',
+          },
         }
-      })
+      )
+      .then((res) => res.data.map(parseConference)?.[0])
 
     this.conferenceSubject.next(conference)
     this.initializedSubject.next(true)
