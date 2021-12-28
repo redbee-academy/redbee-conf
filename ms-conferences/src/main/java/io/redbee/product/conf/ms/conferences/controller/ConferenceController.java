@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,22 +38,27 @@ public class ConferenceController {
                 .build());
     }
 
+    @GetMapping()
+    public List<Conference> getConferences(
+      @RequestParam(required = false) Boolean current,
+      @RequestParam(required = false) Boolean visible
+    ) {
+        if (current) {
+            Optional<Conference> conf = conferenceService.getCurrentConf(visible);
+            return conf.map(List::of).orElse(Collections.emptyList());
+        }
+        return conferenceService.getConferences();
+    }
+
     @GetMapping("/volume")
     public Integer getNextVolume() {
         return conferenceService.getConferenceVolume();
     }
 
-
-    // ver si puede ser útil devolver una Conference o con un CREATED alcanza
-    @GetMapping
-    public List<Conference> getConferenceByVisibility(@RequestParam(required = false) Boolean visible) {
-        return conferenceService.getConf(visible);
-    }
-
     @GetMapping("/current")
-    public ResponseEntity<Conference> getCurrentConference() {
+    public ResponseEntity<Conference> getCurrentConference(@RequestParam(required = false) Boolean visible) {
         return conferenceService
-                .getCurrentConf()
+                .getCurrentConf(visible)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

@@ -46,14 +46,12 @@ public class ConferenceService {
         return volume;
     }
 
-    public List<Conference> getConf(Boolean visible) {
-            List<Conference> conferenceFound = conferenceDao.getByStatus(visible);
-            LOGGER.info("conference: conference found {}", conferenceFound);
-            return conferenceFound;
+    public List<Conference> getConferences() {
+        return conferenceDao.get();
     }
 
-    public Optional<Conference> getCurrentConf() {
-        return conferenceDao.getCurrent();
+    public Optional<Conference> getCurrentConf(Boolean visible) {
+        return conferenceDao.getCurrent(visible);
     }
 
     public Conference getById(Integer id){

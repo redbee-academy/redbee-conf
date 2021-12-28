@@ -1,7 +1,7 @@
 import moment, { Moment } from 'moment'
 
 export interface Conference {
-  id: string
+  id: number
   name: string
   startDate: Moment
   endDate: Moment

@@ -59,3 +59,30 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: '3'
+      author: Marco Scabbiolo
+      changes:
+        - addColumn:
+            tableName: talks
+            columns:
+              - column:
+                  name: status
+                  type: int
+                  constraints:
+                    nullable: false
+                  defaultValue: 0
+              - column:
+                  name: conference
+                  type: int
+                  constraints:
+                    nullable: false
+                  defaultValue: -1
+
+  - changeSet:
+      id: '4'
+      author: Marco Scabbiolo
+      changes:
+        -  dropNotNullConstraint:
+             tableName: talks
+             columnName: reference

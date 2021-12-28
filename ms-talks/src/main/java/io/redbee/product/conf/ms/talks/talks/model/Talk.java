@@ -16,11 +16,13 @@ public class Talk {
     private LocalDateTime creation_date;
     private String speaker_name;
     private String speaker_email;
+    private TalkStatus status;
+    private Integer conference_id;
 
     public Talk (){
 
     }
-    public Talk(Integer id, Boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date, String speaker_name, String speaker_email) {
+    public Talk(Integer id, Boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date, String speaker_name, String speaker_email, TalkStatus status, Integer conference_id) {
         this.id = id;
         this.redbee_employee = redbee_employee;
         this.reference = reference;
@@ -30,6 +32,8 @@ public class Talk {
         this.creation_date = creation_date;
         this.speaker_name = speaker_name;
         this.speaker_email = speaker_email;
+        this.status = status;
+        this.conference_id = conference_id;
     }
 
     public Talk(int id, boolean redbee_employee, String reference, String talk_name, String talk_topic, String talk_description, LocalDateTime creation_date, String speaker_name, String speaker_email) {
@@ -71,6 +75,10 @@ public class Talk {
         return creation_date;
     }
 
+    public TalkStatus getStatus() { return status; }
+
+    public Integer getConference_id() { return conference_id; }
+
     public Talk copyId(Integer id) {
         return new TalkBuilder()
                 .basedOn(this)
@@ -85,6 +93,8 @@ public class Talk {
                 ", talk_topic=" + talk_topic +
                 ", talk_description='" + talk_description + '\'' +
                 ", creation_date=" + creation_date +
+                ", status=" + status +
+                ", conference_id=" + conference_id +
                 '}';
     }
 

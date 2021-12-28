@@ -106,7 +106,7 @@ public class ConferenceDao {
         return params;
     }
 
-    public List<Conference> getByStartDate(LocalDateTime start_date) {
+    public List<Conference> getByStartDate(LocalDateTime start_date, Boolean visible) {
         try {
             List<Conference> result =
                     template.query(
@@ -118,24 +118,6 @@ public class ConferenceDao {
             return result;
         } catch (DataAccessException e) {
             LOGGER.info("getByStartDate: error {} searching conf with date: {}", e.getMessage(), start_date);
-            throw new RepositoryException();
-        }
-    }
-
-    public List<Conference> getByStatus(Boolean isVisible) {
-        try {
-            List<Conference> result = template.query(
-                    getQuery + (isVisible != null ? " WHERE status = :isVisible" : ""),
-                    isVisible != null ? Map.of("isVisible", isVisible) : Collections.emptyMap(),
-                    new ConferenceRowMapper()
-            );
-            LOGGER.info("getByStatus: conference found: {}", result);
-            return result;
-        } catch (EmptyResultDataAccessException e) {
-            LOGGER.info("getByStatus: conference with status {} not found", isVisible);
-            return Collections.emptyList();
-        } catch (DataAccessException e) {
-            LOGGER.info("getByStatus: error {} searching conference with status {}", e.getMessage(), isVisible);
             throw new RepositoryException();
         }
     }
@@ -160,11 +142,22 @@ public class ConferenceDao {
         }
     }
 
-    public Optional<Conference> getCurrent() {
+    public Optional<Conference> getCurrent(Boolean visible) {
         try {
+            Map<String, Object> params = new HashMap<>();
+            String query = getQuery + " WHERE end_date > CURRENT_DATE";
+
+            if (visible != null) {
+                query += " AND status=:visible";
+                params.put("visible", visible);
+            }
+
+            query += " ORDER BY start_date LIMIT 1";
+
             List<Conference> result =
                 template.query(
-                    getQuery + " WHERE end_date > CURRENT_DATE ORDER BY start_date LIMIT 1",
+                    query,
+                    params,
                     new ConferenceRowMapper()
                 );
             LOGGER.info("getCurrent: current conference found: {}", result);
@@ -178,6 +171,15 @@ public class ConferenceDao {
             return Optional.empty();
         } catch (DataAccessException e) {
             LOGGER.info("getCurrent: error searching current conference: {}", e.getMessage());
+            throw new RepositoryException();
+        }
+    }
+
+    public List<Conference> get() {
+        try {
+            return template.query(getQuery, new ConferenceRowMapper());
+        } catch (Exception e) {
+            LOGGER.error("get: error getting conferences: {}", e.getMessage());
             throw new RepositoryException();
         }
     }

@@ -1,6 +1,7 @@
 package io.redbee.product.conf.ms.talks.talks.builder;
 
 import io.redbee.product.conf.ms.talks.talks.model.Talk;
+import io.redbee.product.conf.ms.talks.talks.model.TalkStatus;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,8 @@ public class TalkBuilder {
   private LocalDateTime creation_date;
   private String speaker_name;
   private String speaker_email;
+  private TalkStatus status;
+  private Integer conference_id;
 
   public TalkBuilder id(Integer id) {
     this.id = id;
@@ -60,6 +63,16 @@ public class TalkBuilder {
     return this;
   }
 
+  public TalkBuilder status(TalkStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public TalkBuilder conference_id(Integer conference_id) {
+    this.conference_id = conference_id;
+    return this;
+  }
+
   public TalkBuilder basedOn(Talk talk) {
     this.id = talk.getId();
     this.redbee_employee = talk.getRedbee_employee();
@@ -70,6 +83,8 @@ public class TalkBuilder {
     this.creation_date = talk.getCreation_date();
     this.speaker_name = talk.getSpeaker_name();
     this.speaker_email = talk.getSpeaker_email();
+    this.status = talk.getStatus();
+    this.conference_id = talk.getConference_id();
 
     return this;
   }
@@ -84,7 +99,9 @@ public class TalkBuilder {
       talk_description,
       creation_date,
       speaker_name,
-      speaker_email
+      speaker_email,
+      status,
+      conference_id
     );
   }
 }

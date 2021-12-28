@@ -1,32 +1,15 @@
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent } from 'react'
 import { Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import {
-  Conference,
-  ConferencePage,
-  useGetCurrentConference,
-} from '../../../conferences'
-import { Spinner } from '../../../shared'
+import { ConferencePage, useCurrentConference } from '../../../conferences'
 import { STAFF_CONFERENCES_PATH } from './const'
 
 export const StaffHome: FunctionComponent = () => {
-  const [loading, setLoading] = useState(true)
-  const [currentConference, setCurrentConference] = useState<
-    Conference | undefined
-  >(undefined)
-  const getCurrentConference = useGetCurrentConference()
-
-  useEffect(() => {
-    getCurrentConference()
-      .then(setCurrentConference)
-      .finally(() => setLoading(false))
-  }, [getCurrentConference])
+  const currentConference = useCurrentConference()
 
   return (
     <Container style={{ padding: '20px 0' }}>
-      {loading ? (
-        <Spinner center style={{ marginTop: '20%' }} />
-      ) : currentConference ? (
+      {currentConference ? (
         <ConferencePage conference={currentConference} />
       ) : (
         <div style={{ textAlign: 'center', paddingTop: '50px' }}>

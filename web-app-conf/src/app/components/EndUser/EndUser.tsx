@@ -8,6 +8,7 @@ import {
 import { ConferenceComponent } from './ConferenceComponent'
 import { PostulateTalk } from '../../../talks'
 import { App } from '../App'
+import { ConferencesModule } from '../../../conferences'
 
 const PrivateRoute = (props: any) => {
   const { children, ...rest } = props
@@ -31,20 +32,22 @@ const Landing = () => (
 const EndUserApp: FunctionComponent = () => {
   return (
     <App>
-      <Router>
-        <div>
-          {/* A <Switch> looks through its children <Route>s and
+      <ConferencesModule visible>
+        <Router>
+          <div>
+            {/* A <Switch> looks through its children <Route>s and
         renders the first one that matches the current URL. */}
-          <Switch>
-            <Route path="/" exact>
-              <Landing />
-            </Route>
-            <PrivateRoute path="/postulate">
-              <PostulateTalk />
-            </PrivateRoute>
-          </Switch>
-        </div>
-      </Router>
+            <Switch>
+              <Route path="/" exact>
+                <Landing />
+              </Route>
+              <PrivateRoute path="/postulate">
+                <PostulateTalk />
+              </PrivateRoute>
+            </Switch>
+          </div>
+        </Router>
+      </ConferencesModule>
     </App>
   )
 }

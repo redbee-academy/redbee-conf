@@ -60,7 +60,7 @@ public class ConferenceValidations {
     }
 
     public Optional<Conference> getActiveByStartDate(LocalDateTime startDate) {
-        return conferenceDao.getByStartDate(startDate)
+        return conferenceDao.getByStartDate(startDate, null)
                 .stream()
                 .findFirst();
     }
